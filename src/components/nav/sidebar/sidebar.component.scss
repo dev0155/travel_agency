@@ -2,7 +2,7 @@ $border: 1px solid #efefef;
 
 .sidebar {
   margin: 0;
-  width: 280px;
+  width: 250px;
   min-height: 100vh;
 
   text-align: center;
@@ -15,11 +15,14 @@ $border: 1px solid #efefef;
     justify-content: center;
     align-items: center;
     border-bottom: $border;
+    h3 {
+      font-size: 24px;
+    }
   }
 
   .nav {
     min-height: 150px;
-    width: 150px;
+    width: 160px;
     padding-top: 50px;
     padding-left: 30px;
 
