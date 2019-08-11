@@ -1,0 +1,47 @@
+$border: 1px solid #efefef;
+
+.sidebar {
+  margin: 0;
+  width: 280px;
+  min-height: 100vh;
+
+  text-align: center;
+  border-right: $border;
+  background-color: #fff;
+  color: #313435;
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: $border;
+  }
+
+  .nav {
+    min-height: 150px;
+    width: 150px;
+    padding-top: 50px;
+    padding-left: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .nav__item {
+      display: flex;
+      text-decoration: none;
+      align-items: center;
+
+      .nav__icon {
+        width: 25px;
+        height: 25px;
+      }
+
+      .nav__text {
+        margin-left: 15%;
+        font-size: 17px;
+        color: #787c7f;
+      }
+    }
+  }
+}
