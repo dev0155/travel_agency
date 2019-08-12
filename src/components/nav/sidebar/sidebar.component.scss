@@ -1,14 +1,22 @@
 $border: 1px solid #efefef;
 
+.closed {
+  width: 70px;
+}
+
+.shown {
+  width: 200px;
+}
+
 .sidebar {
   margin: 0;
-  width: 250px;
   min-height: 100vh;
 
   text-align: center;
   border-right: $border;
   background-color: #fff;
   color: #313435;
+  cursor: pointer;
 
   .wrapper {
     display: flex;
@@ -21,10 +29,9 @@ $border: 1px solid #efefef;
   }
 
   .nav {
-    min-height: 150px;
-    width: 160px;
+    min-height: 200px;
     padding-top: 50px;
-    padding-left: 30px;
+    padding-left: 23px;
 
     display: flex;
     flex-direction: column;
