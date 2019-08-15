@@ -1,0 +1,95 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.header {
+  display: flex;
+  background: rgb(192, 191, 191);
+  height: 50px;
+  flex-grow: 1;
+}
+
+.main_block {
+  display: flex;
+  flex-direction: row;
+
+  height: 600px;
+}
+
+.sidebar {
+  display: flex;
+  background: grey;
+  height: 600px;
+  width: 20%;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  background: rgb(236, 236, 236);
+  flex-grow: 1;
+  padding: 2%;
+}
+
+.dashboard_top {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard_top__card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 200px;
+  border: 1px solid rgb(194, 192, 192);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  font-weight: 600;
+  padding: 10px;
+  margin-right: 20px;
+}
+
+.dashboard_top_card__title {
+  color: grey;
+  padding: 20px;
+}
+
+.dashboard_top_card__value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.green {
+  background: rgb(195, 245, 195);
+  color: green;
+}
+
+.red {
+  background: rgb(252, 190, 190);
+  color: red;
+}
+
+.purple {
+  background: rgb(235, 195, 245);
+  color: purple;
+}
+
+.dashboard_map {
+  background: white;
+  height: 500px;
+  margin-top: 20px;
+  border: 1px solid rgb(194, 192, 192);
+}
+
+.dashboard_map__image {
+  height: 100%;
+}
