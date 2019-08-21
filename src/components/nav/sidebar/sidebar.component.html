@@ -1,0 +1,23 @@
+<aside #sidebar class="sidebar" [ngClass]="isClosed() ? 'closed' : 'shown'">
+  <!-- (mouseover)="show()"
+  (mouseout)="close()" -->
+  <div class="wrapper">
+    <img src="../../../assets/img/logo.png" alt="Adminator logo" />
+    <h3 *ngIf="!isClosed()">Adminator</h3>
+  </div>
+
+  <nav class="nav">
+    <a class="nav__item" href="#">
+      <img class="nav__icon" src="../../../assets/img/home.png" />
+      <span *ngIf="!isClosed()" class="nav__text">Dashboard</span>
+    </a>
+    <a class="nav__item" href="#">
+      <img class="nav__icon" src="../../../assets/img/destination.png" />
+      <span *ngIf="!isClosed()" class="nav__text">Tours</span>
+    </a>
+    <a class="nav__item" href="#">
+      <img class="nav__icon" src="../../../assets/img/hotel.png" />
+      <span *ngIf="!isClosed()" class="nav__text">Hotel</span>
+    </a>
+  </nav>
+</aside>
