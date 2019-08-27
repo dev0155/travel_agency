@@ -116,10 +116,31 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+
+// CUSTOM STYLES
+@import './variables';
+
+.link {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+
+  .link__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .link__text {
+    margin-left: 15%;
+    font-size: 14px;
+    color: $text-color;
+  }
 }

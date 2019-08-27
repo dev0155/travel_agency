@@ -17,6 +17,10 @@ import { InfoBlockComponent } from 'src/components/layout/dashboard/info-block/i
   ],
   imports: [CommonModule, RouterModule],
   providers: [SidebarService],
-  exports: [HeaderComponent, SidebarComponent, DashboardComponent],
+  exports: [
+    HeaderComponent,
+    SidebarComponent,
+    DashboardComponent,
+  ],
 })
 export class LayoutModule {}
