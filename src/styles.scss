@@ -124,7 +124,6 @@ table {
   border-spacing: 0;
 }
 
-
 // CUSTOM STYLES
 @import './variables';
 
@@ -132,6 +131,15 @@ table {
   display: flex;
   text-decoration: none;
   align-items: center;
+
+  &:hover {
+    text-decoration: none;
+
+    .link__text {
+      color: $title-color;
+      transition: color 0.4s;
+    }
+  }
 
   .link__icon {
     width: 20px;
