@@ -7,6 +7,7 @@ import { HeaderComponent } from 'src/components/layout/header/header.component';
 import { SidebarComponent } from 'src/components/layout/sidebar/sidebar.component';
 import { SidebarService } from 'src/services/sidebar.service';
 import { InfoBlockComponent } from 'src/components/layout/dashboard/info-block/info-block.component';
+import { UserPortalComponent } from 'src/components/layout/user-portal/user-portal.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { InfoBlockComponent } from 'src/components/layout/dashboard/info-block/i
     HeaderComponent,
     SidebarComponent,
     InfoBlockComponent,
+    UserPortalComponent,
   ],
   imports: [CommonModule, RouterModule],
   providers: [SidebarService],
@@ -21,6 +23,7 @@ import { InfoBlockComponent } from 'src/components/layout/dashboard/info-block/i
     HeaderComponent,
     SidebarComponent,
     DashboardComponent,
+    UserPortalComponent,
   ],
 })
 export class LayoutModule {}

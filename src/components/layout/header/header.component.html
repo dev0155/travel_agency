@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="user">
+    <div class="user" (click)="displayUserPortal()">
       <img
         class="user__img img-thumbnail"
         src="../../assets/img/user.png"
@@ -25,3 +25,4 @@
     </div>
   </div>
 </header>
+<app-user-portal *ngIf="isUserPortalDisplayed"></app-user-portal>
