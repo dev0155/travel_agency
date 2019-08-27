@@ -20,4 +20,8 @@ export class HeaderComponent implements OnInit {
   displayUserPortal = () => {
     this.isUserPortalDisplayed = !this.isUserPortalDisplayed;
   };
+
+  hideComponent(isClicked: boolean) {
+    this.isUserPortalDisplayed = isClicked;
+  }
 }

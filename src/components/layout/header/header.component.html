@@ -25,4 +25,7 @@
     </div>
   </div>
 </header>
-<app-user-portal *ngIf="isUserPortalDisplayed"></app-user-portal>
+<app-user-portal
+  *ngIf="isUserPortalDisplayed"
+  (hideComponent)="hideComponent($event)"
+></app-user-portal>
