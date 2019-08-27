@@ -1,21 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NavModule } from 'src/modules/nav/nav.module';
-import { UserModule } from 'src/modules/user/user.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LayoutModule } from 'src/modules/layout/layout.module';
+import { AccountModule } from 'src/modules/account/account.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NavModule, UserModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, LayoutModule, AccountModule],
   providers: [],
   bootstrap: [AppComponent],
 })

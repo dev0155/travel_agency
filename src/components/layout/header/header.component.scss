@@ -1,52 +1,57 @@
+@import '../../../variables';
+
 .header {
   min-width: 100%;
-  height: 65px;
+  height: 48px;
   padding: 0.5% 1%;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: $item-color;
 
-  border-bottom: 1px solid #efefef;
-  border-left: 1px solid #efefef;
+  border-bottom: $border;
 
   .navbar-toggler {
     outline-color: #797e81;
+    padding: 1px 3px;
+
     .navbar-toggler-icon {
       background-image: url('https://mdbootstrap.com/img/svg/hamburger7.svg?color=797e81');
+      height: 20px;
+      width: 20px;
     }
   }
 
   .wrapper {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    width: 250px;
+    width: 160px;
 
     .notification {
       position: relative;
-      width: 40px;
-      height: 40px;
       cursor: pointer;
+      margin-top: 0.23rem;
 
       .notification__icon {
         position: absolute;
         top: 5px;
+        width: 20px;
       }
 
       .notification__counter {
         position: absolute;
-        left: 22px;
-
-        width: 20px;
-        height: 20px;
-
+        left: 14px;
+        width: 15px;
+        height: 15px;
         background-color: pink;
         border-radius: 50%;
-        line-height: 20px;
+        line-height: 14px;
         text-align: center;
-        font-weight: 400;
+
+        span {
+          font-size: 14px;
+        }
       }
     }
 
@@ -54,34 +59,15 @@
       display: flex;
       cursor: pointer;
       .user__img {
-        width: 45px;
-        height: 45px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
       }
 
       .user__name {
         align-self: center;
-        font-size: 1.25rem;
+        font-size: 0.9rem;
         margin: 0 0 0 0.5rem;
-      }
-    }
-  }
-}
-
-@media (max-width: 500px) {
-  .header {
-    .wrapper {
-      width: 175px;
-
-      .user {
-        .user__img {
-          width: 40px;
-          height: 40px;
-        }
-
-        .user__name {
-          font-size: 1rem;
-        }
       }
     }
   }

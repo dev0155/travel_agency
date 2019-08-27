@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserPortalComponent } from './user-portal.component';
+import { InfoBlockComponent } from './info-block.component';
 
-describe('UserPortalComponent', () => {
-  let component: UserPortalComponent;
-  let fixture: ComponentFixture<UserPortalComponent>;
+describe('InfoBlockComponent', () => {
+  let component: InfoBlockComponent;
+  let fixture: ComponentFixture<InfoBlockComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserPortalComponent ]
+      declarations: [ InfoBlockComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserPortalComponent);
+    fixture = TestBed.createComponent(InfoBlockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

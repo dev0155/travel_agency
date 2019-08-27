@@ -1,0 +1,8 @@
+<div class="container box">
+  <h2 class="box__title">{{ info.title }}</h2>
+  <div class="holder">
+    <span class="box__amount">{{
+      info.toPercentage ? '~' + (info.amount | percent) : info.amount
+    }}</span>
+  </div>
+</div>

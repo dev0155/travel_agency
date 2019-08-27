@@ -1,0 +1,29 @@
+@import '../../../variables';
+
+.container-fluid {
+  .col-md-5 {
+    margin: 15px auto 15px;
+    padding: 15px;
+    background: $item-color;
+    border: $border;
+
+    .caption {
+      color: $title-color;
+    }
+
+    form {
+      width: 100%;
+      margin-top: 20px;
+      color: $text-color;
+
+      label {
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+
+      .btn {
+        float: right;
+      }
+    }
+  }
+}

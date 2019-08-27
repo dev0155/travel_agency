@@ -1,0 +1,40 @@
+@import '../../../../variables';
+
+.container {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.box {
+  width: 220px;
+  height: 100px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  background-color: $item-color;
+  border: $border;
+
+  .box__title {
+    color: $text-color;
+  }
+
+  .holder {
+    width: 50px;
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+
+    background-color: #f3e5f4;
+    border-radius: 33px;
+
+    .box__amount {
+      align-self: center;
+      color: #9d1dad;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,37 +1,42 @@
-$border: 1px solid #efefef;
+@import '../../../variables';
 
 .closed {
-  width: 70px;
+  width: 60px;
 }
 
 .shown {
-  width: 200px;
+  width: 160px;
 }
 
 .sidebar {
   margin: 0;
   min-height: 100vh;
+  height: 100%;
 
   text-align: center;
   border-right: $border;
-  background-color: #fff;
-  color: #313435;
-  cursor: pointer;
+  background-color: $item-color;
+  color: $title-color;
 
   .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: $border;
+
+    img {
+      width: 50px;
+    }
+
     h3 {
-      font-size: 24px;
+      font-size: 18px;
     }
   }
 
   .nav {
     min-height: 200px;
     padding-top: 50px;
-    padding-left: 23px;
+    padding-left: 19px;
 
     display: flex;
     flex-direction: column;
@@ -43,14 +48,14 @@ $border: 1px solid #efefef;
       align-items: center;
 
       .nav__icon {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
       }
 
       .nav__text {
         margin-left: 15%;
-        font-size: 17px;
-        color: #787c7f;
+        font-size: 14px;
+        color: $text-color;
       }
     }
   }
