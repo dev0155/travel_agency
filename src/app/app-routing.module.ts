@@ -1,16 +1,38 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProfilePageComponent } from 'src/components/account/profile-page/profile-page.component';
-import { DashboardComponent } from 'src/components/layout/dashboard/dashboard.component';
+import { LayoutComponent } from 'src/components/layout/layout/layout.component';
 
 const routes: Routes = [
+  // { // for login, register pages
+  //   path: 'account',
+  //   component: ProfilePageComponent,
+  // },
   {
     path: '',
-    component: DashboardComponent,
-  },
-  {
-    path: 'account',
-    component: ProfilePageComponent,
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('src/modules/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('src/modules/account/account.module').then(
+            (m) => m.AccountModule
+          ),
+      },
+      {
+        path: 'tours',
+        loadChildren: () =>
+          import('src/modules/tours/tours.module').then(
+            (m) => m.ToursModule
+          ),
+      },
+    ],
   },
 ];
 
@@ -18,4 +40,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

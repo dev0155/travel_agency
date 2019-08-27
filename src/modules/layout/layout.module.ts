@@ -2,19 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { DashboardComponent } from 'src/components/layout/dashboard/dashboard.component';
+import { LayoutComponent } from 'src/components/layout/layout/layout.component';
 import { HeaderComponent } from 'src/components/layout/header/header.component';
 import { SidebarComponent } from 'src/components/layout/sidebar/sidebar.component';
 import { SidebarService } from 'src/services/sidebar.service';
-import { InfoBlockComponent } from 'src/components/layout/dashboard/info-block/info-block.component';
 import { UserPortalComponent } from 'src/components/layout/user-portal/user-portal.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    LayoutComponent,
     HeaderComponent,
     SidebarComponent,
-    InfoBlockComponent,
     UserPortalComponent,
   ],
   imports: [CommonModule, RouterModule],
@@ -22,8 +20,8 @@ import { UserPortalComponent } from 'src/components/layout/user-portal/user-port
   exports: [
     HeaderComponent,
     SidebarComponent,
-    DashboardComponent,
+    LayoutComponent,
     UserPortalComponent,
   ],
 })
-export class LayoutModule {}
+export class LayoutModule { }
