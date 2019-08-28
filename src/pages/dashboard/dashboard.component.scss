@@ -1,0 +1,31 @@
+@import 'src/_variables';
+
+.container {
+  min-width: 100%;
+}
+
+.wrapper {
+  display: inline-block;
+  padding: 20px;
+  min-height: 85vh;
+
+  app-info-block {
+    display: inline-block;
+  }
+
+  .holder {
+    border: $border;
+    background-color: $item-color;
+    min-height: 55vh;
+    display: flex;
+
+    .map {
+      width: 70%;
+    }
+
+    .template {
+      width: 30%;
+      border-left: $border;
+    }
+  }
+}
