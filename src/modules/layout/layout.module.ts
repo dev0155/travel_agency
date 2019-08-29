@@ -7,6 +7,7 @@ import { HeaderComponent } from 'src/components/layout/header/header.component';
 import { SidebarComponent } from 'src/components/layout/sidebar/sidebar.component';
 import { SidebarService } from 'src/services/sidebar.service';
 import { UserPortalComponent } from 'src/components/layout/user-portal/user-portal.component';
+import { CommonModule as Common } from 'src/modules/common/common.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { UserPortalComponent } from 'src/components/layout/user-portal/user-port
     SidebarComponent,
     UserPortalComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, Common],
   providers: [SidebarService],
   exports: [
     HeaderComponent,
@@ -24,4 +25,4 @@ import { UserPortalComponent } from 'src/components/layout/user-portal/user-port
     UserPortalComponent,
   ],
 })
-export class LayoutModule { }
+export class LayoutModule {}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SidebarService } from 'src/services/sidebar.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { SidebarService } from 'src/services/sidebar.service';
 })
 export class HeaderComponent implements OnInit {
   isUserPortalDisplayed = false;
+  @ViewChild('user') private userBlock: ElementRef;
 
   constructor(private sidebarService: SidebarService) {}
 
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
     this.isUserPortalDisplayed = !this.isUserPortalDisplayed;
   };
 
-  hideComponent(isClicked: boolean) {
-    this.isUserPortalDisplayed = isClicked;
+  hideComponent(element) {
+    this.isUserPortalDisplayed = this.userBlock.nativeElement.contains(element);
   }
 }

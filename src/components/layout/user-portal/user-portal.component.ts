@@ -1,4 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ContentChild,
+  ElementRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-user-portal',
@@ -6,13 +14,21 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./user-portal.component.scss'],
 })
 export class UserPortalComponent implements OnInit {
-  @Output() hideComponent = new EventEmitter<boolean>();
+  @Output() hideComponent = new EventEmitter();
 
   constructor() {}
 
   ngOnInit() {}
 
-  linkClicked() {
-    this.hideComponent.emit(false);
+  clickOutside(event) {
+    if (event.isClickedOutside) {
+      this.hideComponent.emit(event.elementRef);
+    } else {
+      this.hide();
+    }
+  }
+
+  hide() {
+    this.hideComponent.emit(null);
   }
 }
