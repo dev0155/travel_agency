@@ -3,13 +3,15 @@
   [currentTab]="currentTab"
   (changeTab)="onChangeTab($event)"
 >
-  <app-general-tab
-    *ngIf="currentTab === 'General'"
-    [tourInfo]="generalInfo"
-  ></app-general-tab>
+  <ng-container [ngSwitch]="currentTab">
+    <app-general-tab
+      *ngSwitchCase="'General'"
+      [tourInfo]="generalInfo"
+    ></app-general-tab>
 
-  <app-service-tab *ngIf="currentTab === 'Service'"></app-service-tab>
-  <app-photos-tab *ngIf="currentTab === 'Photos'"></app-photos-tab>
-  <app-map-tab *ngIf="currentTab === 'Map'"></app-map-tab>
-  <app-comments-tab *ngIf="currentTab === 'Comments'"></app-comments-tab>
+    <app-service-tab *ngSwitchCase="'Service'"></app-service-tab>
+    <app-photos-tab *ngSwitchCase="'Photos'"></app-photos-tab>
+    <app-map-tab *ngSwitchCase="'Map'"></app-map-tab>
+    <app-comments-tab *ngSwitchCase="'Comments'"></app-comments-tab>
+  </ng-container>
 </app-tab-panel>
