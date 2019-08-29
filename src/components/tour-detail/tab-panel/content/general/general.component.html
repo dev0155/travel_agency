@@ -1,0 +1,54 @@
+<div class="description">
+  <div class="desc__item">
+    <span class="title">Rating</span>
+    <div class="info">
+      <p>{{ tourInfo.rating }}/10</p>
+      <div
+        class="scale"
+        [ngStyle]="{
+          background:
+            'linear-gradient(
+              to right,
+              red,
+              orange,
+              yellow,
+              lightgreen,
+              green ' +
+            tourInfo.rating * 10 +
+            '%, #F2F3F4 0% ' +
+            (tourInfo.rating * 10 + 1) +
+            '%,
+              #979A9A 0% 68%'
+        }"
+      ></div>
+    </div>
+  </div>
+  <div class="desc__item">
+    <span class="title">Phone</span>
+    <p class="info">{{ tourInfo.phone }}</p>
+  </div>
+  <div class="desc__item">
+    <span class="title">Addresses</span>
+    <p class="info">
+      {{ tourInfo.addresses }}
+    </p>
+  </div>
+  <div class="desc__item">
+    <span class="title">Beach</span>
+    <p class="info">
+      {{ tourInfo.beach }}
+    </p>
+  </div>
+  <div class="desc__item">
+    <span class="title">Description</span>
+    <p class="info">
+      {{ tourInfo.description }}
+    </p>
+  </div>
+  <div class="desc__item">
+    <span class="title">Sport</span>
+    <p class="info">
+      {{ tourInfo.sport }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<app-tab-panel
+  [tabs]="tabs"
+  [currentTab]="currentTab"
+  (changeTab)="onChangeTab($event)"
+>
+  <app-general-tab
+    *ngIf="currentTab === 'General'"
+    [tourInfo]="generalInfo"
+  ></app-general-tab>
+
+  <app-service-tab *ngIf="currentTab === 'Service'"></app-service-tab>
+  <app-photos-tab *ngIf="currentTab === 'Photos'"></app-photos-tab>
+  <app-map-tab *ngIf="currentTab === 'Map'"></app-map-tab>
+  <app-comments-tab *ngIf="currentTab === 'Comments'"></app-comments-tab>
+</app-tab-panel>

@@ -1,0 +1,37 @@
+.description {
+  height: 100%;
+  padding-top: 15px;
+
+  .desc__item {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+
+    font-size: 10px;
+    color: #141414;
+
+    .title {
+      width: 260px;
+    }
+
+    .info {
+      width: 100%;
+    }
+
+    &:first-of-type {
+      .info {
+        display: flex;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+.scale {
+  width: 215px;
+  height: 15px;
+
+  border-radius: 25px;
+  align-self: center;
+  margin-left: 10px;
+}
