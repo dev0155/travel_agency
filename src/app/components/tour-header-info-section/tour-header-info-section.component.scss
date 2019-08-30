@@ -9,7 +9,7 @@
   display: flex;
   width: 100%;
   height: 350px;
-  padding: 5px;
+  padding: 10px;
   font-family: Helvetica, sans-serif;
   background: #ecf0f1;
 }
@@ -60,7 +60,7 @@
     flex-direction: column;
   }
 
-  &__top {
+  &_top {
     display: flex;
     flex-direction: row;
     margin: 20px;
@@ -76,6 +76,10 @@
       color: #8a8a8b;
       margin: 2px;
     }
+    .active {
+      background: #20aadf;
+      color: white;
+    }
 
     &__currency {
       display: flex;
@@ -90,7 +94,7 @@
     }
   }
 
-  &__price {
+  &_price {
     background: white;
     display: flex;
     flex-direction: row;
@@ -109,7 +113,7 @@
     }
   }
 
-  &__bottom {
+  &_bottom {
     display: flex;
     flex-direction: column;
     margin: 20px;
