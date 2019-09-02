@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from 'src/components/layout/layout/layout.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { LayoutComponent } from "src/components/layout/layout/layout.component";
 
 const routes: Routes = [
   // { // for login, register pages
@@ -8,25 +8,19 @@ const routes: Routes = [
   //   component: ProfilePageComponent,
   // },
   {
-    path: '',
+    path: "",
     component: LayoutComponent,
     children: [
       {
-        path: '',
-        loadChildren: () =>
-          import('src/modules/dashboard/dashboard.module').then(
-            (m) => m.DashboardModule
-          ),
+        path: "",
+        loadChildren: () => import("src/modules/dashboard/dashboard.module").then(m => m.DashboardModule)
       },
       {
-        path: 'account',
-        loadChildren: () =>
-          import('src/modules/account/account.module').then(
-            (m) => m.AccountModule
-          ),
+        path: "account",
+        loadChildren: () => import("src/modules/account/account.module").then(m => m.AccountModule)
       },
       {
-        path: 'tours',
+        path: "tours",
         // loadChildren: () =>
         //   import('src/modules/tours/tours.module').then(
         //     (m) => m.ToursModule
@@ -36,17 +30,14 @@ const routes: Routes = [
         // ************
         // MUST ADD ROUTING FOR THE TOUR DETAIL PAGE
         // ************
-        loadChildren: () =>
-          import('src/modules/tour-detail/tour-detail.module').then(
-            (m) => m.TourDetailModule
-          ),
-      },
-    ],
-  },
+        loadChildren: () => import("src/modules/tour-detail/tour-detail.module").then(m => m.TourDetailModule)
+      }
+    ]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}
