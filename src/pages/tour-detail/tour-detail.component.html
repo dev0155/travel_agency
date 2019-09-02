@@ -1,0 +1,17 @@
+<app-tab-panel
+  [tabs]="tabs"
+  [currentTab]="currentTab"
+  (changeTab)="onChangeTab($event)"
+>
+  <ng-container [ngSwitch]="currentTab">
+    <app-general-tab
+      *ngSwitchCase="'General'"
+      [tourInfo]="generalInfo"
+    ></app-general-tab>
+
+    <app-service-tab *ngSwitchCase="'Service'"></app-service-tab>
+    <app-photos-tab *ngSwitchCase="'Photos'"></app-photos-tab>
+    <app-map-tab *ngSwitchCase="'Map'"></app-map-tab>
+    <app-comments-tab *ngSwitchCase="'Comments'"></app-comments-tab>
+  </ng-container>
+</app-tab-panel>

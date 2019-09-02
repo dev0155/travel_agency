@@ -1,0 +1,45 @@
+@import '../../../variables';
+
+.closed {
+  width: 60px;
+}
+
+.shown {
+  width: 160px;
+}
+
+.sidebar {
+  margin: 0;
+  min-height: 100vh;
+  height: 100%;
+
+  text-align: center;
+  border-right: $border;
+  background-color: $item-color;
+  color: $title-color;
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: $border;
+
+    img {
+      width: 50px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  .nav {
+    min-height: 200px;
+    padding-top: 50px;
+    padding-left: 19px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}

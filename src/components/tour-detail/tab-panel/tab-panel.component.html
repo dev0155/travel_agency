@@ -1,0 +1,10 @@
+<div class="container">
+  <app-tabs
+    [tabs]="tabs"
+    [currentTab]="currentTab"
+    (changeTab)="onChangeTab($event)"
+  ></app-tabs>
+  <hr class="line" />
+
+  <ng-content></ng-content>
+</div>
