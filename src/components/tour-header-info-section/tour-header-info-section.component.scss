@@ -5,13 +5,15 @@
   margin-inline-end: 0;
 }
 
+@import "src/variables";
+
 .section {
   display: flex;
   width: 100%;
   height: 350px;
   padding: 10px;
   font-family: Helvetica, sans-serif;
-  background: #ecf0f1;
+  background: $section-background-color;
 }
 
 .section_left {
@@ -20,10 +22,10 @@
   background-repeat: no-repeat;
   background-image: url("src/assets/1.jpg");
   height: 100%;
-  color: white;
+  color: $item-color;
 
   &_shadow {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: $left-shadow-color;
     height: 100%;
     display: flex;
 
@@ -54,7 +56,7 @@
   background-repeat: no-repeat;
 
   &_shadow {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: $right-shadow-color;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -72,13 +74,19 @@
       outline-offset: 0;
       font-weight: 700;
       border: 0;
-      background: #cacad8;
-      color: #8a8a8b;
+      background: $button-background-color;
+      color: $button-text-color;
       margin: 2px;
     }
     .active {
-      background: #20aadf;
-      color: white;
+      background: $button-active-color;
+      color: $item-color;
+    }
+
+    &__status {
+      .relevant {
+        color: $relevant-color;
+      }
     }
 
     &__currency {
@@ -95,11 +103,10 @@
   }
 
   &_price {
-    background: white;
+    background: $item-color;
     display: flex;
     flex-direction: row;
-    color: #20aadf;
-
+    color: $button-active-color;
     &__info {
       margin: 20px;
       display: flex;
