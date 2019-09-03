@@ -2,8 +2,8 @@
   <div class="section_left">
     <div class="section_left_shadow">
       <div class="section_left_shadow__info">
-        <h2>Armir Resort (Ex. Kemer Millennium Resort) 5*</h2>
-        <p>Kemer, Turkey</p>
+        <h2>{{ infoTour.nameHotel }}</h2>
+        <p>{{ infoTour.city }}, {{ infoTour.country }}</p>
       </div>
     </div>
   </div>
@@ -12,24 +12,28 @@
     <div class="section_right_shadow">
       <div class="section_right_top">
         <div class="section_right_top__status">
-          <p>Tour ID: 769342</p>
-          <p class="relevant">Tour relevant</p>
+          <p>Tour ID: {{ infoTour.tourId }}</p>
+          <p class="relevant">Tour {{ infoTour.status }}</p>
         </div>
         <div class="section_right_top__currency">
-          <button>EUR</button>
-          <button class="active">UAH</button>
-          <button>USD</button>
+          <button>{{ currency.eur }}</button>
+          <button class="active">{{ currentCurrency }}</button>
+          <button>{{ currency.usd }}</button>
         </div>
       </div>
       <div class="section_right_price">
         <div class="section_right_price__info">
-          <h1>23 124 UAH</h1>
+          <h1>{{ infoTour.price }} {{ currentCurrency }}</h1>
           <p>for person</p>
         </div>
       </div>
       <div class="section_right_bottom">
-        <p>Duration: <b>6 days</b></p>
-        <p>Room Type: <b>Promo Room</b></p>
+        <p>
+          Duration: <b>{{ infoTour.duration }} days</b>
+        </p>
+        <p>
+          Room Type: <b>{{ infoTour.roomType }} Room</b>
+        </p>
       </div>
     </div>
   </div>
