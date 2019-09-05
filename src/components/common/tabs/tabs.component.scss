@@ -1,3 +1,5 @@
+@import 'src/variables';
+
 .nav {
   display: flex;
 
@@ -10,13 +12,13 @@
     a {
       margin: 0 auto;
       font-size: 10px;
-      color: #828282;
+      color: $text-color;
       cursor: pointer;
     }
   }
 
   .tab_active {
-    border-bottom: 5px solid #00aae1;
+    border-bottom: 5px solid $active-color;
     text-transform: uppercase;
     font-weight: bold;
 

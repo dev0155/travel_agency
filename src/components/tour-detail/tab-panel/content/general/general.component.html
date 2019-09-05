@@ -2,7 +2,7 @@
   <div class="desc__item">
     <span class="title">Rating</span>
     <div class="info">
-      <p>{{ tourInfo.rating }}/10</p>
+      <p>{{ hotel.rating }}/10</p>
       <div
         class="scale"
         [ngStyle]="{
@@ -14,9 +14,9 @@
               yellow,
               lightgreen,
               green ' +
-            tourInfo.rating * 10 +
+            hotel.rating * 10 +
             '%, #F2F3F4 0% ' +
-            (tourInfo.rating * 10 + 1) +
+            (hotel.rating * 10 + 1) +
             '%,
               #979A9A 0% 68%'
         }"
@@ -25,30 +25,36 @@
   </div>
   <div class="desc__item">
     <span class="title">Phone</span>
-    <p class="info">{{ tourInfo.phone }}</p>
+    <p class="info">{{ hotel.phone }}</p>
   </div>
   <div class="desc__item">
     <span class="title">Addresses</span>
     <p class="info">
-      {{ tourInfo.addresses }}
+      {{
+        hotel.address.street +
+          ' ' +
+          hotel.address.city +
+          ' ' +
+          hotel.address.country
+      }}
     </p>
   </div>
   <div class="desc__item">
     <span class="title">Beach</span>
     <p class="info">
-      {{ tourInfo.beach }}
+      Beach
     </p>
   </div>
   <div class="desc__item">
     <span class="title">Description</span>
     <p class="info">
-      {{ tourInfo.description }}
+      {{ hotel.description }}
     </p>
   </div>
   <div class="desc__item">
     <span class="title">Sport</span>
     <p class="info">
-      {{ tourInfo.sport }}
+      Sport
     </p>
   </div>
 </div>

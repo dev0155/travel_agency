@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-map-tab',
+  selector: 'td-map-tab',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })

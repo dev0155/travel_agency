@@ -1,0 +1,98 @@
+@import 'src/variables';
+
+// GENERAL STYLES
+
+.container-fluid {
+  margin: 10px 0;
+  display: flex;
+  height: 300px;
+}
+
+.view,
+.info {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.wrapper {
+  padding: 15px 10px;
+  display: flex;
+}
+
+.shadow {
+  height: 100%;
+  background-color: rgba(226, 226, 226, 0.795);
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+// ==================
+
+.view {
+  width: 60%;
+  padding-top: 50px;
+  padding-left: 15px;
+
+  h2 {
+    color: $item-color;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  p {
+    color: $item-color;
+    font-size: 14px;
+  }
+}
+
+.info {
+  width: 40%;
+
+  .wrapper {
+    justify-content: space-between;
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+  .currency {
+    > button {
+      margin-right: 5px;
+    }
+
+    .btn-sm {
+      border: none;
+      color: $text-color;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+
+    .active {
+      background-color: $active-color;
+      color: $bg-color;
+    }
+  }
+
+  .price {
+    height: 50px;
+    padding-left: 15px;
+    margin: 15px 0;
+
+    line-height: 50px;
+    background-color: #fff;
+
+    p {
+      color: $active-color;
+
+      span {
+        font-size: 24px;
+      }
+    }
+  }
+}
