@@ -18,4 +18,11 @@ export class HeaderComponent implements OnInit {
   changeCurrency(changedCurrency: string) {
     this.currentCurrency = changedCurrency;
   }
+
+  getDuration() {
+    return Math.abs(
+      new Date(this.tour.endDate).getDate() -
+        new Date(this.tour.startDate).getDate()
+    );
+  }
 }
