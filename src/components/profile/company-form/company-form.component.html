@@ -1,0 +1,124 @@
+<h2 class="caption">Company info</h2>
+<form [formGroup]="companyForm">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="companyEmail">Contact email</label>
+      <input
+        formControlName="email"
+        type="email"
+        class="form-control"
+        id="companyEmail"
+        placeholder="company@email.com"
+      />
+      <p
+        class="alert alert-danger"
+        *ngIf="
+          companyForm.controls['email'].invalid &&
+          companyForm.controls['email'].touched
+        "
+      >
+        Email is invalid!
+      </p>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="companyName">Company name</label>
+      <input
+        formControlName="name"
+        id="companyName"
+        type="text"
+        class="form-control"
+      />
+      <p
+        class="alert alert-danger"
+        *ngIf="
+          companyForm.controls['name'].touched &&
+          companyForm.controls['name'].invalid
+        "
+      >
+        Invalid company name!
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input
+      formControlName="address"
+      type="text"
+      class="form-control"
+      id="address"
+      placeholder="1234 Main Street"
+    />
+    <p
+      class="alert alert-danger"
+      *ngIf="
+        companyForm.controls['address'].touched &&
+        companyForm.controls['address'].invalid
+      "
+    >
+      Invalid address of the company!
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="address2">Address 2</label>
+    <input
+      formControlName="address2"
+      type="text"
+      class="form-control"
+      id="address2"
+      placeholder="Apartment, studio or floor"
+    />
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="city">City</label>
+      <input
+        type="text"
+        class="form-control"
+        id="city"
+        formControlName="city"
+      />
+      <p
+        class="alert alert-danger"
+        *ngIf="
+          companyForm.controls['city'].invalid &&
+          companyForm.controls['city'].touched
+        "
+      >
+        You can use only latin letters!
+      </p>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="state">State</label>
+      <input class="form-control" id="state" formControlName="state" />
+      <p
+        class="alert alert-danger"
+        *ngIf="
+          companyForm.controls['state'].invalid &&
+          companyForm.controls['state'].touched
+        "
+      >
+        You can use only latin letters!
+      </p>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="zip">Zip</label>
+      <input type="text" class="form-control" id="zip" formControlName="zip" />
+      <p
+        class="alert alert-danger"
+        *ngIf="
+          companyForm.controls['zip'].invalid &&
+          companyForm.controls['zip'].touched
+        "
+      >
+        You can use only 5 numbers!
+      </p>
+    </div>
+  </div>
+  <button
+    (click)="onSignInBtn()"
+    class="btn btn-primary"
+    [disabled]="companyForm.invalid"
+  >
+    Sign in
+  </button>
+</form>
