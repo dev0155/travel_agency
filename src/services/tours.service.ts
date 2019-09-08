@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ToursService {
-  API_URL: string = 'https://api.myjson.com/bins/nnc3r';
+  API_URL: string = 'https://api.myjson.com/bins/hqm0d';
 
   constructor(private http: HttpClient) {}
 
