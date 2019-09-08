@@ -11,12 +11,7 @@
       placeholder="user@email.com"
     />
 
-    <p
-      class="alert alert-danger"
-      *ngIf="
-        userForm.controls['email'].invalid && userForm.controls['email'].touched
-      "
-    >
+    <p class="alert alert-danger" *ngIf="isValid('email')">
       Email is invalid!
     </p>
   </div>
@@ -29,13 +24,7 @@
       id="userPassword"
       placeholder="******"
     />
-    <p
-      class="alert alert-danger"
-      *ngIf="
-        userForm.controls['password'].invalid &&
-        userForm.controls['password'].touched
-      "
-    >
+    <p class="alert alert-danger" *ngIf="isValid('password')">
       Password's length must be greater than 6 symbols!
     </p>
   </div>
@@ -47,13 +36,7 @@
       class="form-control"
       id="firstName"
     />
-    <p
-      class="alert alert-danger"
-      *ngIf="
-        userForm.controls['firstName'].invalid &&
-        userForm.controls['firstName'].touched
-      "
-    >
+    <p class="alert alert-danger" *ngIf="isValid('firstName')">
       You can use only letters!
     </p>
   </div>
@@ -65,18 +48,12 @@
       id="lastName"
       class="form-control"
     />
-    <p
-      class="alert alert-danger"
-      *ngIf="
-        userForm.controls['lastName'].invalid &&
-        userForm.controls['lastName'].touched
-      "
-    >
+    <p class="alert alert-danger" *ngIf="isValid('lastName')">
       You can use only letters!
     </p>
   </div>
   <button
-    (click)="onSaveBtn()"
+    (click)="saveUser()"
     class="btn btn-primary"
     [disabled]="userForm.invalid"
   >

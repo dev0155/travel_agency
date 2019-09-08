@@ -10,13 +10,7 @@
         id="companyEmail"
         placeholder="company@email.com"
       />
-      <p
-        class="alert alert-danger"
-        *ngIf="
-          companyForm.controls['email'].invalid &&
-          companyForm.controls['email'].touched
-        "
-      >
+      <p class="alert alert-danger" *ngIf="isValid('email')">
         Email is invalid!
       </p>
     </div>
@@ -28,13 +22,7 @@
         type="text"
         class="form-control"
       />
-      <p
-        class="alert alert-danger"
-        *ngIf="
-          companyForm.controls['name'].touched &&
-          companyForm.controls['name'].invalid
-        "
-      >
+      <p class="alert alert-danger" *ngIf="isValid('name')">
         Invalid company name!
       </p>
     </div>
@@ -48,13 +36,7 @@
       id="address"
       placeholder="1234 Main Street"
     />
-    <p
-      class="alert alert-danger"
-      *ngIf="
-        companyForm.controls['address'].touched &&
-        companyForm.controls['address'].invalid
-      "
-    >
+    <p class="alert alert-danger" *ngIf="isValid('address')">
       Invalid address of the company!
     </p>
   </div>
@@ -77,48 +59,30 @@
         id="city"
         formControlName="city"
       />
-      <p
-        class="alert alert-danger"
-        *ngIf="
-          companyForm.controls['city'].invalid &&
-          companyForm.controls['city'].touched
-        "
-      >
+      <p class="alert alert-danger" *ngIf="isValid('city')">
         You can use only latin letters!
       </p>
     </div>
     <div class="form-group col-md-4">
       <label for="state">State</label>
       <input class="form-control" id="state" formControlName="state" />
-      <p
-        class="alert alert-danger"
-        *ngIf="
-          companyForm.controls['state'].invalid &&
-          companyForm.controls['state'].touched
-        "
-      >
+      <p class="alert alert-danger" *ngIf="isValid('state')">
         You can use only latin letters!
       </p>
     </div>
     <div class="form-group col-md-4">
       <label for="zip">Zip</label>
       <input type="text" class="form-control" id="zip" formControlName="zip" />
-      <p
-        class="alert alert-danger"
-        *ngIf="
-          companyForm.controls['zip'].invalid &&
-          companyForm.controls['zip'].touched
-        "
-      >
+      <p class="alert alert-danger" *ngIf="isValid('zip')">
         You can use only 5 numbers!
       </p>
     </div>
   </div>
   <button
-    (click)="onSignInBtn()"
+    (click)="updateCompany()"
     class="btn btn-primary"
     [disabled]="companyForm.invalid"
   >
-    Sign in
+    Update
   </button>
 </form>

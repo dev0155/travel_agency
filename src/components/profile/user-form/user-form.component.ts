@@ -29,7 +29,14 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSaveBtn() {
+  isValid(name: string) {
+    return (
+      this.userForm.controls[name].touched &&
+      this.userForm.controls[name].invalid
+    );
+  }
+
+  saveUser() {
     console.log(this.userForm);
   }
 }

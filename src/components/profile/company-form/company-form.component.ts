@@ -41,7 +41,14 @@ export class CompanyFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSignInBtn() {
+  isValid(name: string) {
+    return (
+      this.companyForm.controls[name].touched &&
+      this.companyForm.controls[name].invalid
+    );
+  }
+
+  updateCompany() {
     console.log(this.companyForm);
   }
 }
