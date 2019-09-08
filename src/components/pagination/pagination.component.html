@@ -1,19 +1,19 @@
 <div class="container-fluid">
   <div class="row">
       <div class="col-md-5">
-          <p>Showing 1 to 10 of 57 tours</p>
+          <p>Showing {{query.skip - query.limit}} to {{query.skip}} of {{totalItems}} tours</p>
       </div>  
       <div class="col-md-7">
           <nav aria-label="...">
             <ul class="pagination">
               <li class="page-item disabled">
-                <a class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
+                <a class="page-link" (click)="change(-1)" routerLink="" ng-disabled="page <= pages.length - 1">Previous</a>
               </li>
-              <li class="page-item" ngClass="'active' : routerLink.active" *ngFor="let page of pageCount">
-                <a class="page-link" routerLink="'tours/' + {{page}} ">{{page}}</a>
+              <li class="page-item" ngClass="'active' : routerLink.active" *ngFor="let page of pages">
+                <a class="page-link" (click)="change(page)" routerLink="">{{page}}</a>
               </li>
               <li class="page-item">
-                <a class="page-link" routerLink="">Next</a>
+                <a class="page-link" (click)="change(1)" ng-disabled="page >= pages.length" routerLink="">Next</a>
               </li>
             </ul>
           </nav>

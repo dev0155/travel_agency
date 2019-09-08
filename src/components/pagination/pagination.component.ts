@@ -8,52 +8,53 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PaginationComponent implements OnInit {
 
   @Output('click') pageChanged = new EventEmitter();
-  @Input() total: number;
-  @Input() size: number;
+  @Input() totalItems: number;
+  @Input() itemsPerPage: number;
 
-  pageCount: Number[] = [];
+  currentPage: number = 1;
+  pages: number[] = [];
 
-  paginationConfig = {
-    page: 0,
-    min: 1,
-    max: 100
-  }
-
-  change = (value) => {
-    if (value === 1) {
-      this.nextPage();
-      this.pageChanged.emit(this.paginationConfig);
-      console.log(this.paginationConfig);
-      return;
-    }
-    this.prevPage();
-    console.log(this.paginationConfig); 
-  }
-
-  nextPage() {
-    if (this.paginationConfig.page < this.paginationConfig.max) { 
-      this.paginationConfig.page += 1;
-    }
-  }
-
-  prevPage() {
-    if (this.paginationConfig.page >= this.paginationConfig.min) {
-      this.paginationConfig.page -= 1;
-    }
-  }
+  query = {
+    limit: this.itemsPerPage,
+    skip: 0
+  };
 
   constructor() { }
 
   ngOnInit() {
-    for(let i = 1; i <= 7; i++) {
-        this.pageCount.push(i);
-     }
-     console.log(this.pageCount);
+    console.log(this.itemsPerPage);
+      this.calcCountOfPages();
   }
 
-
-  getData(data) {
-    console.log(data.value)
+  calcCountOfPages() {
+    let count = this.totalItems / this.itemsPerPage;
+    for (let i = 0; i < count; i++) {
+      this.pages.push(i);
+    }
+  }
+  
+  nextPage(count) {
+    if (this.query.skip < this.totalItems) {
+      this.query.skip += count;
+      this.currentPage += 1;
+    }
   }
 
+  previousPage(count) {
+    if (this.query.skip > 0 && this.currentPage > 1) {
+      this.query.skip -= count;
+      this.currentPage -= 1;
+    }
+  }
+
+  change = (value) => {
+    let count = this.query.limit;
+    if (value === 1) {
+      this.nextPage(count);
+      this.pageChanged.emit(this.query);
+      return;
+    }
+    this.previousPage(count);
+    this.previousPage(this.query.limit);
+  }
 }
