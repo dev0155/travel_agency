@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { LayoutComponent } from "src/components/layout/layout/layout.component";
+import { LoginComponent } from "src/pages/login/login.component";
 
 const routes: Routes = [
   // { // for login, register pages
@@ -8,7 +9,12 @@ const routes: Routes = [
   //   component: ProfilePageComponent,
   // },
   {
+    path: "login",
+    component: LoginComponent
+  },
+  {
     path: "",
+
     component: LayoutComponent,
     children: [
       {
@@ -19,6 +25,7 @@ const routes: Routes = [
         path: "account",
         loadChildren: () => import("src/modules/account/account.module").then(m => m.AccountModule)
       },
+
       {
         path: "tours",
         // loadChildren: () =>

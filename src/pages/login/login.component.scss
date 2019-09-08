@@ -1,0 +1,188 @@
+@import "../../mixins";
+@import "../../variables";
+
+.page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+
+  .background {
+    background: url(../../assets/img/africa-tilex.jpg) no-repeat;
+    background-size: cover;
+    width: 100%;
+  }
+
+  .container {
+    @include flexCenteredColumn();
+    padding: 1rem 3rem;
+  }
+
+  .form {
+    width: 800px;
+
+    .caption {
+      .caption__title {
+        font-weight: bold;
+        color: $textColor;
+      }
+    }
+
+    .holder {
+      margin: 20% 0;
+
+      > * {
+        margin-bottom: 1rem;
+      }
+
+      div:last-of-type {
+        margin-bottom: 0;
+      }
+
+      > input {
+        height: 3.75rem;
+        font-size: 1.75rem;
+
+        &::placeholder {
+          color: $grayText;
+        }
+      }
+
+      .link_float_right {
+        float: right;
+      }
+
+      .link_gray {
+        color: $grayText;
+      }
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+
+        .checkbox__marker_circle {
+          width: 1em;
+          height: 1em;
+          background-color: white;
+          border-radius: 50%;
+          vertical-align: middle;
+          border: 1px solid #ddd;
+          -webkit-appearance: none;
+          outline: none;
+          cursor: pointer;
+
+          &:checked {
+            background-color: $blue;
+          }
+        }
+
+        .checkbox__text {
+          cursor: pointer;
+          margin-left: 5%;
+          margin-bottom: 0;
+          user-select: none;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1025px) {
+  .page {
+    .background {
+      display: none;
+    }
+
+    .form {
+      .caption {
+        .caption__title {
+          font-size: 4.5rem;
+        }
+        .caption__text {
+          font-size: 1.75rem;
+        }
+      }
+
+      .holder {
+        .input {
+          height: 3em;
+
+          &::placeholder {
+            font-size: 1.25em;
+          }
+        }
+
+        .checkbox__text,
+        .link {
+          font-size: 1.5rem;
+        }
+
+        .checkbox {
+          .checkbox__marker_circle {
+            width: 2em;
+            height: 2em;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 770px) {
+  .page {
+    .form {
+      .caption {
+        .caption__title {
+          font-size: 3rem;
+        }
+
+        .caption__text {
+          font-size: 1.5rem;
+        }
+      }
+
+      .holder > input {
+        height: 4rem;
+        font-size: 1.75rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .page {
+    .form {
+      .caption {
+        .caption__title {
+          font-size: 1.75rem;
+        }
+
+        .caption__text {
+          font-size: 0.75rem;
+        }
+      }
+
+      .holder {
+        .input {
+          height: 1.75em;
+
+          &::placeholder {
+            font-size: 0.7em;
+          }
+        }
+
+        .checkbox__text,
+        .link {
+          font-size: 0.8em;
+        }
+
+        .checkbox {
+          .checkbox__marker_circle {
+            width: 1em;
+            height: 1em;
+          }
+        }
+      }
+    }
+  }
+}

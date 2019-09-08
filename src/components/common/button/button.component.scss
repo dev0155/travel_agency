@@ -1,0 +1,34 @@
+$blue: #5ec9e3;
+$textColor: #415261;
+$grayText: rgba(141, 151, 160, 0.8);
+
+.btn-default {
+  width: 100%;
+  height: 4rem;
+  background-color: $blue;
+  color: #ffffff;
+  border: none;
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+@media (max-width: 1025px) {
+  .btn-default {
+    height: 3em;
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 770px) {
+  .btn-default {
+    height: 2em;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .btn-default {
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+}
