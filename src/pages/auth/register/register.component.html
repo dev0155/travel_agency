@@ -1,0 +1,52 @@
+<div class="page">
+  <img
+    class="img"
+    src="http://www.fooztours.com/uploads/images/slider/vc03mutraeosk4s00.jpg"
+  />
+  <div class="form container">
+    <div class="caption">
+      <h1>Register</h1>
+      <p>Please enter your name and e-mail here for the registration</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <input
+        class="form-control"
+        formControlName="firstName"
+        type="text"
+        placeholder="First name"
+      />
+      <input
+        class="form-control"
+        formControlName="lastName"
+        type="text"
+        placeholder="Last name"
+      />
+      <input
+        class="form-control"
+        formControlName="email"
+        type="email"
+        placeholder="E-mail"
+      />
+      <input
+        class="form-control"
+        formControlName="password"
+        type="password"
+        placeholder="Your password"
+      />
+      <input
+        class="form-control"
+        formControlName="confirmPassword"
+        type="password"
+        placeholder="Confirm password"
+      />
+      <button
+        [disabled]="registerForm.invalid"
+        type="submit"
+        class="btn btn-primary"
+      >
+        Register
+      </button>
+    </form>
+  </div>
+</div>
