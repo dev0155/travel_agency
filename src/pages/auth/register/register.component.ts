@@ -26,7 +26,6 @@ export class RegisterComponent implements OnInit {
 
   register() {
     const newInfo: RegisteredUser = {
-      role: 'ADMIN',
       ...this.registerForm.value,
     };
     this.store.dispatch(Register({ user: newInfo }));

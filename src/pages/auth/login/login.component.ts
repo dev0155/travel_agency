@@ -1,0 +1,41 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+})
+export class LoginComponent implements OnInit {
+  public loginForm: FormGroup;
+  public login$: Observable<number>;
+
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<number>,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.createdForm();
+  }
+
+  createdForm() {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+    });
+  }
+
+  goToRegister() {
+    this.router.navigateByUrl('/register');
+  }
+
+  logIn() {}
+}
