@@ -3,8 +3,10 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from 'src/components/common/must-match/must-match.validator';
 import { Store, select } from '@ngrx/store';
 import { Register } from 'src/store/actions/auth.actions';
-
 import RegisteredUser from 'src/store/models/auth/registerUser';
+import { RegisterStore } from 'src/store/models/auth/registerStore';
+import { Observable, Subscription } from 'rxjs';
+import { mergeMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -13,9 +15,11 @@ import RegisteredUser from 'src/store/models/auth/registerUser';
 })
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
-  id$ = this.store.pipe(select('id'));
+  public register$: Observable<RegisterStore>;
 
-  constructor(private fb: FormBuilder, private store: Store<{ id: number }>) {}
+  constructor(private fb: FormBuilder, private store: Store<RegisterStore>) {
+    this.register$ = store.pipe(select('register'));
+  }
 
   ngOnInit() {
     this.createdForm();

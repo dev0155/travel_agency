@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AuthService } from 'src/services/auth.service';
-import { AuthActionTypes, RegisterSuccess } from '../actions/auth.actions';
+import {
+  AuthActionTypes,
+  RegisterSuccess,
+  RegisterFailed,
+} from '../actions/auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -13,7 +17,10 @@ export class AuthEffects {
       mergeMap(({ user }) =>
         this.authService.register(user).pipe(
           map((id) => RegisterSuccess(id)),
-          catchError(() => EMPTY)
+          catchError((response) => {
+            console.log(response.error.message);
+            return of(RegisterFailed({ errorMessage: response.error.message }));
+          })
         )
       )
     )

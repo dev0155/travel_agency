@@ -1,13 +1,24 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { RegisterSuccess } from 'src/store/actions/auth.actions';
+import {
+  RegisterSuccess,
+  RegisterFailed,
+} from 'src/store/actions/auth.actions';
+import { RegisterStore } from 'src/store/models/auth/registerStore';
 
-export const initialState = 0;
+export const initialState: RegisterStore = {
+  id: 5,
+  errorMessage: null,
+};
 
-const _registerReducer = createReducer(
+const registerReducer = createReducer(
   initialState,
-  on(RegisterSuccess, (state: number, action) => action.id)
+  on(RegisterSuccess, (state, { id }) => ({ ...state, id: id })),
+  on(RegisterFailed, (state, action) => ({
+    id: 0,
+    errorMessage: action.errorMessage,
+  }))
 );
 
-export function registerReducer(state: number, action: Action) {
-  return _registerReducer(state, action);
+export function reducer(state: RegisterStore | undefined, action: Action) {
+  return registerReducer(state, action);
 }
