@@ -3,10 +3,10 @@ import {
   RegisterSuccess,
   RegisterFailed,
 } from 'src/store/actions/auth.actions';
-import { RegisterStore } from 'src/store/models/auth/registerStore';
+import RegisterStore from 'src/store/models/auth/registerStore';
 
 export const initialState: RegisterStore = {
-  id: 5,
+  id: 0,
   errorMessage: null,
 };
 

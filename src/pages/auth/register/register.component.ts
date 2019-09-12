@@ -4,9 +4,8 @@ import { MustMatch } from 'src/components/common/must-match/must-match.validator
 import { Store, select } from '@ngrx/store';
 import { Register } from 'src/store/actions/auth.actions';
 import RegisteredUser from 'src/store/models/auth/registerUser';
-import { RegisterStore } from 'src/store/models/auth/registerStore';
-import { Observable, Subscription } from 'rxjs';
-import { mergeMap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import RegisterStore from 'src/store/models/auth/registerStore';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +30,7 @@ export class RegisterComponent implements OnInit {
       ...this.registerForm.value,
     };
     this.store.dispatch(Register({ user: newInfo }));
+    setTimeout(() => this.registerForm.reset(), 3000);
   }
 
   createdForm() {

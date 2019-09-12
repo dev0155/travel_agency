@@ -9,7 +9,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from 'src/store/reducer/auth/auth.reducer';
 import { AuthEffects } from 'src/store/effects/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { SimpleNotificationsModule } from 'angular2-notifications';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -20,6 +21,8 @@ import { EffectsModule } from '@ngrx/effects';
     HttpClientModule,
     StoreModule.forRoot({ register: reducer }),
     EffectsModule.forRoot([AuthEffects]),
+    BrowserAnimationsModule,
+    // SimpleNotificationsModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
