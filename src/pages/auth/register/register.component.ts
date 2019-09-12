@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from 'src/components/common/must-match/must-match.validator';
+import { Store, select } from '@ngrx/store';
+import { Register } from 'src/store/actions/auth.actions';
+
+import RegisteredUser from 'src/store/models/auth/registerUser';
 
 @Component({
   selector: 'app-register',
@@ -9,8 +13,23 @@ import { MustMatch } from 'src/components/common/must-match/must-match.validator
 })
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
+  id$ = this.store.pipe(select('id'));
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store<{ id: number }>) {}
+
+  ngOnInit() {
+    this.createdForm();
+  }
+
+  register() {
+    const newInfo: RegisteredUser = {
+      role: 'ADMIN',
+      ...this.registerForm.value,
+    };
+    this.store.dispatch(Register({ user: newInfo }));
+  }
+
+  createdForm() {
     this.registerForm = this.fb.group(
       {
         firstName: [
@@ -45,15 +64,5 @@ export class RegisterComponent implements OnInit {
         validator: MustMatch('password', 'confirmPassword'),
       }
     );
-  }
-
-  ngOnInit() {}
-
-  get controls() {
-    return this.registerForm.controls;
-  }
-
-  register() {
-    alert('Hello');
   }
 }

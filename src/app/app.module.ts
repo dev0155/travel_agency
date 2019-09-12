@@ -4,10 +4,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from 'src/modules/layout/layout.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { loginReducer } from 'src/store/reducer/auth/auth.reducer';
+import { AuthEffects } from 'src/store/effects/auth.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, LayoutModule, AuthModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    LayoutModule,
+    AuthModule,
+    HttpClientModule,
+    StoreModule.forRoot({ id: loginReducer }),
+    EffectsModule.forRoot([AuthEffects]),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
