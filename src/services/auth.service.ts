@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/endpoints';
-import RegisteredUser from 'src/store/models/auth/registerUser';
+import { UserToRegister, UserToLogIn } from 'src/store/models/auth/authUser';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  register(user: RegisteredUser): Observable<any> {
-    return this.http.post<RegisteredUser>(`${API_URL}/register`, user);
+  register(user: UserToRegister): Observable<any> {
+    return this.http.post<UserToRegister>(`${API_URL}/register`, user);
+  }
+
+  login(user: UserToLogIn): Observable<any> {
+    return this.http.post<UserToLogIn>(`${API_URL}/login`, user);
   }
 }

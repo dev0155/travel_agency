@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { UserToLogIn } from 'src/store/models/auth/authUser';
+import { Login } from 'src/store/actions/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public login$: Observable<number>;
+  public id$ = this.store.pipe(select('register'));
 
   constructor(
     private fb: FormBuilder,
@@ -37,5 +40,9 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/register');
   }
 
-  logIn() {}
+  logIn() {
+    const user: UserToLogIn = { ...this.loginForm.value };
+    this.store.dispatch(Login({ user: user }));
+    setTimeout(() => this.loginForm.reset(), 3000);
+  }
 }

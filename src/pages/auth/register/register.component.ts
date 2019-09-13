@@ -3,9 +3,9 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from 'src/components/common/must-match/must-match.validator';
 import { Store, select } from '@ngrx/store';
 import { Register } from 'src/store/actions/auth.actions';
-import RegisteredUser from 'src/store/models/auth/registerUser';
 import { Observable } from 'rxjs';
 import RegisterStore from 'src/store/models/auth/registerStore';
+import { UserToRegister } from 'src/store/models/auth/authUser';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    const newInfo: RegisteredUser = {
+    const newInfo: UserToRegister = {
       ...this.registerForm.value,
     };
     this.store.dispatch(Register({ user: newInfo }));
