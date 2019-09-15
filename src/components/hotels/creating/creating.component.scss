@@ -1,0 +1,19 @@
+@import 'src/mixins';
+@import 'src/variables';
+
+.page {
+  padding: 20px 0;
+}
+
+.row {
+  max-width: 95%;
+  margin: 0 auto;
+  font-size: 18px;
+  color: $text-color;
+  padding: 20px 0;
+}
+
+.btn {
+  @include button($font-color: $item-color);
+  width: 50%;
+}

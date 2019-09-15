@@ -2,7 +2,6 @@
   height: 100%;
   padding-top: 15px;
 
-
   .desc__item {
     width: 100%;
     display: flex;
@@ -16,7 +15,13 @@
     }
 
     .info {
+      display: flex;
+      justify-content: space-between;
       width: 100%;
+
+      app-rating {
+        width: 80%;
+      }
     }
 
     &:first-of-type {
@@ -26,13 +31,4 @@
       }
     }
   }
-}
-
-.scale {
-  width: 215px;
-  height: 15px;
-
-  border-radius: 25px;
-  align-self: center;
-  margin-left: 10px;
 }

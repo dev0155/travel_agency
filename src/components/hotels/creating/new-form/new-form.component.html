@@ -1,0 +1,89 @@
+<div class="text-wrapper">
+  <h2 class="caption">Please describe your hotel:</h2>
+  <span class="text">*required fields</span>
+</div>
+
+<form [formGroup]="hotelForm">
+  <input
+    class="form-control"
+    type="text"
+    formControlName="name"
+    placeholder="Name*"
+  />
+
+  <div class="row">
+    <div class="col-sm-4">
+      <select class="custom-select" formControlName="country">
+        <option *ngFor="let item of countries">{{ item }}</option>
+      </select>
+    </div>
+    <div class="col">
+      <input
+        class="form-control"
+        type="text"
+        formControlName="phone"
+        placeholder="Contact phone*"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <input
+        class="form-control"
+        type="text"
+        formControlName="city"
+        placeholder="City*"
+      />
+    </div>
+    <div class="col">
+      <input
+        class="form-control"
+        type="text"
+        formControlName="region"
+        placeholder="Region / State"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <input
+        class="form-control"
+        type="text"
+        formControlName="street"
+        placeholder="Street"
+      />
+    </div>
+
+    <div class="col-sm-4">
+      <input
+        class="form-control"
+        type="number"
+        formControlName="lat"
+        min="-90"
+        max="90"
+        placeholder="Latitude"
+      />
+    </div>
+
+    <div class="col-sm-4">
+      <input
+        class="form-control"
+        type="number"
+        formControlName="lng"
+        min="-180"
+        max="180"
+        placeholder="Longitude"
+      />
+    </div>
+  </div>
+
+  <textarea
+    class="form-control textarea"
+    type="text"
+    formControlName="description"
+    rows="4"
+    placeholder="Hotel description*"
+  ></textarea>
+</form>

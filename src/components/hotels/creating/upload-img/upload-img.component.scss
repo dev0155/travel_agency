@@ -1,0 +1,42 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+.holder {
+  @include flexColumn($justify: space-between);
+  height: 100%;
+
+  .template-preview {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.zahnspa.at/wp-content/uploads/2016/10/orionthemes-featured-image-2-750x500.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .preview {
+    max-height: 55vh;
+    overflow: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 1em 0;
+
+    .img-box {
+      width: 30%;
+      height: auto;
+      margin-bottom: 15px;
+
+      .img {
+        object-fit: cover;
+        object-position: top;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .custom-file {
+    margin-top: 15px;
+  }
+}
