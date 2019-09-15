@@ -28,4 +28,8 @@ export class UploadHotelImgComponent implements OnInit {
       this.images.push({ img: data, url: reader.result });
     };
   }
+
+  remove(index: number) {
+    this.images.splice(index, 1);
+  }
 }

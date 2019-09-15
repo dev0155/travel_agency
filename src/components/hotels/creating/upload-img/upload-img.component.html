@@ -1,25 +1,26 @@
 <div class="holder">
-  <div class="template-preview" *ngIf="images.length === 0; else preview"></div>
-
-  <ng-template #preview>
-    <div class="preview">
-      <div class="img-box" *ngFor="let item of images">
-        <img class="img" [src]="item.url" />
-      </div>
+  <div class="preview">
+    <div
+      class="box"
+      *ngFor="let item of images; let i = index"
+      (click)="remove(i)"
+    >
+      <img [src]="item.url" />
     </div>
-  </ng-template>
+  </div>
 
-  <div class="custom-file">
-    <input
-      type="file"
-      class="custom-file-input"
-      id="customFile"
-      accept="image/jpeg,image/png"
-      multiple
-      (change)="upload($event.target.files)"
-    />
-    <label class="custom-file-label" for="customFile">{{
-      images.length === 0 ? 'Upload images' : 'Success!'
-    }}</label>
+  <div class="d-flex justify-content-between">
+    <div>
+      <input
+        class="file-input"
+        id="file"
+        type="file"
+        accept="image/jpeg,image/png"
+        multiple
+        (change)="upload($event.target.files)"
+      />
+      <label for="file">Choose images</label>
+    </div>
+    <span class="text">*click on image to remove it</span>
   </div>
 </div>

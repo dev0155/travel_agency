@@ -1,5 +1,5 @@
 @import 'src/variables';
-
+@import 'src/mixins';
 // GENERAL STYLES
 
 .container-fluid {
@@ -64,7 +64,7 @@ p {
     }
 
     .btn-sm {
-      @include button(#ddddddc5);
+      @include button($font-color: #ddddddc5);
     }
 
     .active {

@@ -3,18 +3,9 @@
 
 .holder {
   @include flexColumn($justify: space-between);
-  height: 100%;
-
-  .template-preview {
-    width: 100%;
-    height: 100%;
-    background-image: url('https://www.zahnspa.at/wp-content/uploads/2016/10/orionthemes-featured-image-2-750x500.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
 
   .preview {
-    max-height: 55vh;
+    max-height: 50vh;
     overflow: auto;
 
     display: flex;
@@ -22,21 +13,57 @@
     justify-content: space-between;
     margin: 1em 0;
 
-    .img-box {
+    .box {
       width: 30%;
       height: auto;
       margin-bottom: 15px;
 
-      .img {
+      img {
         object-fit: cover;
         object-position: top;
         height: 100%;
         width: 100%;
+        transition: filter 0.75s ease-in-out;
+
+        &:hover {
+          filter: blur(3px);
+          cursor: pointer;
+        }
       }
     }
   }
 
-  .custom-file {
-    margin-top: 15px;
+  .text {
+    color: $text-color;
+    font-size: 0.75em;
+    align-self: flex-start;
+  }
+
+  .file-input {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+
+    & + label {
+      width: 100%;
+      background: steelblue;
+      // border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      // display: inline-block;
+      font-size: 0.75em;
+      font-weight: bold;
+      // margin-bottom: 1rem;
+      // outline: none;
+      padding: 1em 50px;
+      position: relative;
+      transition: all 0.3s;
+      // vertical-align: middle;
+    }
+
+    &:hover {
+      background-color: darken(#f15d22, 10%);
+    }
   }
 }
