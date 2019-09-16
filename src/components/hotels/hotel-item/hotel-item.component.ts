@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./hotel-item.component.scss'],
 })
 export class HotelItemComponent implements OnInit {
-  @Input() hotel: IHotel = {} as IHotel;
+  @Input() hotel = {} as IHotel;
   constructor() {}
 
   ngOnInit() {}

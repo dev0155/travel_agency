@@ -28,6 +28,7 @@ export class NewHotelFormComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.pattern('[a-zA-Z ]*'),
+          Validators.minLength(4),
         ]),
       ],
       country: ['Ukraine', Validators.required],
@@ -43,6 +44,7 @@ export class NewHotelFormComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.pattern('[a-zA-Z ]*'),
+          Validators.minLength(4),
         ]),
       ],
       region: ['', Validators.pattern('[a-zA-Z ]*')],
