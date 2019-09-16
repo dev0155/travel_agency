@@ -5,6 +5,7 @@ $text-color: #787c7f;
 $title-color: #313435;
 $border: 1px solid $border-color;
 $active-color: #00aae1;
+$btn-color: #fda41e;
 
 @mixin button($bg-color: $active-color, $font-color: $text-color) {
   background-color: $bg-color;
