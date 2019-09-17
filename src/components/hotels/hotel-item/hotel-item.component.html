@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="hotel">
+    <div class="d-flex justify-content-between">
+      <img class="hotel__img img-thumbnail" [src]="hotel.images[0]" />
+      <div class="wrapper">
+        <h2 class="hotel__name">{{ hotel.name }}</h2>
+        <p class="hotel__location">
+          {{ hotel.address.country + ', ' + hotel.address.city }}
+        </p>
+        <div class="hotel__rating">
+          <span> Rating: {{ hotel.rating }}/10 </span>
+          <app-rating [rating]="hotel.rating"></app-rating>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-outline-primary" (click)="viewDetails()">
+      View details
+    </button>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="description">
+  <div class="desc__item">
+    <span class="title">Rating</span>
+    <div class="info">
+      <p>{{ hotel.rating }}/10</p>
+      <app-rating [rating]="hotel.rating"></app-rating>
+    </div>
+  </div>
+  <div class="desc__item">
+    <span class="title">Phone</span>
+    <p class="info">{{ hotel.phone }}</p>
+  </div>
+  <div class="desc__item">
+    <span class="title">Addresses</span>
+    <p class="info">
+      {{
+        hotel.address.street +
+          ' ' +
+          hotel.address.city +
+          ' ' +
+          hotel.address.country
+      }}
+    </p>
+  </div>
+  <div class="desc__item">
+    <span class="title">Beach</span>
+    <p class="info">
+      Beach
+    </p>
+  </div>
+  <div class="desc__item">
+    <span class="title">Description</span>
+    <p class="info">
+      {{ hotel.description }}
+    </p>
+  </div>
+  <div class="desc__item">
+    <span class="title">Sport</span>
+    <p class="info">
+      Sport
+    </p>
+  </div>
+</div>

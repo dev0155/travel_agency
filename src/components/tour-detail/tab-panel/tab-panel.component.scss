@@ -1,0 +1,14 @@
+@import 'src/variables';
+
+.line {
+  margin: 0;
+  background-color: #808080;
+  border: 0;
+  height: 1px;
+}
+.container {
+  width: 90%;
+  padding: 0 20px;
+  margin: 0 auto;
+  background-color: $item-color;
+}

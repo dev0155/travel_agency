@@ -1,0 +1,34 @@
+.description {
+  height: 100%;
+  padding-top: 15px;
+
+  .desc__item {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+
+    font-size: 12px;
+    color: #141414;
+
+    .title {
+      width: 260px;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      app-rating {
+        width: 80%;
+      }
+    }
+
+    &:first-of-type {
+      .info {
+        display: flex;
+        font-size: 15px;
+      }
+    }
+  }
+}

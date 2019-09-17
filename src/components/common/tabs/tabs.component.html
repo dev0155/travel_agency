@@ -1,0 +1,9 @@
+<ul class="nav">
+  <li
+    class="tab"
+    *ngFor="let tab of tabs"
+    [ngClass]="{ tab_active: tab == currentTab }"
+  >
+    <a (click)="goToTab(tab)">{{ tab }}</a>
+  </li>
+</ul>
