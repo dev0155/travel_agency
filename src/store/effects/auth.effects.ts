@@ -27,6 +27,7 @@ export class AuthEffects {
               this.notifOptions
             );
             localStorage.setItem('token', response.access_token);
+            sessionStorage.setItem('token', response.access_token);
             return RegisterSuccess({
               id: response.user_id,
             });
