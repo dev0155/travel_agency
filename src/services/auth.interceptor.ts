@@ -10,12 +10,14 @@ import { Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { catchError } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private notif: NotificationsService
+    private notif: NotificationsService,
+    private router: Router
   ) {}
 
   intercept(
@@ -30,12 +32,27 @@ export class TokenInterceptor implements HttpInterceptor {
           'Content-Type': 'application/json',
         },
       });
-      return next.handle(request).pipe(
-        catchError((error) => {
-          this.notif.error(error.status.toString(), error.message);
-          return throwError(error.message || 'Server error');
-        })
-      );
     }
+    return new Observable<HttpEvent<any>>((subscriber) => {
+      const originalRequestSubscription = next.handle(request).subscribe(
+        (response: any) => {
+          subscriber.next(response);
+        },
+        (err) => {
+          if (err.status === 401) {
+            localStorage.clear();
+            this.notif.error('You are not authorized', err.error.title, {
+              timeOut: 3000,
+            });
+            this.router.navigate(['/login']);
+          } else {
+            this.notif.error(err.error.title);
+          }
+          subscriber.error(err);
+        },
+        () => subscriber.complete()
+      );
+      return () => originalRequestSubscription.unsubscribe();
+    });
   }
 }
