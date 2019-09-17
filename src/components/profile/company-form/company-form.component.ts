@@ -12,6 +12,7 @@ export class CompanyFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.companyForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
+
       name: [
         '',
         Validators.compose([Validators.required, Validators.minLength(4)]),

@@ -1,0 +1,26 @@
+<div class="holder">
+  <div class="preview">
+    <div
+      class="box"
+      *ngFor="let item of images; let i = index"
+      (click)="remove(i)"
+    >
+      <img [src]="item.url" />
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <div>
+      <input
+        class="file-input"
+        id="file"
+        type="file"
+        accept="image/jpeg,image/png"
+        multiple
+        (change)="upload($event.target.files)"
+      />
+      <label for="file">Choose images</label>
+    </div>
+    <span class="text">*click on image to remove it</span>
+  </div>
+</div>
