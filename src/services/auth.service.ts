@@ -13,6 +13,6 @@ export class AuthService {
     sessionStorage.removeItem('token');
     // some code from back-end
 
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/login');
   }
 }
