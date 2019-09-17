@@ -4,7 +4,7 @@ interface ITour {
   price: number;
   roomType: 'Econom' | 'Lux' | 'Standard';
   services: ['Basic Hotel Service', 'Sport', 'Beach']; // a lot of services for tour (user can select admin can set one ore more services for tour)
-  startData: Date;
+  startDate: Date;
   endDate: Date;
   description: string;
 }

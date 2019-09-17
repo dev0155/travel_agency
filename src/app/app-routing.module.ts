@@ -47,6 +47,13 @@ const routes: Routes = [
             (m) => m.TourDetailModule
           ),
       },
+      {
+        path: 'hotels',
+        loadChildren: () =>
+          import('src/modules/hotels/hotels.module').then(
+            (m) => m.HotelsModule
+          ),
+      },
     ],
   },
 ];

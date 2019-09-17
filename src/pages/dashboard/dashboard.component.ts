@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IInfoBlock } from 'src/interfaces/info-block.model';
+import { IInfoBlock } from 'src/interfaces/custom/info-block.model';
 import { StatisticsService } from 'src/services/statistics.service';
 import RegisterStore from 'src/store/models/auth/registerStore';
 import { Store, select } from '@ngrx/store';

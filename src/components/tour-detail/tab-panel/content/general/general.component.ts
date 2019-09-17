@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-general-tab',
+  selector: 'td-general-tab',
   templateUrl: './general.component.html',
   styleUrls: ['./general.component.scss'],
 })
 export class GeneralComponent implements OnInit {
-  @Input() tourInfo;
+  @Input() hotel = {} as IHotel;
 
   constructor() {}
 

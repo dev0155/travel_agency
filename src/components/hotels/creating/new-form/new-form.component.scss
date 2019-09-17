@@ -1,0 +1,29 @@
+@import 'src/mixins';
+@import 'src/variables';
+
+.text-wrapper {
+  @include flexColumn();
+  margin-bottom: 1em;
+
+  .caption {
+    color: $title-color;
+    font-weight: bold;
+  }
+
+  .text {
+    font-size: 0.75em;
+    align-self: flex-end;
+    color: $text-color;
+  }
+}
+
+form {
+  .row {
+    margin-top: 0.75em;
+  }
+
+  .textarea {
+    margin-top: 0.75em;
+    resize: none;
+  }
+}
