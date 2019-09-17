@@ -1,0 +1,103 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+.page {
+  height: 100vh;
+  display: flex;
+
+  .img {
+    max-width: 70%;
+  }
+
+  .form {
+    @include flexColumn();
+    padding-bottom: 5%;
+
+    .caption {
+      color: $title-color;
+      margin-bottom: 15%;
+
+      h1 {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-size: 14px;
+        color: $text-color;
+
+        .link {
+          color: $active-color;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .form-control {
+      height: 20%;
+      font-size: 1rem;
+
+      &::placeholder {
+        color: $text-color;
+      }
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 10%;
+      @include button($font-color: $item-color);
+      font-weight: bold;
+    }
+  }
+}
+
+.holder {
+  display: flex;
+  flex-direction: column;
+
+  .link_secondary {
+    font-size: 12px;
+    justify-self: flex-end;
+    color: $text-color;
+    text-align: end;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .checkbox {
+    display: flex;
+    align-items: center;
+    color: $title-color;
+    font-size: 14px;
+    margin-top: 7px;
+    .checkbox__marker_circle {
+      width: 1em;
+      height: 1em;
+      background-color: white;
+      border-radius: 50%;
+      vertical-align: middle;
+      border: $border;
+      border-color: $text-color;
+      -webkit-appearance: none;
+      outline: none;
+      cursor: pointer;
+
+      &:checked {
+        background-color: $active-color;
+      }
+    }
+
+    .checkbox__text {
+      cursor: pointer;
+      margin-left: 5%;
+      margin-bottom: 0;
+      user-select: none;
+    }
+  }
+}

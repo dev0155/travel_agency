@@ -1,0 +1,48 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+.page {
+  height: 100vh;
+  display: flex;
+
+  .img {
+    max-width: 70%;
+  }
+
+  .form {
+    @include flexColumn();
+    padding-bottom: 5%;
+
+    .caption {
+      color: $title-color;
+      margin-bottom: 15%;
+
+      h1 {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+
+    .form-control {
+      height: 15%;
+      font-size: 1rem;
+
+      &::placeholder {
+        color: $text-color;
+      }
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 10%;
+      @include button($font-color: $item-color);
+      font-weight: bold;
+    }
+  }
+}
