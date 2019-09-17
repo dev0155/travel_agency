@@ -1,10 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 import { UserToRegister, UserToLogIn } from 'src/store/models/auth/authUser';
+import RegisterStore from '../models/auth/registerStore';
 
 export enum AuthActionTypes {
   Register = '[Auth] Register',
   RegisterSuccess = '[Auth] Register Success',
   RegisterFailed = '[Auth] Register Failed',
+  RegisterUserExist = '[Auth] Register User Exist',
 
   Login = '[Auth] Login',
   LoginSuccess = '[Auth] Login Success',
@@ -25,7 +27,7 @@ export const RegisterSuccess = createAction(
 
 export const RegisterFailed = createAction(
   AuthActionTypes.RegisterFailed,
-  props<{ errorMessage: string }>()
+  props<{ errorCode: number }>()
 );
 
 //

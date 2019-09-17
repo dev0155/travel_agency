@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
-  registerUser$ = createEffect(() =>
+  register$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActionTypes.Register),
       mergeMap(({ user }) =>
@@ -27,12 +27,21 @@ export class AuthEffects {
               this.notifOptions
             );
             localStorage.setItem('token', response.access_token);
-            setTimeout(() => this.router.navigateByUrl('/'), 3000);
-            return RegisterSuccess({ id: response.user_id });
+            return RegisterSuccess({
+              id: response.user_id,
+            });
           }),
           catchError(({ error }) => {
-            this.notif.error('Error!', error.message, this.notifOptions);
-            return of(RegisterFailed({ errorMessage: error.message }));
+            if (error.statusCode === 400) {
+              this.notif.warn(
+                error.message,
+                'Redirect to login page.',
+                this.notifOptions
+              );
+            } else {
+              this.notif.error('Error!', error.message, this.notifOptions);
+            }
+            return of(RegisterFailed({ errorCode: error.statusCode }));
           })
         )
       )

@@ -8,7 +8,9 @@
       <h1>Log In</h1>
       <p>
         If you don't have an account yet, please
-        <a class="link" (click)="goToRegister()">register</a>
+        <a class="link" [routerLink]="'/register'"
+          >register</a
+        >
         first.
       </p>
     </div>

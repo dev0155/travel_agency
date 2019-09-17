@@ -1,4 +1,5 @@
 export default interface RegisterStore {
   id: number;
-  errorMessage: string;
+  isUserCreated: boolean;
+  errorCode: number;
 }

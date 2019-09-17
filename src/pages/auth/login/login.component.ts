@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { Router } from '@angular/router';
 import { UserToLogIn } from 'src/store/models/auth/authUser';
 import { Login } from 'src/store/actions/auth.actions';
 
@@ -16,11 +15,7 @@ export class LoginComponent implements OnInit {
   public login$: Observable<number>;
   public id$ = this.store.pipe(select('register'));
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<number>,
-    private router: Router
-  ) {}
+  constructor(private fb: FormBuilder, private store: Store<number>) {}
 
   ngOnInit() {
     this.createdForm();
@@ -34,10 +29,6 @@ export class LoginComponent implements OnInit {
         Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
     });
-  }
-
-  goToRegister() {
-    this.router.navigateByUrl('/register');
   }
 
   logIn() {

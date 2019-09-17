@@ -6,6 +6,7 @@ import { Register } from 'src/store/actions/auth.actions';
 import { Observable } from 'rxjs';
 import RegisterStore from 'src/store/models/auth/registerStore';
 import { UserToRegister } from 'src/store/models/auth/authUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,12 +17,24 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public register$: Observable<RegisterStore>;
 
-  constructor(private fb: FormBuilder, private store: Store<RegisterStore>) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<RegisterStore>,
+    private router: Router
+  ) {
     this.register$ = store.pipe(select('register'));
   }
 
   ngOnInit() {
     this.createdForm();
+
+    this.register$.subscribe(({ isUserCreated, errorCode }) => {
+      if (isUserCreated === false && errorCode === 400) {
+        setTimeout(() => {
+          this.router.navigateByUrl('/login');
+        }, 3000);
+      }
+    });
   }
 
   register() {
@@ -29,7 +42,6 @@ export class RegisterComponent implements OnInit {
       ...this.registerForm.value,
     };
     this.store.dispatch(Register({ user: newInfo }));
-    setTimeout(() => this.registerForm.reset(), 3000);
   }
 
   createdForm() {

@@ -7,17 +7,27 @@ import {
 import RegisterStore from 'src/store/models/auth/registerStore';
 
 export const initialState: RegisterStore = {
-  id: 0,
-  errorMessage: null,
+  id: null,
+  isUserCreated: null,
+  errorCode: null,
 };
 
 const authReducer = createReducer(
   initialState,
-  on(RegisterSuccess, (state, { id }) => ({ ...state, id: id })),
-  on(RegisterFailed, (state) => ({
-    id: 0,
+  on(RegisterSuccess, (state, { id }) => ({
+    isUserCreated: true,
+    id: id,
   })),
-  on(LoginSuccess, (state, { id }) => ({ ...state, id: id }))
+  on(RegisterFailed, (state, { errorCode }) => ({
+    id: null,
+    isUserCreated: false,
+    errorCode: errorCode,
+  })),
+  on(LoginSuccess, (state, { id }) => ({
+    id: id,
+    isUserCreated: null,
+    errorCode: null,
+  }))
 );
 
 export function reducer(state: RegisterStore | undefined, action: Action) {
