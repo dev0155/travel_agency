@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HotelItemComponent implements OnInit {
   @Input() hotel = {} as IHotel;
+  
   constructor() {}
 
   ngOnInit() {}

@@ -9,6 +9,8 @@ import { NewHotelFormComponent } from 'src/components/hotels/creating/new-form/n
 import { HotelsComponent } from 'src/pages/hotels/hotels.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UploadHotelImgComponent } from 'src/components/hotels/creating/upload-img/upload-img.component';
+import { HotelComponent } from 'src/pages/hotel/hotel.component';
+import { ToursService } from 'src/services/tours.service';
 
 const routes: Routes = [
   {
@@ -26,6 +28,7 @@ const routes: Routes = [
     HotelsComponent,
     HotelItemComponent,
     CreatingHotelComponent,
+    HotelComponent,
     NewHotelFormComponent,
     UploadHotelImgComponent,
   ],
@@ -35,5 +38,6 @@ const routes: Routes = [
     Common,
     ReactiveFormsModule,
   ],
+  providers: [ToursService],
 })
 export class HotelsModule {}
