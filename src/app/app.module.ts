@@ -1,12 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from 'src/modules/layout/layout.module';
-import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  StoreModule,
+  ActionReducerMap,
+  ActionReducer,
+  Action,
+} from '@ngrx/store';
+import store, { AppState } from 'src/store';
+import { NgModule, InjectionToken } from '@angular/core';
+
+export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>(
+  'Registered Reducer'
+);
+
+export function getReducers() {
+  return {
+    ...store,
+  };
+}
+// import store from 'src/store';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -15,10 +32,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     LayoutModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(REDUCER_TOKEN),
     EffectsModule.forRoot([]),
   ],
-  providers: [],
+  providers: [{ provide: REDUCER_TOKEN, useFactory: getReducers }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

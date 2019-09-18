@@ -1,4 +1,4 @@
-export interface HotelInfo {
+export default interface IHotel {
   name: string;
   phone: string;
   description: string;
