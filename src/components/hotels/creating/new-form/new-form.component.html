@@ -9,12 +9,17 @@
     type="text"
     formControlName="name"
     placeholder="Name*"
+    [ngClass]="{ 'invalid-input': isValid('name') }"
   />
+  <p *ngIf="isValid('name')" class="invalid-msg">
+    Your name is invalid. You can use only letters and name must be longer than
+    4 symbols.
+  </p>
 
   <div class="row">
     <div class="col-sm-4">
       <select class="custom-select" formControlName="country">
-        <option *ngFor="let item of countries">{{ item }}</option>
+        <option *ngFor="let item of countries" value="item">{{ item }}</option>
       </select>
     </div>
     <div class="col">
@@ -23,7 +28,11 @@
         type="text"
         formControlName="phone"
         placeholder="Contact phone*"
+        [ngClass]="{ 'invalid-input': isValid('phone') }"
       />
+      <p *ngIf="isValid('phone')" class="invalid-msg">
+        Phone number must start with + and must be 10-15 digits.
+      </p>
     </div>
   </div>
 
@@ -34,7 +43,11 @@
         type="text"
         formControlName="city"
         placeholder="City*"
+        [ngClass]="{ 'invalid-input': isValid('city') }"
       />
+      <p *ngIf="isValid('city')" class="invalid-msg">
+        This field must contain only letters and min length is 4 symbols.
+      </p>
     </div>
     <div class="col">
       <input
@@ -42,7 +55,11 @@
         type="text"
         formControlName="region"
         placeholder="Region / State"
+        [ngClass]="{ 'invalid-input': isValid('region') }"
       />
+      <p *ngIf="isValid('region')" class="invalid-msg">
+        You can use only letters!
+      </p>
     </div>
   </div>
 
@@ -53,7 +70,11 @@
         type="text"
         formControlName="street"
         placeholder="Street"
+        [ngClass]="{ 'invalid-input': isValid('street') }"
       />
+      <p *ngIf="isValid('street')" class="invalid-msg">
+        You can use only letters!
+      </p>
     </div>
 
     <div class="col-sm-4">
@@ -64,7 +85,11 @@
         min="-90"
         max="90"
         placeholder="Latitude"
+        [ngClass]="{ 'invalid-input': isValid('lat') }"
       />
+      <p *ngIf="isValid('lat')" class="invalid-msg">
+        Latitude must be greater or equal to -90 and less or equal to 90.
+      </p>
     </div>
 
     <div class="col-sm-4">
@@ -75,7 +100,11 @@
         min="-180"
         max="180"
         placeholder="Longitude"
+        [ngClass]="{ 'invalid-input': isValid('lng') }"
       />
+      <p *ngIf="isValid('lng')" class="invalid-msg">
+        Latitude must be greater or equal to -180 and less or equal to 180.
+      </p>
     </div>
   </div>
 
@@ -85,5 +114,10 @@
     formControlName="description"
     rows="5"
     placeholder="Hotel description*"
+    [ngClass]="{ 'invalid-input': isValid('description') }"
   ></textarea>
+  <p *ngIf="isValid('description')" class="invalid-msg">
+    Tell us more about your hotel! Min length of description - 140 symbols. Like
+    tweets in the old days :)
+  </p>
 </form>
