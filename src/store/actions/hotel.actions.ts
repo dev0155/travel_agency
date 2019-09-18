@@ -10,7 +10,8 @@ export const setAllHotelInfo = {
     SET_ALL_HOTEL_INFO.REQUEST,
     props<{ hotel: IHotel; images: File[] }>()
   ),
-  success: createAction(SET_ALL_HOTEL_INFO.SUCCESS, props<{ id: number }>()),
+  success: createAction(SET_ALL_HOTEL_INFO.SUCCESS),
+  // , props<{ id: number }>()
   failure: createAction(SET_ALL_HOTEL_INFO.FAILURE, props<{ error: IError }>()),
 };
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NewHotelFormComponent } from './new-form/new-form.component';
 import { Store, select } from '@ngrx/store';
+import { setAllHotelInfo } from 'src/store/actions/hotel.actions';
 
 @Component({
   selector: 'hotel-creating',
@@ -10,9 +11,9 @@ import { Store, select } from '@ngrx/store';
 export class CreatingHotelComponent implements OnInit {
   @ViewChild(NewHotelFormComponent)
   private form: NewHotelFormComponent;
-  // public hotel$ = this.store.pipe(select('hotel'));
+  public hotel$ = this.store.pipe(select('hotel'));
 
-  constructor() {}
+  constructor(private store: Store<any>) {}
 
   ngOnInit() {}
 
@@ -25,6 +26,9 @@ export class CreatingHotelComponent implements OnInit {
   }
 
   onCreateBtn() {
-    // this.store.dispatch(Create({ info: this.formData }));
+    console.log('BTN');
+    this.store.dispatch(
+      setAllHotelInfo.request({ hotel: this.formData, images: null })
+    );
   }
 }
