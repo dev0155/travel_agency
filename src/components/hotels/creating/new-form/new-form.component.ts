@@ -32,18 +32,17 @@ export class NewHotelFormComponent implements OnInit {
           Validators.minLength(4),
         ]),
       ],
-      country: ['', Validators.required],
+      country: [''],
       phone: [
         '',
         Validators.compose([
           Validators.required,
-          Validators.pattern('[+][0-9]{10,15}$'),
+          Validators.pattern('[+][0-9]{12}$'),
         ]),
       ],
       city: [
         '',
         Validators.compose([
-          Validators.required,
           Validators.pattern('[a-zA-Z ]*'),
           Validators.minLength(4),
         ]),

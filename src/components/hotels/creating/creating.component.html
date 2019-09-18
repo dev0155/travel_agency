@@ -5,8 +5,9 @@
       <hotel-upload-img></hotel-upload-img>
     </div>
 
-    <button [disabled]="formIsInvalid()" class="btn">
+    <button [disabled]="formIsInvalid()" class="btn" (click)="onCreateBtn()">
       Create hotel
     </button>
   </div>
 </div>
+<simple-notifications></simple-notifications>
