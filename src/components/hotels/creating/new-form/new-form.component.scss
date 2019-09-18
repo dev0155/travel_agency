@@ -26,4 +26,15 @@ form {
     margin-top: 0.75em;
     resize: none;
   }
+
+  .invalid-input {
+    border-color: red;
+  }
+
+  .invalid-msg {
+    color: red;
+    padding: 5px 10px 0px 10px;
+    font-size: 12px;
+    border-color: red;
+  }
 }

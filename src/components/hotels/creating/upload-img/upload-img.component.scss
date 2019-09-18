@@ -27,8 +27,37 @@
 
         &:hover {
           filter: blur(3px);
-          cursor: pointer;
         }
+      }
+
+      &:hover {
+        .remove {
+          visibility: visible;
+          opacity: 1;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .remove {
+        position: absolute;
+        top: 1%;
+        left: 1%;
+        width: 15px;
+        height: 15px;
+
+        font-size: 10px;
+        color: red;
+        background-color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 15px;
+        font-weight: bold;
+        opacity: 0;
+
+        transition: ease-in opacity 0.5s;
       }
     }
   }
@@ -47,23 +76,14 @@
     & + label {
       width: 100%;
       background: steelblue;
-      // border: none;
       border-radius: 5px;
       color: #fff;
       cursor: pointer;
-      // display: inline-block;
       font-size: 0.75em;
       font-weight: bold;
-      // margin-bottom: 1rem;
-      // outline: none;
       padding: 1em 50px;
       position: relative;
       transition: all 0.3s;
-      // vertical-align: middle;
-    }
-
-    &:hover {
-      background-color: darken(#f15d22, 10%);
     }
   }
 }

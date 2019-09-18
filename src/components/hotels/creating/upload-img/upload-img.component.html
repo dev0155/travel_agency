@@ -3,9 +3,12 @@
     <div
       class="box"
       *ngFor="let item of images; let i = index"
+      style="position: relative;"
       (click)="remove(i)"
     >
       <img [src]="item.url" />
+
+      <div class="remove">X</div>
     </div>
   </div>
 

@@ -9,8 +9,12 @@ import { NewHotelFormComponent } from 'src/components/hotels/creating/new-form/n
 import { HotelsComponent } from 'src/pages/hotels/hotels.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UploadHotelImgComponent } from 'src/components/hotels/creating/upload-img/upload-img.component';
-import { HotelComponent } from 'src/pages/hotel/hotel.component';
-import { ToursService } from 'src/services/tours.service';
+import { HotelService } from 'src/services/hotel.service';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { HotelEffects } from 'src/store/effects/hotel.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { HotelReducer } from 'src/store/reducer/hotel.reducer';
 
 const routes: Routes = [
   {
@@ -28,7 +32,6 @@ const routes: Routes = [
     HotelsComponent,
     HotelItemComponent,
     CreatingHotelComponent,
-    HotelComponent,
     NewHotelFormComponent,
     UploadHotelImgComponent,
   ],
@@ -37,7 +40,10 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     Common,
     ReactiveFormsModule,
+    SimpleNotificationsModule.forRoot(),
+    StoreModule.forFeature('hotel', HotelReducer),
+    EffectsModule.forFeature([HotelEffects]),
   ],
-  providers: [ToursService],
+  providers: [HotelService],
 })
 export class HotelsModule {}

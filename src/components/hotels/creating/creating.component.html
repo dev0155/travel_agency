@@ -1,12 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col">
       <hotel-new-form></hotel-new-form>
       <hotel-upload-img></hotel-upload-img>
     </div>
 
-    <div class="col-md-4 holder">
-      <button class="btn">Create hotel</button>
-    </div>
+    <button [disabled]="formIsInvalid()" class="btn" (click)="onCreateBtn()">
+      Create hotel
+    </button>
   </div>
 </div>
+<simple-notifications></simple-notifications>

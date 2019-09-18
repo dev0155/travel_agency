@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import country_list from './country-list';
 
 @Component({
   selector: 'hotel-new-form',
@@ -13,7 +14,7 @@ import {
 })
 export class NewHotelFormComponent implements OnInit {
   public hotelForm: FormGroup;
-  @Input() countries: string[];
+  public countries: string[] = country_list;
 
   constructor(private fb: FormBuilder) {}
 
@@ -31,18 +32,17 @@ export class NewHotelFormComponent implements OnInit {
           Validators.minLength(4),
         ]),
       ],
-      country: ['Ukraine', Validators.required],
+      country: [''],
       phone: [
         '',
         Validators.compose([
           Validators.required,
-          Validators.pattern('^[0-9]{10,12}$'),
+          Validators.pattern('[+][0-9]{12}$'),
         ]),
       ],
       city: [
         '',
         Validators.compose([
-          Validators.required,
           Validators.pattern('[a-zA-Z ]*'),
           Validators.minLength(4),
         ]),
