@@ -17,31 +17,56 @@
         formControlName="firstName"
         type="text"
         placeholder="First name"
+        [ngClass]="{ 'invalid-input': isValid('firstName') }"
       />
+      <p *ngIf="isValid('firstName')" class="invalid-msg">
+        You can use only latin letters.
+      </p>
+
       <input
         class="form-control"
         formControlName="lastName"
         type="text"
         placeholder="Last name"
+        [ngClass]="{ 'invalid-input': isValid('lastName') }"
       />
+      <p *ngIf="isValid('lastName')" class="invalid-msg">
+        You can use only latin letters.
+      </p>
+
       <input
         class="form-control"
         formControlName="email"
         type="email"
         placeholder="E-mail"
+        [ngClass]="{ 'invalid-input': isValid('email') }"
       />
+      <p *ngIf="isValid('email')" class="invalid-msg">
+        Incorrect email.
+      </p>
+
       <input
         class="form-control"
         formControlName="password"
         type="password"
         placeholder="Your password"
+        [ngClass]="{ 'invalid-input': isValid('password') }"
       />
+      <p *ngIf="isValid('password')" class="invalid-msg">
+        Password must be greater than 5 symbols.
+      </p>
+
       <input
         class="form-control"
         formControlName="confirmPassword"
         type="password"
         placeholder="Confirm password"
+        [ngClass]="{ 'invalid-input': isValid('confirmPassword') }"
       />
+      <p *ngIf="isValid('confirmPassword')" class="invalid-msg">
+        Passwords don't match.
+      </p>
+
       <button
         [disabled]="registerForm.invalid"
         type="submit"

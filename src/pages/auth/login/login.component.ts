@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
+import { setAllLogin } from 'src/store/actions/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +16,6 @@ import { Store, select } from '@ngrx/store';
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
-  public id$: Observable<number>;
-  // public id$ = this.store.pipe(select('register'));
 
   constructor(private fb: FormBuilder, private store: Store<number>) {}
 
@@ -19,18 +23,37 @@ export class LoginComponent implements OnInit {
     this.createdForm();
   }
 
-  createdForm() {
+  createdForm(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: [
         '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
+        Validators.compose([Validators.required, Validators.minLength(5)]),
       ],
+      rememberMe: [''],
     });
   }
 
-  logIn() {
-    // const user = { ...this.loginForm.value };
-    // this.store.dispatch(Login({ user: user }));
+  logIn(): void {
+    const data = this.loginForm.value;
+    const user = { email: data.email, password: data.password };
+    this.store.dispatch(
+      setAllLogin.request({ user: user, rememberMe: data.rememberMe })
+    );
+  }
+
+  checkboxClick(): void {
+    this.checkBox.patchValue(!this.checkBox.value);
+  }
+
+  isValid(name: string): boolean {
+    return (
+      this.loginForm.controls[name].touched &&
+      this.loginForm.controls[name].invalid
+    );
+  }
+
+  private get checkBox(): AbstractControl {
+    return this.loginForm.controls['rememberMe'];
   }
 }

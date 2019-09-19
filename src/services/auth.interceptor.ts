@@ -8,15 +8,15 @@ import {
 import { Observable, throwError } from 'rxjs';
 
 import { AuthService } from './auth.service';
-import { catchError } from 'rxjs/operators';
+// import { catchError } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private notif: NotificationsService,
+    // private : NotificationsService,
     private router: Router
   ) {}
 
@@ -41,12 +41,12 @@ export class TokenInterceptor implements HttpInterceptor {
         (err) => {
           if (err.status === 401) {
             localStorage.clear();
-            this.notif.error('You are not authorized', err.error.title, {
-              timeOut: 3000,
-            });
+            // this.notif.error('You are not authorized', err.error.title, {
+            //   timeOut: 3000,
+            // });
             this.router.navigate(['/login']);
           } else {
-            this.notif.error(err.error.title);
+            // this.notif.error(err.error.title);
           }
           subscriber.error(err);
         },

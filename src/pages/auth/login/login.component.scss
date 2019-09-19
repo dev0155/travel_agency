@@ -51,6 +51,18 @@
       @include button($font-color: $item-color);
       font-weight: bold;
     }
+
+    .invalid-input {
+      border-color: red;
+      margin-bottom: 0;
+    }
+
+    .invalid-msg {
+      color: red;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-color: red;
+    }
   }
 }
 

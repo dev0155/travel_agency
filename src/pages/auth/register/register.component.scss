@@ -15,7 +15,7 @@
 
     .caption {
       color: $title-color;
-      margin-bottom: 15%;
+      margin-bottom: 10%;
 
       h1 {
         font-weight: bold;
@@ -29,13 +29,25 @@
     }
 
     .form-control {
-      height: 15%;
-      font-size: 1rem;
+      height: 12%;
+      font-size: 1em;
 
       &::placeholder {
         color: $text-color;
       }
       margin-bottom: 10px;
+    }
+
+    .invalid-input {
+      border-color: red;
+      margin-bottom: 0;
+    }
+
+    .invalid-msg {
+      color: red;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-color: red;
     }
 
     .btn {

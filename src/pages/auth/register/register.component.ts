@@ -3,7 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from 'src/components/common/must-match/must-match.validator';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import IRegisterUser from 'src/store/models/auth/IRegisterUser';
+import { setAllRegister } from 'src/store/actions/auth.actions';
 
 @Component({
   selector: 'app-register',
@@ -13,13 +14,21 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private store: Store<number>) {}
 
   ngOnInit() {
     this.createdForm();
   }
 
-  register() {}
+  register() {
+    const user: IRegisterUser = {
+      firstName: this.getFormValue('firstName'),
+      lastName: this.getFormValue('lastName'),
+      email: this.getFormValue('email'),
+      password: this.getFormValue('password'),
+    };
+    this.store.dispatch(setAllRegister.request({ user: user }));
+  }
 
   createdForm() {
     this.registerForm = this.fb.group(
@@ -45,16 +54,27 @@ export class RegisterComponent implements OnInit {
         ],
         password: [
           '',
-          Validators.compose([Validators.required, Validators.minLength(6)]),
+          Validators.compose([Validators.required, Validators.minLength(5)]),
         ],
         confirmPassword: [
           '',
-          Validators.compose([Validators.required, Validators.minLength(6)]),
+          Validators.compose([Validators.required, Validators.minLength(5)]),
         ],
       },
       {
         validator: MustMatch('password', 'confirmPassword'),
       }
     );
+  }
+
+  isValid(name: string): boolean {
+    return (
+      this.registerForm.controls[name].touched &&
+      this.registerForm.controls[name].invalid
+    );
+  }
+
+  private getFormValue(field: string): any {
+    return this.registerForm.value[field];
   }
 }

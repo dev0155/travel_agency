@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/endpoints';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AuthService {
   constructor(private http: HttpClient) {}
 
