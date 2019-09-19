@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HotelInfo } from 'src/store/models/hotels/hotelInfo';
 import { Observable } from 'rxjs';
-import { HOTEL_URL } from 'src/endpoints';
+import { HOTEL_URL, IMAGES_URL } from 'src/endpoints';
+import INewHotelForm from 'src/store/models/hotel/INewHotelForm';
 
 @Injectable()
 export class HotelService {
   constructor(private http: HttpClient) {}
 
-  public create(hotel: HotelInfo): Observable<any> {
-    console.log(hotel);
-    return this.http.post<HotelInfo>(HOTEL_URL, hotel);
+  public createNewHotel(hotel: INewHotelForm): Observable<number> {
+    return this.http.post<number>(HOTEL_URL, hotel);
+  }
+
+  public uploadImg(hotelId: number, img: FormData): Observable<any> {
+    return this.http.post<any>(`${IMAGES_URL}/upload/${hotelId}`, img);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-service-tab',
+  selector: 'td-service-tab',
   templateUrl: './service.component.html',
   styleUrls: ['./service.component.scss'],
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IInfoBlock } from 'src/interfaces/info-block.model';
+import { IInfoBlock } from 'src/interfaces/custom/info-block.model';
 
 @Component({
   selector: 'app-info-block',

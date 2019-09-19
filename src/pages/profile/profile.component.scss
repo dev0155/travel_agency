@@ -1,0 +1,43 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+.container-fluid {
+  display: flex;
+
+  .col-md-5 {
+    margin: 15px auto 15px;
+    padding: 15px;
+    background: $item-color;
+    border: $border;
+  }
+}
+
+:host ::ng-deep {
+  color: $text-color;
+
+  .caption {
+    color: $title-color;
+    font-weight: bold;
+  }
+
+  form {
+    width: 100%;
+    margin-top: 20px;
+
+    label {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .btn {
+      float: right;
+      @include button($font-color: $item-color);
+    }
+
+    .alert {
+      margin-top: 5px;
+      margin-bottom: 0;
+      font-size: 12px;
+    }
+  }
+}

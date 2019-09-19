@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "hotel": {
+      "name": "Armir Resort (Ex. Kemer Millennium Resort) 5*",
+      "address": {
+        "country": "Turkey",
+        "city": "Kemer",
+        "state": "Yeni Mahalle",
+        "street": "Ataturk Bulvar",
+        "location": {
+          "lat": 16,
+          "lng": 7980
+        }
+      },
+      "description": "This outstanding hotel is situated in Kemer. The hotel comprises a total of 215 snug rooms. Those staying at this accommodation may surf on the internet thanks to the Wi-Fi access ready to use on public areas. Guests may contact the reception desk any time during the day. This property does not offer cots on demand. This accommodation allows pets over 5 kg of weight. Parking facilities are available for guests' convenience. Armir Resort Hotel may charge a fee for some services.",
+      "phone": "+90 242 814 74 60",
+      "rating": 6.6,
+      "images": [
+        "https://joinup.ua/content/uploads/2015/07/POOL-AREA2-min.jpg",
+        "https://joinup.ua/content/uploads/2015/07/POOL-AREA1-min.jpg",
+        "https://www.bgoperator.ru/pr_img/1240100354/20181004/61220643/04102018135340643.jpg"
+      ],
+      "company": {
+        "id": 1,
+        "contactEmail": "companyContactEmail@mail.com",
+        "name": "ArmirCompany",
+        "city": "Ankara",
+        "state": "Yeni Mahalle",
+        "address1": "Company street",
+        "zip": "01631"
+      }
+    },
+    "price": 21250,
+    "roomType": "Lux",
+    "services": "???",
+    "startDate": "2019-10-25",
+    "endDate": "2019-11-05",
+    "description": "Tour description"
+  }
+]

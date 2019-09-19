@@ -6,14 +6,16 @@
   margin-inline-end: 0px;
 }
 
+@import "src/variables";
+
 .hotel_item {
-  background: #ececfa;
+  background: $section-background-color;
   padding: 3px;
 
   &__block {
     display: flex;
     flex-direction: row;
-    background: white;
+    background: $item-color;
   }
 
   &__title h2 {
@@ -25,18 +27,18 @@
     flex-direction: column;
     flex-grow: 1;
     margin: 0 20px;
-    background: white;
+    background: $item-color;
   }
 
   &__title {
-    color: #78ccec;
+    color: $button-active-color;
   }
 
   &__subtitle {
-    color: #9a9a9a;
+    color: $subtitle-color;
 
     strong {
-      color: black;
+      color: $black-color;
     }
 
     p {
@@ -44,8 +46,8 @@
     }
   }
 
-  &__price {
-    background: #ececfa;
+  &_price {
+    background: $price-background-color;
     display: flex;
     flex-direction: column;
     flex-basis: 160px;
@@ -61,8 +63,8 @@
     }
 
     button {
-      background: #fcad21;
-      color: white;
+      background: $button-background-orange;
+      color: $item-color;
       height: 44px;
       outline: 0;
       outline-offset: 0;
