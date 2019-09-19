@@ -44,13 +44,11 @@
             type="checkbox"
             id="remember"
             formControlName="rememberMe"
-            (click)="checkboxClick()"
           />
 
           <label class="checkbox__text" for="remember">Remember me</label>
         </div>
       </div>
-
       <button
         [disabled]="loginForm.invalid"
         type="submit"

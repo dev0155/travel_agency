@@ -88,7 +88,7 @@
     color: $title-color;
     font-size: 14px;
     margin-top: 7px;
-    .checkbox__marker_circle {
+    &__marker_circle {
       width: 1em;
       height: 1em;
       background-color: white;
@@ -105,7 +105,7 @@
       }
     }
 
-    .checkbox__text {
+    &__text {
       cursor: pointer;
       margin-left: 5%;
       margin-bottom: 0;

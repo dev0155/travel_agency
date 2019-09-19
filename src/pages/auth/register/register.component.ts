@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from 'src/components/common/must-match/must-match.validator';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import IRegisterUser from 'src/store/models/auth/IRegisterUser';
 import { setAllRegister } from 'src/store/actions/auth.actions';
 
@@ -27,7 +26,7 @@ export class RegisterComponent implements OnInit {
       email: this.getFormValue('email'),
       password: this.getFormValue('password'),
     };
-    this.store.dispatch(setAllRegister.request({ user: user }));
+    this.store.dispatch(setAllRegister.request({ user }));
   }
 
   createdForm() {
