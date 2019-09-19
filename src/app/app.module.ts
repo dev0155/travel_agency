@@ -13,8 +13,7 @@ import {
 } from '@ngrx/store';
 import store, { AppState } from 'src/store';
 import { NgModule, InjectionToken } from '@angular/core';
-import { NewHotelEffects } from 'src/store/effects/newHotel.effects';
-import { HotelService } from 'src/services/hotel.service';
+import { AuthModule } from 'src/modules/auth/auth.module';
 
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>(
   'Registered Reducer'
@@ -33,14 +32,12 @@ export function getReducers() {
     AppRoutingModule,
     HttpClientModule,
     LayoutModule,
+    AuthModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(REDUCER_TOKEN),
-    EffectsModule.forRoot([NewHotelEffects]),
+    EffectsModule.forRoot([]),
   ],
-  providers: [
-    { provide: REDUCER_TOKEN, useFactory: getReducers },
-    HotelService,
-  ],
+  providers: [{ provide: REDUCER_TOKEN, useFactory: getReducers }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

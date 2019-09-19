@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'td-photos-tab',
+  selector: 'app-photos-tab',
   templateUrl: './photos.component.html',
   styleUrls: ['./photos.component.scss'],
 })

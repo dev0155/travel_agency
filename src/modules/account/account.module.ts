@@ -1,24 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Route, RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserFormComponent } from 'src/components/profile/user-form/user-form.component';
-import { CompanyFormComponent } from 'src/components/profile/company-form/company-form.component';
-import { ProfileComponent } from 'src/pages/profile/profile.component';
+import { AccountComponent } from 'src/pages/account/account.component';
+
 
 const routes: Route[] = [
   {
-    path: 'profile',
-    component: ProfileComponent,
-  },
-];
+    path: '',
+    component: AccountComponent
+  }
+]
 @NgModule({
-  declarations: [ProfileComponent, UserFormComponent, CompanyFormComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  declarations: [AccountComponent],
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
-export class AccountModule {}
+export class AccountModule { }

@@ -1,5 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthService } from 'src/services/auth.service';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ContentChild,
+  ElementRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-user-portal',
@@ -9,7 +16,7 @@ import { AuthService } from 'src/services/auth.service';
 export class UserPortalComponent implements OnInit {
   @Output() hideComponent = new EventEmitter();
 
-  constructor(private auth: AuthService) {}
+  constructor() {}
 
   ngOnInit() {}
 
@@ -23,10 +30,5 @@ export class UserPortalComponent implements OnInit {
 
   hide() {
     this.hideComponent.emit(null);
-  }
-
-  logout() {
-    this.auth.logout();
-    this.hide();
   }
 }

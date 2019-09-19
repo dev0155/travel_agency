@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'td-tab-panel',
+  selector: 'app-tab-panel',
   templateUrl: './tab-panel.component.html',
   styleUrls: ['./tab-panel.component.scss'],
 })

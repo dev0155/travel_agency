@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { API_URL } from 'src/endpoints';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
-  public logout() {
-    localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
-    // some code from back-end
+  register(user): Observable<any> {
+    return this.http.post(`${API_URL}/register`, user);
+  }
 
-    this.router.navigateByUrl('/login');
+  login(user): Observable<any> {
+    return this.http.post(`${API_URL}/login`, user);
   }
 }
