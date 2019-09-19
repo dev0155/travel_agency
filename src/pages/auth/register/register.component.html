@@ -1,0 +1,82 @@
+<div class="page">
+  <img
+    class="img"
+    src="http://www.fooztours.com/uploads/images/slider/vc03mutraeosk4s00.jpg"
+  />
+  <div class="form container">
+    <div class="caption">
+      <h1>Register</h1>
+      <p>
+        Please enter your name and e-mail here for the registration
+      </p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <input
+        class="form-control"
+        formControlName="firstName"
+        type="text"
+        placeholder="First name"
+        [ngClass]="{ 'invalid-input': isValid('firstName') }"
+      />
+      <p *ngIf="isValid('firstName')" class="invalid-msg">
+        You can use only latin letters.
+      </p>
+
+      <input
+        class="form-control"
+        formControlName="lastName"
+        type="text"
+        placeholder="Last name"
+        [ngClass]="{ 'invalid-input': isValid('lastName') }"
+      />
+      <p *ngIf="isValid('lastName')" class="invalid-msg">
+        You can use only latin letters.
+      </p>
+
+      <input
+        class="form-control"
+        formControlName="email"
+        type="email"
+        placeholder="E-mail"
+        [ngClass]="{ 'invalid-input': isValid('email') }"
+      />
+      <p *ngIf="isValid('email')" class="invalid-msg">
+        Incorrect email.
+      </p>
+
+      <input
+        class="form-control"
+        formControlName="password"
+        type="password"
+        placeholder="Your password"
+        [ngClass]="{ 'invalid-input': isValid('password') }"
+      />
+      <p *ngIf="isValid('password')" class="invalid-msg">
+        Password must be greater than 5 symbols.
+      </p>
+
+      <input
+        class="form-control"
+        formControlName="confirmPassword"
+        type="password"
+        placeholder="Confirm password"
+        [ngClass]="{ 'invalid-input': isValid('confirmPassword') }"
+      />
+      <p *ngIf="isValid('confirmPassword')" class="invalid-msg">
+        Passwords don't match.
+      </p>
+
+      <button
+        [disabled]="registerForm.invalid"
+        type="submit"
+        class="btn btn-primary"
+      >
+        Register
+      </button>
+    </form>
+  </div>
+</div>
+<simple-notifications
+  [options]="{ position: ['bottom', 'left'] }"
+></simple-notifications>

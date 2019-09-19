@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CommonModule as Common } from 'src/modules/common/common.module';
+import { TabsComponent } from 'src/components/tour-detail/tab-panel/tabs/tabs.component';
 import { TourDetailComponent } from 'src/pages/tour-detail/tour-detail.component';
 import { TabPanelComponent } from 'src/components/tour-detail/tab-panel/tab-panel.component';
 import { GeneralComponent } from 'src/components/tour-detail/tab-panel/content/general/general.component';
@@ -10,9 +10,6 @@ import { ServiceComponent } from 'src/components/tour-detail/tab-panel/content/s
 import { PhotosComponent } from 'src/components/tour-detail/tab-panel/content/photos/photos.component';
 import { MapComponent } from 'src/components/tour-detail/tab-panel/content/map/map.component';
 import { CommentsComponent } from 'src/components/tour-detail/tab-panel/content/comments/comments.component';
-import { HeaderComponent } from 'src/components/tour-detail/header/header.component';
-import { ToursService } from 'src/services/tours.service';
-import { SpinnerComponent } from 'src/components/common/spinner/spinner.component';
 
 const routes: Routes = [
   {
@@ -24,16 +21,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TourDetailComponent,
-    HeaderComponent,
+    TabsComponent,
     TabPanelComponent,
     GeneralComponent,
     ServiceComponent,
     PhotosComponent,
     MapComponent,
     CommentsComponent,
-    SpinnerComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), Common],
-  providers: [ToursService],
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class TourDetailModule {}

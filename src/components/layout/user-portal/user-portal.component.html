@@ -1,10 +1,10 @@
 <div class="container" (clickOutside)="clickOutside($event)">
-  <a class="link" routerLink="/account/profile" (click)="hide()">
+  <a class="link" routerLink="/account" (click)="hide()">
     <img class="link__icon" src="../../../assets/img/profile.png" />
     <span class="link__text">Profile</span>
   </a>
   <hr />
-  <a class="link" (click)="logout()">
+  <a class="link" routerLink="" (click)="hide()">
     <img class="link__icon" src="../../../assets/img/logout.png" />
     <span class="link__text">Logout</span>
   </a>

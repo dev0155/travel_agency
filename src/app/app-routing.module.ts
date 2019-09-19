@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from 'src/components/layout/layout/layout.component';
+import { RegisterComponent } from 'src/pages/auth/register/register.component';
+import { LoginComponent } from 'src/pages/auth/login/login.component';
 
 const routes: Routes = [
-  // { // for login, register pages
-  //   path: 'account',
-  //   component: ProfilePageComponent,
-  // },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
   {
     path: '',
     component: LayoutComponent,
@@ -39,13 +45,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('src/modules/tour-detail/tour-detail.module').then(
             (m) => m.TourDetailModule
-          ),
-      },
-      {
-        path: 'hotels',
-        loadChildren: () =>
-          import('src/modules/hotels/hotels.module').then(
-            (m) => m.HotelsModule
           ),
       },
     ],

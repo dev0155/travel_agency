@@ -7,7 +7,7 @@
     display: flex;
     margin-bottom: 15px;
 
-    font-size: 12px;
+    font-size: 10px;
     color: #141414;
 
     .title {
@@ -15,13 +15,7 @@
     }
 
     .info {
-      display: flex;
-      justify-content: space-between;
       width: 100%;
-
-      app-rating {
-        width: 80%;
-      }
     }
 
     &:first-of-type {
@@ -31,4 +25,13 @@
       }
     }
   }
+}
+
+.scale {
+  width: 215px;
+  height: 15px;
+
+  border-radius: 25px;
+  align-self: center;
+  margin-left: 10px;
 }

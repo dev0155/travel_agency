@@ -1,0 +1,29 @@
+@import 'src/variables';
+
+.nav {
+  display: flex;
+
+  .tab {
+    height: 35px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+
+    a {
+      margin: 0 auto;
+      font-size: 10px;
+      color: $text-color;
+      cursor: pointer;
+    }
+  }
+
+  .tab_active {
+    border-bottom: 5px solid $active-color;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    a {
+      color: $title-color;
+    }
+  }
+}

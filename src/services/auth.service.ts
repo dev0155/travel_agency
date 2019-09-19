@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { API_URL } from 'src/endpoints';
 
-@Injectable({
-  providedIn: 'root',
-})
+export interface IAuthResponse {
+  user_id: number;
+  access_token: string;
+}
+@Injectable()
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
-  public logout() {
-    localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
-    // some code from back-end
+  register(user): Observable<IAuthResponse> {
+    return this.http.post<IAuthResponse>(`${API_URL}/register`, user);
+  }
 
-    this.router.navigateByUrl('/login');
+  login(user): Observable<IAuthResponse> {
+    return this.http.post<IAuthResponse>(`${API_URL}/login`, user);
   }
 }
