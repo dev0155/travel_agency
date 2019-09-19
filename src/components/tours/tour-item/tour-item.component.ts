@@ -8,10 +8,35 @@ import { Component, OnInit } from "@angular/core";
 export class TourItemComponent implements OnInit {
   constructor() {}
 
-  hotelName: string = "Alara Star Hotel 5*";
-  hotelLocation: string = "Alania, Turkey";
-  duration: number = 7;
-  roomType: string = "Standart";
-  price: number = 842;
+  tours: Array<{}> = [
+    {
+      id: 1233332134,
+      image: 'http://static.asiawebdirect.com/m/bangkok/portals/bali-indonesia-com/homepage/pagePropertiesOgImage/bali.jpg',
+      name: 'Alara Star Hotel 5',
+      location: 'Turkey',
+      duration: '7',
+      roomType: 'Standard',
+      price: 842
+    },
+    {
+      id: 1233332134,
+      img: 'http://static.asiawebdirect.com/m/bangkok/portals/bali-indonesia-com/homepage/pagePropertiesOgImage/bali.jpg',
+      name: 'Alara Star Hotel 5',
+      location: 'Turkey',
+      duration: '7',
+      roomType: 'Standard',
+      price: 842
+    },
+    {
+      id: 1233332134,
+      img: 'http://static.asiawebdirect.com/m/bangkok/portals/bali-indonesia-com/homepage/pagePropertiesOgImage/bali.jpg',
+      name: 'Alara Star Hotel 5',
+      location: 'Turkey',
+      duration: '7',
+      roomType: 'Standard',
+      price: 842
+    }
+  ]
+
   ngOnInit() {}
 }
