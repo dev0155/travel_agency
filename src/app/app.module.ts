@@ -24,7 +24,6 @@ export function getReducers() {
     ...store,
   };
 }
-// import store from 'src/store';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -39,5 +38,6 @@ export function getReducers() {
   ],
   providers: [{ provide: REDUCER_TOKEN, useFactory: getReducers }],
   bootstrap: [AppComponent],
+
 })
 export class AppModule {}
