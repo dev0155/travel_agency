@@ -5,11 +5,10 @@ import {
 } from '../actions/newHotel.actions';
 
 export interface INewHotelState {
-  id: number;
   loading: boolean;
 }
 
-const initState = (): INewHotelState => ({ id: null, loading: null });
+const initState = (): INewHotelState => ({ loading: null });
 
 const newHotelReducer = createReducer(
   initState(),
@@ -26,15 +25,20 @@ const newHotelReducer = createReducer(
     ...state,
     id: null,
     loading: false,
-  }))
+  })),
 
-  // on(setAllHotelImages.request, (state) => ({ ...state, id: null, loading: true })),
-  // on(setAllHotelImages.success, (state, action) => ({
-  //   ...state,
-  //   id: action.id,
-  //   loading: false,
-  // })),
-  // on(setAllHotelImages.failure, (state) => ({ ...state, id: null, loading: false }))
+  on(setAllHotelImages.request, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(setAllHotelImages.success, (state) => ({
+    ...state,
+    loading: false,
+  })),
+  on(setAllHotelImages.failure, (state) => ({
+    ...state,
+    loading: false,
+  }))
 );
 
 export function reducer(state: INewHotelState | undefined, action: Action) {

@@ -10,14 +10,17 @@ export const setAllHotelForm = {
     SET_ALL_HOTEL_FORM.REQUEST,
     props<{ hotelForm: INewHotelForm; images: File[] }>()
   ),
-  success: createAction(SET_ALL_HOTEL_FORM.SUCCESS, props<{ id: number }>()),
+  success: createAction(
+    SET_ALL_HOTEL_FORM.SUCCESS,
+    props<{ id: number; images: FormData[] }>()
+  ),
   failure: createAction(SET_ALL_HOTEL_FORM.FAILURE),
 };
 
 export const setAllHotelImages = {
   request: createAction(
     SET_ALL_HOTEL_IMAGES.REQUEST,
-    props<{ image: FormData }>()
+    props<{ hotelId: number; image: FormData }>()
   ),
   success: createAction(SET_ALL_HOTEL_IMAGES.SUCCESS),
   failure: createAction(SET_ALL_HOTEL_IMAGES.FAILURE),
