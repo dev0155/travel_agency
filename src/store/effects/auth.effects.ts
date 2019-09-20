@@ -20,7 +20,7 @@ export class AuthEffects {
             sessionStorage.setItem('token', response.access_token);
             localStorage.setItem('token', response.access_token);
 
-            this.goToHomePage();
+            this.router.navigateByUrl('/');
 
             return AuthActions.setAllRegister.success({
               id: response.user_id,
@@ -45,8 +45,7 @@ export class AuthEffects {
                 localStorage.setItem('token', response.access_token);
               }
               sessionStorage.setItem('token', response.access_token);
-
-              this.goToHomePage();
+              this.router.navigateByUrl('/');
 
               return AuthActions.setAllLogin.success({
                 id: response.user_id,
@@ -66,8 +65,4 @@ export class AuthEffects {
     private toaster: NotificationsService,
     private router: Router
   ) {}
-
-  private goToHomePage(): void {
-    setTimeout(() => this.router.navigateByUrl('/'), 3000);
-  }
 }
