@@ -1,22 +1,19 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { AuthService } from './auth.service';
-// import { catchError } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
-    private authService: AuthService,
-    // private : NotificationsService,
+    private notif: NotificationsService,
     private router: Router
   ) {}
 
