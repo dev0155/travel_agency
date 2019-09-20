@@ -45,6 +45,7 @@ export class AuthEffects {
                 localStorage.setItem('token', response.access_token);
               }
               sessionStorage.setItem('token', response.access_token);
+
               this.router.navigateByUrl('/');
 
               return AuthActions.setAllLogin.success({
@@ -62,7 +63,6 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private toaster: NotificationsService,
     private router: Router
   ) {}
 }

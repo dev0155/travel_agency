@@ -16,7 +16,7 @@ export class UploadHotelImgComponent implements OnInit {
   public upload = (images: File[]) => {
     if (images.length === 0) return;
 
-    for (let item of images) {
+    for (const item of images) {
       this.preview(item);
     }
   };

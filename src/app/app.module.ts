@@ -3,7 +3,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LayoutModule } from 'src/modules/layout/layout.module';
-import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   StoreModule,
@@ -14,7 +13,6 @@ import {
 import store, { AppState } from 'src/store';
 import { NgModule, InjectionToken } from '@angular/core';
 import { AuthModule } from 'src/modules/auth/auth.module';
-import { AuthEffects } from 'src/store/effects/auth.effects';
 import { AuthInterceptor } from 'src/services/auth.interceptor';
 
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>(
@@ -36,7 +34,6 @@ export function getReducers() {
     AuthModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(REDUCER_TOKEN),
-    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     { provide: REDUCER_TOKEN, useFactory: getReducers },
@@ -49,4 +46,3 @@ export function getReducers() {
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
