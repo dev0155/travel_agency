@@ -6,16 +6,14 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { AuthService } from './auth.service';
 import { NotificationsService } from 'angular2-notifications';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private toaster: NotificationsService,
+    private toaster: NotificationsService
   ) {}
 
   private toasterOptions = {
@@ -45,13 +43,14 @@ export class AuthInterceptor implements HttpInterceptor {
         ({ error }) => {
           if (error.statusCode === 401) {
             localStorage.clear();
+            sessionStorage.clear();
+
             this.toaster.error(
               'Error :(',
               'You are unauthorized',
               this.toasterOptions
             );
           } else {
-            console.log(error);
             this.toaster.error('Error :(', error.message, this.toasterOptions);
           }
           subscriber.error(error);

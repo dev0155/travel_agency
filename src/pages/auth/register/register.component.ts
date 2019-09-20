@@ -4,6 +4,7 @@ import { MustMatch } from 'src/components/common/must-match/must-match.validator
 import { Store } from '@ngrx/store';
 import IRegisterUser from 'src/store/models/auth/IRegisterUser';
 import { setAllRegister } from 'src/store/actions/auth.actions';
+import { AppState } from 'src/store';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ import { setAllRegister } from 'src/store/actions/auth.actions';
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<number>) {}
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.createdForm();
