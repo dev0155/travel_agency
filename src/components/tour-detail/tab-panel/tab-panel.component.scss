@@ -2,10 +2,11 @@
 
 .line {
   margin: 0;
-  background-color: #808080;
+  background-color: darken($color: $border-color, $amount: 50);
   border: 0;
   height: 1px;
 }
+
 .container {
   width: 90%;
   padding: 0 20px;

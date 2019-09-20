@@ -9,6 +9,13 @@ const routes: Route[] = [
     path: '',
     component: ToursComponent,
   },
+  {
+    path: 'tour-detail',
+    loadChildren: () =>
+      import('src/modules/tour-detail/tour-detail.module').then(
+        (m) => m.TourDetailModule
+      ),
+  },
 ];
 @NgModule({
   declarations: [ToursComponent, TourItemComponent],
