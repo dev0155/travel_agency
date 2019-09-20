@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
 import { INewHotelState } from 'src/store/reducer/newHotel.reducer';
 import { Router } from '@angular/router';
 
-// const selectNewHotel = (state: AppState) => state.newHotel;
-
 @Component({
   selector: 'hotel-creating',
   templateUrl: './creating.component.html',
@@ -63,7 +61,7 @@ export class CreatingHotelComponent implements OnInit {
   isCompleted(imgWereLoaded: number) {
     if (imgWereLoaded === this.amount) {
       this.showSpinner = false;
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/hotels');
     } else if (imgWereLoaded === null) {
       this.showSpinner = false;
     } else {
