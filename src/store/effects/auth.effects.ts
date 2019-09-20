@@ -56,14 +56,15 @@ export class AuthEffects {
               });
             }),
             catchError(() => {
-              this.toaster.error('Error :(', error.message, this.toasterOptions);
+              // this.toaster.error('Error :(', error.message, this.toasterOptions);
               return of(
                 AuthActions.setAllLogin.failure()
                 // {error: { code: error.statusCode, message: error.message}
               );
             })
-          )}
-      ),
+          );
+        }
+      )
     )
   );
 
@@ -75,7 +76,7 @@ export class AuthEffects {
   ) {}
 
   private goToHomePage(): void {
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/');
     // setTimeout(() => this.router.navigateByUrl('/'), 3000);
   }
 
