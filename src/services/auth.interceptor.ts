@@ -51,7 +51,11 @@ export class AuthInterceptor implements HttpInterceptor {
               this.toasterOptions
             );
           } else {
-            this.toaster.error('Error :(', error.message, this.toasterOptions);
+            this.toaster.error(
+              'Error :(',
+              error.message || error.error,
+              this.toasterOptions
+            );
           }
           subscriber.error(error);
         },
