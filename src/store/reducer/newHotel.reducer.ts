@@ -5,39 +5,38 @@ import {
 } from '../actions/newHotel.actions';
 
 export interface INewHotelState {
-  loading: boolean;
+  loadedImgCounter: number;
 }
 
-const initState = (): INewHotelState => ({ loading: null });
+const initState = (): INewHotelState => ({
+  loadedImgCounter: null,
+});
 
 const newHotelReducer = createReducer(
   initState(),
   on(setAllHotelForm.request, (state) => ({
     ...state,
-    loading: true,
+    loadedImgCounter: null,
   })),
-  on(setAllHotelForm.success, (state, action) => ({
+  on(setAllHotelForm.success, (state) => ({
     ...state,
-    id: action.id,
-    loading: false,
+    loadedImgCounter: null,
   })),
   on(setAllHotelForm.failure, (state) => ({
     ...state,
-    id: null,
-    loading: false,
+    loadedImgCounter: null,
   })),
 
   on(setAllHotelImages.request, (state) => ({
     ...state,
-    loading: true,
   })),
   on(setAllHotelImages.success, (state) => ({
     ...state,
-    loading: false,
+    loadedImgCounter: state.loadedImgCounter + 1,
   })),
   on(setAllHotelImages.failure, (state) => ({
     ...state,
-    loading: false,
+    loadedImgCounter: null,
   }))
 );
 

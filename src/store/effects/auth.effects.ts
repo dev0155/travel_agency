@@ -5,7 +5,6 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AuthService } from 'src/services/auth.service';
 import * as AuthActions from 'src/store/actions/auth.actions';
 import IRegisterUser from '../models/auth/IRegisterUser';
-import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import ILoginUser from '../models/auth/ILoginUser';
 

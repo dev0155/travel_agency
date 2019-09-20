@@ -84,7 +84,6 @@ export class NewHotelEffects {
       fd.append('file', item);
       result.push(fd);
     }
-    console.log(result);
     return result;
   }
 }

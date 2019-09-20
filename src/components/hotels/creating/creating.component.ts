@@ -1,9 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { NewHotelFormComponent } from './new-form/new-form.component';
-import { Store, select } from '@ngrx/store';
+import { Store, select, createSelector } from '@ngrx/store';
 import { setAllHotelForm } from 'src/store/actions/newHotel.actions';
 import { AppState } from 'src/store';
 import { UploadHotelImgComponent } from './upload-img/upload-img.component';
+import { Observable } from 'rxjs';
+import { INewHotelState } from 'src/store/reducer/newHotel.reducer';
+import { Router } from '@angular/router';
+
+// const selectNewHotel = (state: AppState) => state.newHotel;
 
 @Component({
   selector: 'hotel-creating',
@@ -11,33 +16,58 @@ import { UploadHotelImgComponent } from './upload-img/upload-img.component';
   styleUrls: ['./creating.component.scss'],
 })
 export class CreatingHotelComponent implements OnInit {
-  @ViewChild(NewHotelFormComponent)
-  private form: NewHotelFormComponent;
   @ViewChild(UploadHotelImgComponent)
   private hotelImages: UploadHotelImgComponent;
 
-  constructor(private store: Store<AppState>) {}
+  public hotelForm = null;
+  public loading$: Observable<INewHotelState>;
+  public showSpinner = false;
+  private amount = 0;
 
-  ngOnInit() {}
-
-  get formData() {
-    return this.form.hotelForm.value;
+  constructor(private store: Store<AppState>, private router: Router) {
+    this.loading$ = store.pipe(select((state: AppState) => state.newHotel));
   }
+
+  ngOnInit() {
+    this.loading$.subscribe((state) => {
+      this.isCompleted(state.loadedImgCounter);
+    });
+  }
+
   get images() {
-    const arrayFileImgs = [] as File[];
-    for (const item of this.hotelImages.images) {
-      arrayFileImgs.push(item.img);
+    if (this.hotelImages) {
+      const arrayFileImgs = [] as File[];
+      for (const item of this.hotelImages.images) {
+        arrayFileImgs.push(item.img);
+      }
+      return arrayFileImgs;
+    } else {
+      return [];
     }
-    return arrayFileImgs;
-  }
-
-  formIsInvalid(): boolean {
-    return this.form.hotelForm.invalid;
   }
 
   onCreateBtn() {
+    this.amount = this.images.length;
     this.store.dispatch(
-      setAllHotelForm.request({ hotelForm: this.formData, images: this.images })
+      setAllHotelForm.request({
+        hotelForm: this.hotelForm,
+        images: this.images,
+      })
     );
+  }
+
+  getForm(form) {
+    this.hotelForm = form;
+  }
+
+  isCompleted(imgWereLoaded: number) {
+    if (imgWereLoaded === this.amount) {
+      this.showSpinner = false;
+      this.router.navigateByUrl('/');
+    } else if (imgWereLoaded === null) {
+      this.showSpinner = false;
+    } else {
+      this.showSpinner = true;
+    }
   }
 }
