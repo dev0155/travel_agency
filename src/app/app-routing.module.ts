@@ -33,18 +33,14 @@ const routes: Routes = [
       },
       {
         path: 'tours',
-        // loadChildren: () =>
-        //   import('src/modules/tours/tours.module').then(
-        //     (m) => m.ToursModule
-        //   ),
-        //
-        //
-        // ************
-        // MUST ADD ROUTING FOR THE TOUR DETAIL PAGE
-        // ************
         loadChildren: () =>
-          import('src/modules/tour-detail/tour-detail.module').then(
-            (m) => m.TourDetailModule
+          import('src/modules/tours/tours.module').then((m) => m.ToursModule),
+      },
+      {
+        path: 'hotels',
+        loadChildren: () =>
+          import('src/modules/hotels/hotels.module').then(
+            (m) => m.HotelsModule
           ),
       },
     ],

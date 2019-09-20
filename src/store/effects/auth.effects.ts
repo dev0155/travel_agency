@@ -89,6 +89,7 @@ export class AuthEffects {
   private goToHomePage(): void {
     setTimeout(() => this.router.navigateByUrl('/'), 3000);
   }
+
   private toasterOptions = {
     animate: 'fade',
     timeOut: 3000,

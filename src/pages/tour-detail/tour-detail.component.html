@@ -1,17 +1,27 @@
-<app-tab-panel
-  [tabs]="tabs"
-  [currentTab]="currentTab"
-  (changeTab)="onChangeTab($event)"
->
-  <ng-container [ngSwitch]="currentTab">
-    <app-general-tab
-      *ngSwitchCase="'General'"
-      [tourInfo]="generalInfo"
-    ></app-general-tab>
+<ng-container *ngIf="tour.hotel !== undefined; else spinner">
+  <td-header [tour]="tour"></td-header>
 
-    <app-service-tab *ngSwitchCase="'Service'"></app-service-tab>
-    <app-photos-tab *ngSwitchCase="'Photos'"></app-photos-tab>
-    <app-map-tab *ngSwitchCase="'Map'"></app-map-tab>
-    <app-comments-tab *ngSwitchCase="'Comments'"></app-comments-tab>
-  </ng-container>
-</app-tab-panel>
+  <td-tab-panel
+    [tabs]="tabs"
+    [currentTab]="currentTab"
+    (changeTab)="onChangeTab($event)"
+  >
+    <ng-container [ngSwitch]="currentTab">
+      <ng-container>
+        <td-general-tab
+          *ngSwitchCase="'General'"
+          [hotel]="tour.hotel"
+        ></td-general-tab>
+      </ng-container>
+
+      <td-service-tab *ngSwitchCase="'Service'"></td-service-tab>
+      <td-photos-tab *ngSwitchCase="'Photos'"></td-photos-tab>
+      <td-map-tab *ngSwitchCase="'Map'"></td-map-tab>
+      <td-comments-tab *ngSwitchCase="'Comments'"></td-comments-tab>
+    </ng-container>
+  </td-tab-panel>
+</ng-container>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>
