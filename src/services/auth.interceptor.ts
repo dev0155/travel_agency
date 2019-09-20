@@ -1,14 +1,13 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';
-// import { catchError } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 
@@ -16,9 +15,14 @@ import { Router } from '@angular/router';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    // private : NotificationsService,
-    private router: Router
+    private toaster: NotificationsService,
   ) {}
+
+  private toasterOptions = {
+    animate: 'fade',
+    timeOut: 3000,
+    showProgressBar: true,
+  };
 
   intercept(
     request: HttpRequest<any>,
@@ -38,17 +42,19 @@ export class AuthInterceptor implements HttpInterceptor {
         (response: any) => {
           subscriber.next(response);
         },
-        (err) => {
-          if (err.status === 401) {
+        ({ error }) => {
+          if (error.statusCode === 401) {
             localStorage.clear();
-            // this.notif.error('You are not authorized', err.error.title, {
-            //   timeOut: 3000,
-            // });
-            this.router.navigate(['/login']);
+            this.toaster.error(
+              'Error :(',
+              'You are unauthorized',
+              this.toasterOptions
+            );
           } else {
-            // this.notif.error(err.error.title);
+            console.log(error);
+            this.toaster.error('Error :(', error.message, this.toasterOptions);
           }
-          subscriber.error(err);
+          subscriber.error(error);
         },
         () => subscriber.complete()
       );

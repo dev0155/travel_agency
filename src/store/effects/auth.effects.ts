@@ -20,27 +20,17 @@ export class AuthEffects {
             sessionStorage.setItem('token', response.access_token);
             localStorage.setItem('token', response.access_token);
 
-            this.toaster.success(
-              'Success :)',
-              'You was successfully registered.',
-              this.toasterOptions
-            );
-
             this.goToHomePage();
 
             return AuthActions.setAllRegister.success({
               id: response.user_id,
             });
+          }),
+          catchError(() => {
+            return of(AuthActions.setAllRegister.failure());
           })
         )
-      ),
-      catchError(({ error }) => {
-        this.toaster.error('Error :(', error.message, this.toasterOptions);
-        return of(
-          AuthActions.setAllRegister.failure()
-          // {error: { code: error.statusCode, message: error.message}
-        );
-      })
+      )
     )
   );
 
@@ -56,26 +46,17 @@ export class AuthEffects {
               }
               sessionStorage.setItem('token', response.access_token);
 
-              this.toaster.success(
-                'Success :)',
-                'You was successfully logged.',
-                this.toasterOptions
-              );
               this.goToHomePage();
 
               return AuthActions.setAllLogin.success({
                 id: response.user_id,
               });
+            }),
+            catchError(() => {
+              return of(AuthActions.setAllLogin.failure());
             })
           )
-      ),
-      catchError(({ error }) => {
-        this.toaster.error('Error :(', error.message, this.toasterOptions);
-        return of(
-          AuthActions.setAllLogin.failure()
-          // {error: { code: error.statusCode, message: error.message}
-        );
-      })
+      )
     )
   );
 
@@ -89,10 +70,4 @@ export class AuthEffects {
   private goToHomePage(): void {
     setTimeout(() => this.router.navigateByUrl('/'), 3000);
   }
-
-  private toasterOptions = {
-    animate: 'fade',
-    timeOut: 3000,
-    showProgressBar: true,
-  };
 }
