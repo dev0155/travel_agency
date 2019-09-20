@@ -16,15 +16,8 @@ export class AuthEffects {
       ofType(AuthActions.setAllRegister.request.type),
       mergeMap((action: { user: IRegisterUser; type: string }) =>
         this.authService.register(action.user).pipe(
-          map((response: { access_token: string; user_id: number }) => {
+          map((response) => {
             sessionStorage.setItem('token', response.access_token);
-            localStorage.setItem('token', response.access_token);
-
-            this.toaster.success(
-              'Success :)',
-              'You was successfully registered.',
-              this.toasterOptions
-            );
 
             this.goToHomePage();
 
@@ -48,34 +41,29 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.setAllLogin.request.type),
       mergeMap(
-        (action: { user: ILoginUser; rememberMe: boolean; type: string }) =>
-          this.authService.login(action.user).pipe(
-            map((response: { access_token: string; user_id: number }) => {
+        (action: { user: ILoginUser; rememberMe: boolean; type: string }) => {
+          return this.authService.login(action.user).pipe(
+            map((response) => {
               if (action.rememberMe) {
                 localStorage.setItem('token', response.access_token);
               }
               sessionStorage.setItem('token', response.access_token);
 
-              this.toaster.success(
-                'Success :)',
-                'You was successfully logged.',
-                this.toasterOptions
-              );
               this.goToHomePage();
 
               return AuthActions.setAllLogin.success({
                 id: response.user_id,
               });
+            }),
+            catchError(() => {
+              this.toaster.error('Error :(', error.message, this.toasterOptions);
+              return of(
+                AuthActions.setAllLogin.failure()
+                // {error: { code: error.statusCode, message: error.message}
+              );
             })
-          )
+          )}
       ),
-      catchError(({ error }) => {
-        this.toaster.error('Error :(', error.message, this.toasterOptions);
-        return of(
-          AuthActions.setAllLogin.failure()
-          // {error: { code: error.statusCode, message: error.message}
-        );
-      })
     )
   );
 
@@ -87,7 +75,8 @@ export class AuthEffects {
   ) {}
 
   private goToHomePage(): void {
-    setTimeout(() => this.router.navigateByUrl('/'), 3000);
+    this.router.navigateByUrl('/')
+    // setTimeout(() => this.router.navigateByUrl('/'), 3000);
   }
 
   private toasterOptions = {

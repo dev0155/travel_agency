@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MustMatch } from 'src/components/common/must-match/must-match.validator';
 import { Store } from '@ngrx/store';
 import IRegisterUser from 'src/store/models/auth/IRegisterUser';
+import { MustMatch } from 'src/components/common/must-match/must-match.validator';
 import { setAllRegister } from 'src/store/actions/auth.actions';
-
+import { AppState } from 'src/store';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -13,7 +13,7 @@ import { setAllRegister } from 'src/store/actions/auth.actions';
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<number>) {}
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.createdForm();

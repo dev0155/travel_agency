@@ -7,6 +7,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { AuthService } from 'src/services/auth.service';
 import { RegisterComponent } from 'src/pages/auth/register/register.component';
 import { LoginComponent } from 'src/pages/auth/login/login.component';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from 'src/store/effects/auth.effects';
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
@@ -17,6 +19,7 @@ import { LoginComponent } from 'src/pages/auth/login/login.component';
     FormsModule,
     ReactiveFormsModule,
     SimpleNotificationsModule.forRoot(),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [AuthService],
 })

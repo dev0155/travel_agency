@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { setAllLogin } from 'src/store/actions/auth.actions';
+import { AppState } from 'src/store';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { setAllLogin } from 'src/store/actions/auth.actions';
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<number>) {}
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.createdForm();

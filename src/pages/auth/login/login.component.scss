@@ -11,7 +11,6 @@
 
   .form {
     @include flexColumn();
-    padding-bottom: 5%;
 
     .caption {
       color: $title-color;
