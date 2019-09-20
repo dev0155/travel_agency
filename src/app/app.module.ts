@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, InjectionToken } from '@angular/core';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule, ActionReducerMap } from '@ngrx/store';
@@ -30,7 +29,6 @@ export function getReducers() {
     LayoutModule,
     AuthModule,
     BrowserAnimationsModule,
-    NgSelectModule,
     StoreModule.forRoot(REDUCER_TOKEN),
   ],
   providers: [
