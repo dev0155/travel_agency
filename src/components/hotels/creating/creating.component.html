@@ -9,7 +9,7 @@
       <hotel-upload-img></hotel-upload-img>
     </div>
 
-    <button [disabled]="!hotelForm" class="btn" (click)="onCreateBtn()">
+    <button [disabled]="isBtnDisable()" class="btn" (click)="onCreateBtn()">
       Create hotel
     </button>
   </div>

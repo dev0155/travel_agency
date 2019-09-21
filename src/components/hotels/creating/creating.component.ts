@@ -58,12 +58,20 @@ export class CreatingHotelComponent implements OnInit {
 
   isCompleted(imgWereLoaded: number) {
     if (imgWereLoaded === this.amount) {
-      this.showSpinner = false;
-      this.router.navigateByUrl('/hotels');
+      setTimeout(() => {
+        this.showSpinner = false;
+        this.router.navigateByUrl('/hotels');
+      }, 3000);
     } else if (imgWereLoaded === null) {
+      this.showSpinner = false;
+    } else if (this.amount === 0) {
       this.showSpinner = false;
     } else {
       this.showSpinner = true;
     }
+  }
+
+  isBtnDisable() {
+    return !(this.hotelForm && this.images.length !== 0);
   }
 }
