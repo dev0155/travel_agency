@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { NotificationsService } from 'angular2-notifications';
+import { EMPTY, of } from 'rxjs';
+import { mergeMap, map, catchError } from 'rxjs/operators';
+
 import * as NewHotelActions from 'src/store/actions/newHotel.actions';
 import INewHotelForm from '../models/hotel/INewHotelForm';
 import { HotelService } from 'src/services/hotel.service';
-import { EMPTY, of } from 'rxjs';
-import { mergeMap, map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class NewHotelEffects {
@@ -79,11 +80,11 @@ export class NewHotelEffects {
 
   private transformImgData(images: File[]): FormData[] {
     const result = [] as FormData[];
-    for (const item of images) {
+    images.map((item) => {
       const fd = new FormData();
       fd.append('file', item);
       result.push(fd);
-    }
+    });
     return result;
   }
 }

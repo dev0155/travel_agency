@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, Output } from '@angular/core';
-import { NewHotelFormComponent } from './new-form/new-form.component';
-import { Store, select, createSelector } from '@ngrx/store';
-import { setAllHotelForm } from 'src/store/actions/newHotel.actions';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
 import { AppState } from 'src/store';
 import { UploadHotelImgComponent } from './upload-img/upload-img.component';
-import { Observable } from 'rxjs';
 import { INewHotelState } from 'src/store/reducer/newHotel.reducer';
-import { Router } from '@angular/router';
+import { setAllHotelForm } from 'src/store/actions/newHotel.actions';
 
 @Component({
   selector: 'hotel-creating',
@@ -32,19 +32,17 @@ export class CreatingHotelComponent implements OnInit {
     });
   }
 
-  get images() {
+  get images(): File[] {
     if (this.hotelImages) {
-      const arrayFileImgs = [] as File[];
-      for (const item of this.hotelImages.images) {
-        arrayFileImgs.push(item.img);
-      }
-      return arrayFileImgs;
+      const fileImages = [] as File[];
+      this.hotelImages.images.map((item) => fileImages.push(item.img));
+      return fileImages;
     } else {
       return [];
     }
   }
 
-  onCreateBtn() {
+  onCreateBtn(): void {
     this.amount = this.images.length;
     this.store.dispatch(
       setAllHotelForm.request({
@@ -54,7 +52,7 @@ export class CreatingHotelComponent implements OnInit {
     );
   }
 
-  getForm(form) {
+  setForm(form): void {
     this.hotelForm = form;
   }
 

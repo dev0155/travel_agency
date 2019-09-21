@@ -5,7 +5,7 @@
 <div class="container" *ngIf="!showSpinner; else spinner">
   <div class="row">
     <div class="col">
-      <hotel-new-form (getForm)="getForm($event)"></hotel-new-form>
+      <hotel-new-form (getForm)="setForm($event)"></hotel-new-form>
       <hotel-upload-img></hotel-upload-img>
     </div>
 
