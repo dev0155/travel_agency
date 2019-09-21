@@ -8,6 +8,7 @@ import { CompanyFormComponent } from 'src/components/account/company-form/compan
 import { EffectsModule } from '@ngrx/effects';
 import { AccountUserEffects } from 'src/store/effects/account/user.effects';
 import { RouteResolver } from 'src/resolver/account.resolver';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 const routes: Route[] = [
   {
@@ -25,6 +26,7 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
+    SimpleNotificationsModule.forRoot(),
     EffectsModule.forRoot([AccountUserEffects]),
   ],
 })
