@@ -9,6 +9,7 @@
       id="userEmail"
       aria-describedby="emailHelp"
       placeholder="user@email.com"
+      (click)="defaultClear('email')"
     />
 
     <p class="alert alert-danger" *ngIf="isValid('email')">
@@ -23,6 +24,7 @@
       class="form-control"
       id="userPassword"
       placeholder="******"
+      (click)="defaultClear('password')"
     />
     <p class="alert alert-danger" *ngIf="isValid('password')">
       Password's length must be greater than 6 symbols!
@@ -35,6 +37,7 @@
       type="text"
       class="form-control"
       id="firstName"
+      (click)="defaultClear('firstName')"
     />
     <p class="alert alert-danger" *ngIf="isValid('firstName')">
       You can use only letters!
@@ -47,6 +50,7 @@
       type="text"
       id="lastName"
       class="form-control"
+      (click)="defaultClear('lastName')"
     />
     <p class="alert alert-danger" *ngIf="isValid('lastName')">
       You can use only letters!
