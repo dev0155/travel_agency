@@ -9,11 +9,11 @@
       <p>Duration: {{tour.duration}} days</p>
       <p>Room Type: {{tour.roomType}}</p>
     </div>
-  </div>
-  <div class="col-md-3">
+    <div class="col-md-3">
       <p>{{tour.price}}</p>
-      <button routerLink="/tours/ + tour.id"></button>
+      <button type="button" class="btn btn-warning" routerLink="/tours/ + tour.id">Details</button>
+    </div>  
   </div>
 </div>
 
-<!-- <app-pagination></app-pagination> -->
+<app-pagination></app-pagination>

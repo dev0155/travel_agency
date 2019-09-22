@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ToursService } from 'src/services/tours.service';
 
 @Component({
   selector: "app-tour-item",
@@ -6,37 +7,24 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./tour-item.component.scss"]
 })
 export class TourItemComponent implements OnInit {
-  constructor() {}
+  
+  constructor(
+    private tourService: ToursService
+  ) {}
 
-  tours: Array<{}> = [
-    {
-      id: 1233332134,
-      image: 'http://static.asiawebdirect.com/m/bangkok/portals/bali-indonesia-com/homepage/pagePropertiesOgImage/bali.jpg',
-      name: 'Alara Star Hotel 5',
-      location: 'Turkey',
-      duration: '7',
-      roomType: 'Standard',
-      price: 842
-    },
-    {
-      id: 1233332134,
-      img: 'http://static.asiawebdirect.com/m/bangkok/portals/bali-indonesia-com/homepage/pagePropertiesOgImage/bali.jpg',
-      name: 'Alara Star Hotel 5',
-      location: 'Turkey',
-      duration: '7',
-      roomType: 'Standard',
-      price: 842
-    },
-    {
-      id: 1233332134,
-      img: 'http://static.asiawebdirect.com/m/bangkok/portals/bali-indonesia-com/homepage/pagePropertiesOgImage/bali.jpg',
-      name: 'Alara Star Hotel 5',
-      location: 'Turkey',
-      duration: '7',
-      roomType: 'Standard',
-      price: 842
-    }
-  ]
+  tours: Array<{}> = [];
+  query: object = {
+    limit: 5,
+    skip: 0
+  };
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getTours(this.query);
+  }
+
+  getTours(query) {
+    this.tourService.getTours(query).subscribe(res => {
+      this.tours.push(res);
+    })
+  }
 }
