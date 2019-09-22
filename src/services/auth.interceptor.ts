@@ -6,26 +6,23 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(
-    private notif: NotificationsService,
-    private router: Router
-  ) {}
+  constructor(private notif: NotificationsService, private router: Router) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token: string = localStorage.getItem('token');
-    if (token) {
+    const localToken: string = localStorage.getItem('token');
+    const sessionToken: string = sessionStorage.getItem('token');
+    if (localToken || sessionToken) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${sessionToken || localToken}`,
           'Content-Type': 'application/json',
         },
       });

@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  Validators,
-  FormBuilder,
-  AbstractControl,
-} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/store';
-import { setAllAccountUser } from 'src/store/actions/account/accountUser.actions';
+import { UsersActions } from 'src/store/actions/users.actions';
 
 @Component({
   selector: 'user-form',
@@ -17,68 +11,53 @@ import { setAllAccountUser } from 'src/store/actions/account/accountUser.actions
 })
 export class UserFormComponent implements OnInit {
   public userForm: FormGroup;
-  private id: number;
 
-  constructor(
-    private fb: FormBuilder,
-    private actRoute: ActivatedRoute,
-    private store: Store<AppState>
-  ) {}
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.createForm();
     this.fillForm();
-    this.actRoute.params.subscribe(({ id }) => (this.id = id));
   }
 
   createForm(): void {
     this.userForm = this.fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(5)]),
-      ],
-      firstName: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern('[a-zA-Z ]*'),
-        ]),
-      ],
-      lastName: ['', Validators.required],
+      email: ['', Validators.email],
+      password: ['', Validators.minLength(5)],
+      firstName: ['', Validators.pattern('[a-zA-Z ]*')],
+      lastName: ['', Validators.pattern('[a-zA-Z ]*')],
     });
   }
 
   isValid(name: string): boolean {
-    return this.getControl(name).touched && this.getControl(name).invalid;
+    return this.userForm.get(name).touched && this.userForm.get(name).invalid;
   }
 
   fillForm(): void {
-    const user = this.actRoute.snapshot.data.userInfo;
-    this.userForm.setValue({
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      password: '',
-    });
+    this.store
+      .pipe(select('users'))
+      .subscribe((info) => this.userForm.patchValue({ ...info }));
   }
 
   saveUser(): void {
-    this.store.dispatch(
-      setAllAccountUser.request({
-        id: this.id,
-        user: this.userForm.value,
-      })
-    );
-  }
-
-  getControl(controlName: string): AbstractControl {
-    return this.userForm.get(controlName);
+    this.updateInfo();
+    this.updatePassword();
   }
 
   defaultClear(controlName: string): void {
-    if (!this.getControl(controlName).dirty) {
-      this.getControl(controlName).setValue('');
+    if (!this.userForm.get(controlName).dirty) {
+      this.userForm.get(controlName).setValue('');
+    }
+  }
+
+  private updateInfo(): void {
+    const { password, ...info } = this.userForm.value;
+    this.store.dispatch(UsersActions.updateInfo.request({ info }));
+  }
+
+  private updatePassword(): void {
+    const password: string = this.userForm.get('password').value;
+    if (password !== '') {
+      this.store.dispatch(UsersActions.updatePassword.request({ password }));
     }
   }
 }

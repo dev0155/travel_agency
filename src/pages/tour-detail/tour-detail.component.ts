@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToursService } from 'src/services/tours.service';
+import { ITour } from 'src/interfaces/basics/tour.model';
 
 @Component({
   selector: 'app-tour-detail',

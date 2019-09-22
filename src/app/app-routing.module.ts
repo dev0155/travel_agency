@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from 'src/components/layout/layout/layout.component';
 import { RegisterComponent } from 'src/pages/auth/register/register.component';
 import { LoginComponent } from 'src/pages/auth/login/login.component';
-import { RouteResolver } from 'src/resolver/account.resolver';
 
 const routes: Routes = [
   {
@@ -51,6 +50,5 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [RouteResolver],
 })
 export class AppRoutingModule {}

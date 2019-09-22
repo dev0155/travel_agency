@@ -26,7 +26,7 @@
   .wrapper {
     display: flex;
     justify-content: space-between;
-    width: 160px;
+    min-width: 15%;
 
     .notification {
       position: relative;

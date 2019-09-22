@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/store';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-account',

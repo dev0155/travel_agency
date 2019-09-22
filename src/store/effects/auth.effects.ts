@@ -17,7 +17,7 @@ export class AuthEffects {
       mergeMap((action: { user: IRegisterUser; type: string }) =>
         this.authService.register(action.user).pipe(
           map((response) => {
-            sessionStorage.setItem('token', response.access_token);
+            localStorage.setItem('token', response.access_token);
 
             this.goToHomePage();
 
@@ -46,8 +46,9 @@ export class AuthEffects {
             map((response) => {
               if (action.rememberMe) {
                 localStorage.setItem('token', response.access_token);
+              } else {
+                sessionStorage.setItem('token', response.access_token);
               }
-              sessionStorage.setItem('token', response.access_token);
 
               this.goToHomePage();
 

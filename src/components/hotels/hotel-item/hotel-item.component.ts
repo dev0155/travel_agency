@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IHotel } from 'src/interfaces/basics/hotel.model';
 
 @Component({
   selector: 'hotel-item',

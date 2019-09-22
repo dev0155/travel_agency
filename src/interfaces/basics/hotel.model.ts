@@ -1,4 +1,6 @@
-interface IHotel {
+import ICompany from 'src/store/models/ICompany.model';
+
+export interface IHotel {
   name: string;
   address: {
     country: string;

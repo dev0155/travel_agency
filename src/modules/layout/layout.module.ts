@@ -9,6 +9,9 @@ import { UserPortalComponent } from 'src/components/layout/user-portal/user-port
 import { CommonModule as Common } from 'src/modules/common/common.module';
 import { SidebarService } from 'src/services/sidebar.service';
 import { AuthService } from 'src/services/auth.service';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersEffects } from 'src/store/effects/users.effects';
+import { CompanyEffects } from 'src/store/effects/company.effects';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,12 @@ import { AuthService } from 'src/services/auth.service';
     SidebarComponent,
     UserPortalComponent,
   ],
-  imports: [CommonModule, RouterModule, Common],
+  imports: [
+    CommonModule,
+    RouterModule,
+    Common,
+    EffectsModule.forFeature([UsersEffects, CompanyEffects]),
+  ],
   exports: [LayoutComponent],
   providers: [SidebarService, AuthService],
 })

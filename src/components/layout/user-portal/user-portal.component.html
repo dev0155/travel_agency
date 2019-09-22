@@ -1,5 +1,5 @@
 <div class="container" (clickOutside)="clickOutside($event)">
-  <a class="link" [routerLink]="['/account', currentId]" (click)="hide()">
+  <a class="link" routerLink="/account" (click)="hide()">
     <img class="link__icon" src="../../../assets/img/profile.png" />
     <span class="link__text">Profile</span>
   </a>

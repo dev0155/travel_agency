@@ -2,55 +2,63 @@
 <form [formGroup]="companyForm">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="companyEmail">Contact email</label>
-      <input
-        formControlName="email"
-        type="email"
-        class="form-control"
-        id="companyEmail"
-        placeholder="company@email.com"
-      />
-      <p class="alert alert-danger" *ngIf="isValid('email')">
-        Email is invalid!
-      </p>
-    </div>
-    <div class="form-group col-md-6">
       <label for="companyName">Company name</label>
       <input
         formControlName="name"
         id="companyName"
         type="text"
         class="form-control"
+        (click)="defaultClear('name')"
       />
       <p class="alert alert-danger" *ngIf="isValid('name')">
         Invalid company name!
       </p>
     </div>
+    <div class="form-group col-md-6">
+      <label for="companyEmail">Contact email</label>
+      <input
+        formControlName="contactEmail"
+        type="email"
+        class="form-control"
+        id="companyEmail"
+        placeholder="company@email.com"
+        (click)="defaultClear('contactEmail')"
+      />
+      <p class="alert alert-danger" *ngIf="isValid('contactEmail')">
+        Email is invalid!
+      </p>
+    </div>
   </div>
+
   <div class="form-group">
-    <label for="address">Address</label>
+    <label for="country">Country</label>
     <input
-      formControlName="address"
+      formControlName="country"
       type="text"
       class="form-control"
-      id="address"
-      placeholder="1234 Main Street"
+      id="country"
+      placeholder="Ukraine"
+      (click)="defaultClear('country')"
     />
-    <p class="alert alert-danger" *ngIf="isValid('address')">
-      Invalid address of the company!
+    <p class="alert alert-danger" *ngIf="isValid('country')">
+      You can use only latin letters!
     </p>
   </div>
-  <div class="form-group">
-    <label for="address2">Address 2</label>
-    <input
-      formControlName="address2"
-      type="text"
-      class="form-control"
-      id="address2"
-      placeholder="Apartment, studio or floor"
-    />
-  </div>
+
   <div class="form-row">
+    <div class="form-group col-md-5">
+      <label for="state">State</label>
+      <input
+        type="text"
+        class="form-control"
+        id="state"
+        formControlName="state"
+        (click)="defaultClear('state')"
+      />
+      <p class="alert alert-danger" *ngIf="isValid('state')">
+        You can use only latin letters!
+      </p>
+    </div>
     <div class="form-group col-md-4">
       <label for="city">City</label>
       <input
@@ -58,31 +66,73 @@
         class="form-control"
         id="city"
         formControlName="city"
+        (click)="defaultClear('city')"
       />
       <p class="alert alert-danger" *ngIf="isValid('city')">
         You can use only latin letters!
       </p>
     </div>
-    <div class="form-group col-md-4">
-      <label for="state">State</label>
-      <input class="form-control" id="state" formControlName="state" />
-      <p class="alert alert-danger" *ngIf="isValid('state')">
-        You can use only latin letters!
-      </p>
-    </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
       <label for="zip">Zip</label>
-      <input type="text" class="form-control" id="zip" formControlName="zip" />
+      <input
+        type="text"
+        class="form-control"
+        id="zip"
+        formControlName="zip"
+        (click)="defaultClear('zip')"
+      />
       <p class="alert alert-danger" *ngIf="isValid('zip')">
-        You can use only 5 numbers!
+        Zip code must be 5 digits.
       </p>
     </div>
   </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="street">Street</label>
+      <input
+        formControlName="street"
+        type="text"
+        class="form-control"
+        id="street"
+        placeholder="Main Street"
+        (click)="defaultClear('street')"
+      />
+      <p class="alert alert-danger" *ngIf="isValid('street')">
+        Invalid street!
+      </p>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="address">Address</label>
+      <input
+        formControlName="address1"
+        type="text"
+        class="form-control"
+        id="address"
+        placeholder="13a"
+        (click)="defaultClear('address1')"
+      />
+      <p class="alert alert-danger" *ngIf="isValid('address1')">
+        Invalid address of the company!
+      </p>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="address2">Address 2</label>
+      <input
+        formControlName="address2"
+        type="text"
+        class="form-control"
+        id="address2"
+        placeholder="Additional"
+        (click)="defaultClear('address2')"
+      />
+    </div>
+  </div>
   <button
-    (click)="updateCompany()"
+    (click)="onCompanyBtn()"
     class="btn btn-primary"
     [disabled]="companyForm.invalid"
   >
-    Update
+    {{ (company$ | async).id ? 'Update' : 'Create' }}
   </button>
 </form>

@@ -2,21 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Route, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+
 import { AccountComponent } from 'src/pages/account/account.component';
 import { UserFormComponent } from 'src/components/account/user-form/user-form.component';
 import { CompanyFormComponent } from 'src/components/account/company-form/company-form.component';
-import { EffectsModule } from '@ngrx/effects';
-import { AccountUserEffects } from 'src/store/effects/account/user.effects';
-import { RouteResolver } from 'src/resolver/account.resolver';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 
 const routes: Route[] = [
   {
-    path: ':id',
+    path: '',
     component: AccountComponent,
-    resolve: {
-      userInfo: RouteResolver,
-    },
   },
 ];
 @NgModule({
@@ -27,7 +22,6 @@ const routes: Route[] = [
     FormsModule,
     ReactiveFormsModule,
     SimpleNotificationsModule.forRoot(),
-    EffectsModule.forRoot([AccountUserEffects]),
   ],
 })
 export class AccountModule {}

@@ -1,8 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
-import { AppState } from 'src/store';
-import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-user-portal',
@@ -11,19 +9,13 @@ import { Store, select } from '@ngrx/store';
 })
 export class UserPortalComponent implements OnInit {
   @Output() hideComponent = new EventEmitter();
-  public currentId: number;
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-    private store: Store<AppState>
+    private router: Router // private store: Store<AppState>
   ) {}
 
-  ngOnInit() {
-    this.store.pipe(select('auth')).subscribe((state) => {
-      this.currentId = state.id;
-    });
-  }
+  ngOnInit() {}
 
   clickOutside(event) {
     if (event.isClickedOutside) {
