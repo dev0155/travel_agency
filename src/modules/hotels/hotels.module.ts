@@ -12,7 +12,7 @@ import { UploadHotelImgComponent } from 'src/components/hotels/creating/upload-i
 import { HotelService } from 'src/services/hotel.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { EffectsModule } from '@ngrx/effects';
-import { NewHotelEffects } from 'src/store/effects/newHotel.effects';
+import { HotelEffects } from 'src/store/effects/hotel.effects';
 
 const routes: Routes = [
   {
@@ -39,7 +39,7 @@ const routes: Routes = [
     Common,
     ReactiveFormsModule,
     SimpleNotificationsModule.forRoot(),
-    EffectsModule.forRoot([NewHotelEffects]),
+    EffectsModule.forRoot([HotelEffects]),
   ],
   providers: [HotelService],
 })

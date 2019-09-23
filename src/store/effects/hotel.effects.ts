@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { NotificationsService } from 'angular2-notifications';
 import { EMPTY, of } from 'rxjs';
 import { mergeMap, map, catchError } from 'rxjs/operators';
+import { NotificationsService } from 'angular2-notifications';
 
-import * as NewHotelActions from 'src/store/actions/newHotel.actions';
-import INewHotelForm from '../models/hotel/INewHotelForm';
 import { HotelService } from 'src/services/hotel.service';
+import { HotelActions } from '../actions/hotel.actions';
+import IHotelForm from '../models/hotel/IHotelForm.model';
 
 @Injectable()
-export class NewHotelEffects {
+export class HotelEffects {
   createHotel$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NewHotelActions.setAllHotelForm.request.type),
+      ofType(HotelActions.createHotel.request.type),
       mergeMap(
-        (action: { hotelForm: INewHotelForm; images: File[]; type: string }) =>
-          this.hotelService.createNewHotel(action.hotelForm).pipe(
-            map((response) => {
+        (action: { hotelForm: IHotelForm; images: File[]; type: string }) =>
+          this.hotelService.create(action.hotelForm).pipe(
+            map(({ hotelId }) => {
               const transformedPics = this.transformImgData(action.images);
-              return NewHotelActions.setAllHotelForm.success({
-                id: response.id,
+
+              return HotelActions.createHotel.success({
+                id: hotelId,
                 images: transformedPics,
               });
             }),
@@ -29,7 +30,7 @@ export class NewHotelEffects {
                 'Something went wrong with creating hotel.',
                 this.toasterOptions
               );
-              return of(NewHotelActions.setAllHotelForm.failure());
+              return of(HotelActions.createHotel.failure());
             })
           )
       ),
@@ -38,7 +39,7 @@ export class NewHotelEffects {
           return EMPTY;
         }
         return action.images.map((img) => {
-          return NewHotelActions.setAllHotelImages.request({
+          return HotelActions.uploadImages.request({
             image: img,
             hotelId: action.id,
           });
@@ -49,17 +50,20 @@ export class NewHotelEffects {
 
   loadImage$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NewHotelActions.setAllHotelImages.request.type),
+      ofType(HotelActions.uploadImages.request.type),
       mergeMap((action: { image: FormData; hotelId: number; type: string }) => {
         return this.hotelService.uploadImg(action.hotelId, action.image).pipe(
-          map((res) => NewHotelActions.setAllHotelImages.success()),
+          map(() => {
+            console.log('LOAD');
+            return HotelActions.uploadImages.success();
+          }),
           catchError(() => {
             this.toaster.error(
               'Error :(',
               'Images were not uploaded.',
               this.toasterOptions
             );
-            return of(NewHotelActions.setAllHotelImages.failure());
+            return of(HotelActions.uploadImages.failure());
           })
         );
       })
