@@ -1,4 +1,5 @@
 interface IHotel {
+  id: number;
   name: string;
   address: {
     country: string;

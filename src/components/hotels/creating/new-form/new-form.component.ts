@@ -15,11 +15,13 @@ import country_list from './country-list';
 export class NewHotelFormComponent implements OnInit {
   public hotelForm: FormGroup;
   public countries: string[] = country_list;
+  @Output() getForm = new EventEmitter();
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.createForm();
+    this.onChanges();
   }
 
   createForm() {
@@ -70,5 +72,13 @@ export class NewHotelFormComponent implements OnInit {
 
   isValid(name: string): boolean {
     return this.getControl(name).touched && this.getControl(name).invalid;
+  }
+
+  onChanges() {
+    this.hotelForm.valueChanges.subscribe((value) => {
+      if (this.hotelForm.valid) {
+        this.getForm.emit(value);
+      }
+    });
   }
 }

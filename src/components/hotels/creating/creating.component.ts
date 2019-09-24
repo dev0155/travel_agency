@@ -1,7 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NewHotelFormComponent } from './new-form/new-form.component';
 import { Store, select } from '@ngrx/store';
-import { setAllHotelForm } from 'src/store/actions/newHotel.actions';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { AppState } from 'src/store';
+import { UploadHotelImgComponent } from './upload-img/upload-img.component';
+import { IHotelState } from 'src/store/reducer/hotel.reducer';
+import { HotelActions } from 'src/store/actions/hotel.actions';
 
 @Component({
   selector: 'hotel-creating',
@@ -9,25 +14,60 @@ import { setAllHotelForm } from 'src/store/actions/newHotel.actions';
   styleUrls: ['./creating.component.scss'],
 })
 export class CreatingHotelComponent implements OnInit {
-  @ViewChild(NewHotelFormComponent)
-  private form: NewHotelFormComponent;
-  public hotel$ = this.store.pipe(select('hotel'));
+  @ViewChild(UploadHotelImgComponent)
+  private hotelImages: UploadHotelImgComponent;
+  private hotelForm = null;
+  private amount = 0;
+  private loading$: Observable<IHotelState>;
 
-  constructor(private store: Store<any>) {}
+  public showSpinner = false;
 
-  ngOnInit() {}
-
-  get formData() {
-    return this.form.hotelForm.value;
+  constructor(private store: Store<AppState>, private router: Router) {
+    this.loading$ = store.pipe(select((state: AppState) => state.hotel));
   }
 
-  formIsInvalid(): boolean {
-    return this.form.hotelForm.invalid;
+  ngOnInit() {
+    this.loading$.subscribe((state) => {
+      this.isCompleted(state.loadedImgCounter);
+    });
   }
 
-  onCreateBtn() {
+  public setForm(form: any): void {
+    this.hotelForm = form;
+  }
+
+  public isBtnDisable() {
+    return !(this.hotelForm && this.images.length !== 0);
+  }
+
+  public onCreateBtn(): void {
+    this.amount = this.images.length;
     this.store.dispatch(
-      setAllHotelForm.request({ hotelForm: this.formData, images: null })
+      HotelActions.createHotel.request({
+        hotelForm: this.hotelForm,
+        images: this.images,
+      })
     );
+  }
+
+  private get images(): File[] {
+    if (this.hotelImages) {
+      const fileImages = [] as File[];
+      this.hotelImages.images.map((item) => fileImages.push(item.img));
+      return fileImages;
+    } else {
+      return [];
+    }
+  }
+
+  private isCompleted(imgWereLoaded: number) {
+    if (imgWereLoaded === this.amount) {
+      this.showSpinner = false;
+      this.router.navigateByUrl('/hotels');
+    } else if (imgWereLoaded === null || this.amount === 0) {
+      this.showSpinner = false;
+    } else {
+      this.showSpinner = true;
+    }
   }
 }

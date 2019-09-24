@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UploadHotelImgComponent } from 'src/components/hotels/creating/upload-img/upload-img.component';
 import { HotelService } from 'src/services/hotel.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { EffectsModule } from '@ngrx/effects';
+import { HotelEffects } from 'src/store/effects/hotel.effects';
 
 const routes: Routes = [
   {
@@ -38,6 +40,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgSelectModule,
     SimpleNotificationsModule.forRoot(),
+    EffectsModule.forRoot([HotelEffects]),
   ],
   providers: [HotelService],
 })
