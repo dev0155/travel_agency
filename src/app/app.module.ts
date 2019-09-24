@@ -1,17 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, InjectionToken } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule, ActionReducerMap } from '@ngrx/store';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LayoutModule } from 'src/modules/layout/layout.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  StoreModule,
-  ActionReducerMap,
-  ActionReducer,
-  Action,
-} from '@ngrx/store';
 import store, { AppState } from 'src/store';
-import { NgModule, InjectionToken } from '@angular/core';
+import { LayoutModule } from 'src/modules/layout/layout.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { AuthInterceptor } from 'src/services/auth.interceptor';
 
@@ -36,12 +32,12 @@ export function getReducers() {
     StoreModule.forRoot(REDUCER_TOKEN),
   ],
   providers: [
-    { provide: REDUCER_TOKEN, useFactory: getReducers },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
     },
+    { provide: REDUCER_TOKEN, useFactory: getReducers }
   ],
   bootstrap: [AppComponent],
 })

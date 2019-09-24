@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule as Common } from 'src/modules/common/common.module';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HotelItemComponent } from 'src/components/hotels/hotel-item/hotel-item.component';
 import { CreatingHotelComponent } from 'src/components/hotels/creating/creating.component';
 import { NewHotelFormComponent } from 'src/components/hotels/creating/new-form/new-form.component';
@@ -38,6 +38,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     Common,
     ReactiveFormsModule,
+    NgSelectModule,
     SimpleNotificationsModule.forRoot(),
     EffectsModule.forRoot([HotelEffects]),
   ],

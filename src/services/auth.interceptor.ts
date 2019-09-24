@@ -13,7 +13,9 @@ import { NotificationsService } from 'angular2-notifications';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private toaster: NotificationsService
+    private toaster: NotificationsService,
+    private notif: NotificationsService,
+    private router: Router
   ) {}
 
   private toasterOptions = {

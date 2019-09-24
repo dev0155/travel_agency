@@ -20,7 +20,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "@ng-select/ng-select": "^1.4.1",
+    "@ng-select/ng-select": "^2.20.2",
     "@ngrx/effects": "^8.3.0",
     "@ngrx/store": "^8.3.0",
     "angular2-notifications": "^2.0.0",
