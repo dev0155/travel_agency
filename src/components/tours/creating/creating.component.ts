@@ -12,7 +12,7 @@ export class CreatingTourComponent implements OnInit {
   public tourForm: FormGroup;
   private roomType: string[] = ['Economy', 'Lux', 'Standard'];
 
-  constructor(private fb: FormBuilder, private hotelService: HotelService) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.createForm();
@@ -34,6 +34,10 @@ export class CreatingTourComponent implements OnInit {
         price: [
           '',
           Validators.compose([Validators.min(1), Validators.required]),
+        ],
+        description: [
+          '',
+          Validators.compose([Validators.minLength(140), Validators.required]),
         ],
       },
       {

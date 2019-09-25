@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>New Tour Info</h1>
+  <h1 class="title">New Tour Info</h1>
   <form [formGroup]="tourForm">
     <div class="row">
       <div class="col-md-6">
@@ -96,6 +96,27 @@
             Invalid price. Do you want earn some money or not?!
           </p>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <textarea
+          class="form-control textarea"
+          type="text"
+          formControlName="description"
+          rows="5"
+          placeholder="Tour description*"
+          [ngClass]="{ 'invalid-input': isValid('description') }"
+        ></textarea>
+        <p *ngIf="isValid('description')" class="alert alert-danger">
+          Tell us more about your tour! Min length of description - 140 symbols.
+          Like tweets in the old days :)
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn">Create tour</button>
       </div>
     </div>
   </form>
