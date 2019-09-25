@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidDateRange } from 'src/components/common/valid-date-range/valid-date-range';
-import { HotelService } from 'src/services/hotel.service';
+import { ITourService } from 'src/store/models/tours/ITourService.model';
+import { AppState } from 'src/store';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'tour-creating',
@@ -10,12 +12,16 @@ import { HotelService } from 'src/services/hotel.service';
 })
 export class CreatingTourComponent implements OnInit {
   public tourForm: FormGroup;
-  private roomType: string[] = ['Economy', 'Lux', 'Standard'];
+  public roomType: string[] = ['Economy', 'Lux', 'Standard'];
+  public services: ITourService[];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.createForm();
+    this.store
+      .pipe(select('tours'))
+      .subscribe(({ services }) => (this.services = services));
   }
 
   public isValid(name: string): boolean {

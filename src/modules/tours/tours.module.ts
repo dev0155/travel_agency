@@ -6,6 +6,9 @@ import { TourItemComponent } from 'src/components/tours/tour-item/tour-item.comp
 import { CreatingTourComponent } from 'src/components/tours/creating/creating.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { EffectsModule } from '@ngrx/effects';
+import { ToursEffects } from 'src/store/effects/tours.effects';
+import { ToursService } from 'src/services/tours.service';
 
 const routes: Route[] = [
   {
@@ -31,6 +34,8 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     NgSelectModule,
+    EffectsModule.forFeature([ToursEffects]),
   ],
+  providers: [ToursService],
 })
 export class ToursModule {}

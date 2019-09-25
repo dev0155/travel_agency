@@ -40,13 +40,15 @@
     <div class="row">
       <div class="col">
         <select
-          class="form-control select"
+          class="form-control"
           size="5"
           formControlName="services"
           multiple
           [ngClass]="{ 'invalid-input': isValid('services') }"
         >
-          <option *ngFor="let item of services" value="item">{{ item }}</option>
+          <option *ngFor="let item of services" value="item">{{
+            item.service
+          }}</option>
         </select>
         <p *ngIf="isValid('services')" class="alert alert-danger">
           Choose desired services!

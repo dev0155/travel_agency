@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ITourService } from 'src/store/models/tours/ITourService.model';
+import { SERVICES_URL } from 'src/endpoints';
 
 @Injectable()
 export class ToursService {
-  API_URL: string = 'https://api.myjson.com/bins/hqm0d';
-
   constructor(private http: HttpClient) {}
 
-  getTours(): Observable<any> {
-    return this.http.get(this.API_URL);
+  public getServices(): Observable<ITourService[]> {
+    return this.http.get<ITourService[]>(SERVICES_URL);
   }
 }
