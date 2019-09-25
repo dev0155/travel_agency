@@ -15,15 +15,13 @@ export class AuthEffects {
       ofType(AuthActions.setAllRegister.request.type),
       mergeMap((action: { user: IRegisterUser; type: string }) =>
         this.authService.register(action.user).pipe(
-          map((response) => {
-            sessionStorage.setItem('token', response.access_token);
-            localStorage.setItem('token', response.access_token);
+          map(({ access_token, id }) => {
+            sessionStorage.setItem('token', access_token);
+            localStorage.setItem('token', access_token);
 
             this.router.navigateByUrl('/');
 
-            return AuthActions.setAllRegister.success({
-              id: response.user_id,
-            });
+            return AuthActions.setAllRegister.success({ id });
           }),
           catchError(() => {
             return of(AuthActions.setAllRegister.failure());
@@ -39,21 +37,17 @@ export class AuthEffects {
       mergeMap(
         (action: { user: ILoginUser; rememberMe: boolean; type: string }) => {
           return this.authService.login(action.user).pipe(
-            map((response) => {
+            map(({ access_token, id }) => {
               if (action.rememberMe) {
-                localStorage.setItem('token', response.access_token);
+                localStorage.setItem('token', access_token);
               }
-              sessionStorage.setItem('token', response.access_token);
+              sessionStorage.setItem('token', access_token);
               this.router.navigateByUrl('/');
-
-              return AuthActions.setAllLogin.success({
-                id: response.user_id,
-              });
+              return AuthActions.setAllLogin.success({ id });
             }),
-            catchError(() => {
-              return of(AuthActions.setAllLogin.failure());
-            })
-          )
+            catchError(() => of(AuthActions.setAllLogin.failure()))
+          );
+        }
       )
     )
   );
