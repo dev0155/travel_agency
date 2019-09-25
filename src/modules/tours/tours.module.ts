@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Route, RouterModule } from '@angular/router';
 import { ToursComponent } from 'src/pages/tours/tours.component';
 import { TourItemComponent } from 'src/components/tours/tour-item/tour-item.component';
+import { CreatingTourComponent } from 'src/components/tours/creating/creating.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const routes: Route[] = [
   {
@@ -16,9 +19,18 @@ const routes: Route[] = [
         (m) => m.TourDetailModule
       ),
   },
+  {
+    path: 'creating',
+    component: CreatingTourComponent,
+  },
 ];
 @NgModule({
-  declarations: [ToursComponent, TourItemComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  declarations: [ToursComponent, TourItemComponent, CreatingTourComponent],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    ReactiveFormsModule,
+    NgSelectModule,
+  ],
 })
 export class ToursModule {}

@@ -1,25 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ValidDateRange } from 'src/components/common/valid-date-range/valid-date-range';
+import { HotelService } from 'src/services/hotel.service';
 
 @Component({
   selector: 'tour-creating',
   templateUrl: './creating.component.html',
   styleUrls: ['./creating.component.scss'],
 })
-export class CreatingComponent implements OnInit {
+export class CreatingTourComponent implements OnInit {
   public tourForm: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  private roomType: string[] = ['Economy', 'Lux', 'Standard'];
 
-  ngOnInit() {}
+  constructor(private fb: FormBuilder, private hotelService: HotelService) {}
 
-  createForm() {
-    this.tourForm = this.fb.group({
-      hotel: ['', Validators.required],
-    });
+  ngOnInit() {
+    this.createForm();
+  }
+
+  public isValid(name: string): boolean {
+    return this.tourForm.get(name).touched && this.tourForm.get(name).invalid;
+  }
+
+  private createForm(): void {
+    this.tourForm = this.fb.group(
+      {
+        hotel: ['', Validators.required],
+        roomType: ['', Validators.required],
+        address: ['Address'],
+        services: ['', Validators.required],
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required],
+        price: [
+          '',
+          Validators.compose([Validators.min(1), Validators.required]),
+        ],
+      },
+      {
+        validator: ValidDateRange('startDate', 'endDate'),
+      }
+    );
   }
 }

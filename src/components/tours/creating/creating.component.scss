@@ -1,0 +1,46 @@
+@import 'src/variables';
+
+.container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: $border;
+  background-color: $item-color;
+  min-height: 80vh;
+
+  .row {
+    margin-top: 1em;
+  }
+
+  label {
+    margin-bottom: 0.5em;
+  }
+
+  .select {
+    overflow: hidden;
+  }
+
+  .price {
+    .form-control {
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      padding-left: 2em;
+    }
+
+    img {
+      position: absolute;
+      height: 1.5em;
+      top: 2em;
+      left: 1em;
+    }
+  }
+
+  .invalid-input {
+    border: $danger-border;
+    margin-bottom: 0.5em;
+  }
+}

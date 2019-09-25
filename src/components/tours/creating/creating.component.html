@@ -4,8 +4,98 @@
     <div class="row">
       <div class="col-md-6">
         <label for="hotel">Hotel</label>
-        <ng-select id="hotel" formControlName="hotel" class="custom">
-        </ng-select>
+        <select
+          id="hotel"
+          formControlName="hotel"
+          class="form-control"
+          [ngClass]="{ 'invalid-input': isValid('hotel') }"
+        >
+          <option *ngFor="let item of hotels" value="item">{{ item }}</option>
+        </select>
+        <p *ngIf="isValid('hotel')" class="alert alert-danger">
+          Choose hotel!
+        </p>
+      </div>
+      <div class="col-md-6">
+        <label for="roomType">Room Type</label>
+        <select
+          id="roomType"
+          formControlName="roomType"
+          class="form-control"
+          [ngClass]="{ 'invalid-input': isValid('roomType') }"
+        >
+          <option *ngFor="let item of roomType" value="item">{{ item }}</option>
+        </select>
+
+        <p *ngIf="isValid('roomType')" class="alert alert-danger">
+          Choose room type!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input readonly formControlName="address" class="form-control" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <select
+          class="form-control select"
+          size="5"
+          formControlName="services"
+          multiple
+          [ngClass]="{ 'invalid-input': isValid('services') }"
+        >
+          <option *ngFor="let item of services" value="item">{{ item }}</option>
+        </select>
+        <p *ngIf="isValid('services')" class="alert alert-danger">
+          Choose desired services!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="start-date">Start Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="start-date"
+          formControlName="startDate"
+          [ngClass]="{ 'invalid-input': isValid('startDate') }"
+        />
+        <p *ngIf="isValid('startDate')" class="alert alert-danger">
+          Invalid date.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <label for="end-date">End Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="end-date"
+          formControlName="endDate"
+          [ngClass]="{ 'invalid-input': isValid('endDate') }"
+        />
+        <p *ngIf="isValid('endDate')" class="alert alert-danger">
+          Invalid end date.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <div class="price">
+          <label for="price">Price</label>
+          <img src="../../../assets/img/dollar-symbol.svg" alt="dollar" />
+          <input
+            type="number"
+            class="form-control"
+            formControlName="price"
+            id="price"
+            min="1"
+            [ngClass]="{ 'invalid-input': isValid('price') }"
+          />
+          <p *ngIf="isValid('price')" class="alert alert-danger">
+            Invalid price. Do you want earn some money or not?!
+          </p>
+        </div>
       </div>
     </div>
   </form>
