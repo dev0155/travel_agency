@@ -54,7 +54,6 @@ export class HotelEffects {
       mergeMap((action: { image: FormData; hotelId: number; type: string }) => {
         return this.hotelService.uploadImg(action.hotelId, action.image).pipe(
           map(() => {
-            console.log('LOAD');
             return HotelActions.uploadImages.success();
           }),
           catchError(() => {
