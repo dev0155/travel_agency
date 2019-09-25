@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { Actions, ofType, createEffect, act } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AuthService } from 'src/services/auth.service';
@@ -50,10 +50,9 @@ export class AuthEffects {
                 id: response.user_id,
               });
             }),
-            catchError(() => {
-              return of(AuthActions.setAllLogin.failure());
-            })
-          )
+            catchError(() => of(AuthActions.setAllLogin.failure))
+          );
+        }
       )
     )
   );

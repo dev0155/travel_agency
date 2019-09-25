@@ -14,8 +14,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private toaster: NotificationsService,
-    private notif: NotificationsService,
-    private router: Router
   ) {}
 
   private toasterOptions = {
