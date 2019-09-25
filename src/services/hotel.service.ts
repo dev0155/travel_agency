@@ -11,13 +11,8 @@ import IResponse from 'src/store/models/IResponse.model';
 export class HotelService {
   constructor(private http: HttpClient) {}
 
-  public create(
-    hotel: IHotelForm
-  ): Observable<{ hotelId: number; response: IResponse }> {
-    return this.http.post<{ hotelId: number; response: IResponse }>(
-      HOTEL_URL,
-      hotel
-    );
+  public create(hotel: IHotelForm): Observable<IResponse> {
+    return this.http.post<IResponse>(HOTEL_URL, hotel);
   }
 
   public uploadImg(hotelId: number, img: FormData): Observable<IUploadedImg> {
