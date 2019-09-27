@@ -16,11 +16,11 @@ export class HotelEffects {
       mergeMap(
         (action: { hotelForm: IHotelForm; images: File[]; type: string }) =>
           this.hotelService.create(action.hotelForm).pipe(
-            map(({ hotelId }) => {
+            map(({ objectId }) => {
               const transformedPics = this.transformImgData(action.images);
 
               return HotelActions.createHotel.success({
-                id: hotelId,
+                id: objectId,
                 images: transformedPics,
               });
             }),
@@ -54,7 +54,6 @@ export class HotelEffects {
       mergeMap((action: { image: FormData; hotelId: number; type: string }) => {
         return this.hotelService.uploadImg(action.hotelId, action.image).pipe(
           map(() => {
-            console.log('LOAD');
             return HotelActions.uploadImages.success();
           }),
           catchError(() => {

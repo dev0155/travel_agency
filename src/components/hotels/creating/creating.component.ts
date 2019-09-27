@@ -7,6 +7,7 @@ import { AppState } from 'src/store';
 import { UploadHotelImgComponent } from './upload-img/upload-img.component';
 import { IHotelState } from 'src/store/reducer/hotel.reducer';
 import { HotelActions } from 'src/store/actions/hotel.actions';
+import ILocation from 'src/store/models/ILocation.model';
 
 @Component({
   selector: 'hotel-creating',
@@ -33,7 +34,14 @@ export class CreatingHotelComponent implements OnInit {
   }
 
   public setForm(form: any): void {
-    this.hotelForm = form;
+    const { name, phone, description, latitude, longtitude, ...address } = form;
+    const location: ILocation = { latitude, longtitude };
+    this.hotelForm = {
+      name,
+      phone,
+      description,
+      address: { ...address, location },
+    };
   }
 
   public isBtnDisable() {
