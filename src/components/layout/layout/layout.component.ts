@@ -19,7 +19,6 @@ export class LayoutComponent implements OnInit {
   private dispatchUsersAction() {
     let userId: number = null;
     this.store.pipe(select('auth')).subscribe(({ id }) => (userId = id));
-    console.log(userId);
     this.store.dispatch(UsersActions.getById.request({ id: userId }));
     this.store.dispatch(CompanyActions.getByUserId.request({ id: userId }));
   }
