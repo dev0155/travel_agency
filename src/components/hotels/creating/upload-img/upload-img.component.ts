@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUploadImg } from 'src/interfaces/custom/upload-img.models';
+import IImage from 'src/interfaces/custom/image.model';
 
 @Component({
   selector: 'hotel-upload-img',
@@ -7,7 +7,7 @@ import { IUploadImg } from 'src/interfaces/custom/upload-img.models';
   styleUrls: ['./upload-img.component.scss'],
 })
 export class UploadHotelImgComponent implements OnInit {
-  public images: IUploadImg[] = [];
+  public images: IImage[] = [];
 
   constructor() {}
 
@@ -16,7 +16,7 @@ export class UploadHotelImgComponent implements OnInit {
   public upload = (images: File[]) => {
     if (images.length === 0) return;
 
-    for (let item of images) {
+    for (const item of images) {
       this.preview(item);
     }
   };

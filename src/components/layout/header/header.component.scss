@@ -14,7 +14,7 @@
 
   .navbar-toggler {
     outline-color: #797e81;
-    padding: 1px 3px;
+    padding: 2px 3px;
 
     .navbar-toggler-icon {
       background-image: url('https://mdbootstrap.com/img/svg/hamburger7.svg?color=797e81');
@@ -32,6 +32,7 @@
       position: relative;
       cursor: pointer;
       margin-top: 0.23rem;
+      margin-right: 3em;
 
       .notification__icon {
         position: absolute;

@@ -18,11 +18,13 @@
 
   <div class="row">
     <div class="col-sm-4">
-       <ng-select [items]="countries"
+      <ng-select
+        [items]="countries"
         formControlName="country"
         placeholder="Select country*"
-        class="custom">
-    </ng-select>
+        class="custom"
+      >
+      </ng-select>
     </div>
     <div class="col">
       <input
@@ -55,11 +57,11 @@
       <input
         class="form-control"
         type="text"
-        formControlName="region"
+        formControlName="state"
         placeholder="Region / State"
-        [ngClass]="{ 'invalid-input': isValid('region') }"
+        [ngClass]="{ 'invalid-input': isValid('state') }"
       />
-      <p *ngIf="isValid('region')" class="invalid-msg">
+      <p *ngIf="isValid('state')" class="invalid-msg">
         You can use only letters!
       </p>
     </div>
@@ -83,13 +85,13 @@
       <input
         class="form-control"
         type="number"
-        formControlName="lat"
+        formControlName="latitude"
         min="-90"
         max="90"
         placeholder="Latitude"
-        [ngClass]="{ 'invalid-input': isValid('lat') }"
+        [ngClass]="{ 'invalid-input': isValid('latitude') }"
       />
-      <p *ngIf="isValid('lat')" class="invalid-msg">
+      <p *ngIf="isValid('latitude')" class="invalid-msg">
         Latitude must be greater or equal to -90 and less or equal to 90.
       </p>
     </div>
@@ -98,13 +100,13 @@
       <input
         class="form-control"
         type="number"
-        formControlName="lng"
+        formControlName="longtitude"
         min="-180"
         max="180"
-        placeholder="Longitude"
-        [ngClass]="{ 'invalid-input': isValid('lng') }"
+        placeholder="Longtitude"
+        [ngClass]="{ 'invalid-input': isValid('longtitude') }"
       />
-      <p *ngIf="isValid('lng')" class="invalid-msg">
+      <p *ngIf="isValid('longtitude')" class="invalid-msg">
         Latitude must be greater or equal to -180 and less or equal to 180.
       </p>
     </div>

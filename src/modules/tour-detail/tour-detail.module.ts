@@ -31,7 +31,6 @@ const routes: Routes = [
     PhotosComponent,
     MapComponent,
     CommentsComponent,
-    SpinnerComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), Common],
   providers: [ToursService],

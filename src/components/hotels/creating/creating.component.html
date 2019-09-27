@@ -1,11 +1,15 @@
-<div class="container">
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>
+
+<div class="container" *ngIf="!showSpinner; else spinner">
   <div class="row">
     <div class="col">
-      <hotel-new-form></hotel-new-form>
+      <hotel-new-form (getForm)="setForm($event)"></hotel-new-form>
       <hotel-upload-img></hotel-upload-img>
     </div>
 
-    <button [disabled]="formIsInvalid()" class="btn" (click)="onCreateBtn()">
+    <button [disabled]="isBtnDisable()" class="btn" (click)="onCreateBtn()">
       Create hotel
     </button>
   </div>

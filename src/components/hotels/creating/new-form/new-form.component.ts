@@ -15,11 +15,13 @@ import country_list from './country-list';
 export class NewHotelFormComponent implements OnInit {
   public hotelForm: FormGroup;
   public countries: string[] = country_list;
+  @Output() getForm = new EventEmitter();
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.createForm();
+    this.onChanges();
   }
 
   createForm() {
@@ -32,10 +34,7 @@ export class NewHotelFormComponent implements OnInit {
           Validators.minLength(4),
         ]),
       ],
-      country: [
-        null,
-        Validators.required
-      ],
+      country: [null, Validators.required],
       phone: [
         '',
         Validators.compose([
@@ -50,10 +49,13 @@ export class NewHotelFormComponent implements OnInit {
           Validators.minLength(4),
         ]),
       ],
-      region: ['', Validators.pattern('[a-zA-Z ]*')],
+      state: ['', Validators.pattern('[a-zA-Z ]*')],
       street: ['', Validators.pattern('[a-zA-Z ]*')],
-      lat: ['', Validators.compose([Validators.min(-90), Validators.max(90)])],
-      lng: [
+      latitude: [
+        '',
+        Validators.compose([Validators.min(-90), Validators.max(90)]),
+      ],
+      longtitude: [
         '',
         Validators.compose([Validators.min(-180), Validators.max(180)]),
       ],
@@ -70,5 +72,13 @@ export class NewHotelFormComponent implements OnInit {
 
   isValid(name: string): boolean {
     return this.getControl(name).touched && this.getControl(name).invalid;
+  }
+
+  onChanges() {
+    this.hotelForm.valueChanges.subscribe((value) => {
+      if (this.hotelForm.valid) {
+        this.getForm.emit(value);
+      }
+    });
   }
 }

@@ -5,6 +5,7 @@ import IRegisterUser from 'src/store/models/auth/IRegisterUser';
 import { MustMatch } from 'src/components/common/must-match/must-match.validator';
 import { setAllRegister } from 'src/store/actions/auth.actions';
 import { AppState } from 'src/store';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

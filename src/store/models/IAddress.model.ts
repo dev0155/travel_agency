@@ -1,3 +1,5 @@
+import ILocation from './ILocation.model';
+
 export default interface IAddress {
   id: number;
   country: string;
@@ -6,5 +8,5 @@ export default interface IAddress {
   address1: string;
   address2?: string;
   zip: string;
-  // add location
+  location: ILocation;
 }

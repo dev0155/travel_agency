@@ -5,7 +5,6 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AuthService } from 'src/services/auth.service';
 import * as AuthActions from 'src/store/actions/auth.actions';
 import IRegisterUser from '../models/auth/IRegisterUser';
-import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import ILoginUser from '../models/auth/ILoginUser';
 
@@ -16,24 +15,19 @@ export class AuthEffects {
       ofType(AuthActions.setAllRegister.request.type),
       mergeMap((action: { user: IRegisterUser; type: string }) =>
         this.authService.register(action.user).pipe(
-          map((response) => {
-            localStorage.setItem('token', response.access_token);
+          map(({ access_token, objectId }) => {
+            sessionStorage.setItem('token', access_token);
+            localStorage.setItem('token', access_token);
 
-            this.goToHomePage();
+            this.router.navigateByUrl('/');
 
-            return AuthActions.setAllRegister.success({
-              id: response.user_id,
-            });
+            return AuthActions.setAllRegister.success({ id: objectId });
+          }),
+          catchError(() => {
+            return of(AuthActions.setAllRegister.failure());
           })
         )
-      ),
-      catchError(({ error }) => {
-        this.toaster.error('Error :(', error.message, this.toasterOptions);
-        return of(
-          AuthActions.setAllRegister.failure()
-          // {error: { code: error.statusCode, message: error.message}
-        );
-      })
+      )
     )
   );
 
@@ -43,26 +37,15 @@ export class AuthEffects {
       mergeMap(
         (action: { user: ILoginUser; rememberMe: boolean; type: string }) => {
           return this.authService.login(action.user).pipe(
-            map((response) => {
+            map(({ access_token, objectId }) => {
               if (action.rememberMe) {
-                localStorage.setItem('token', response.access_token);
-              } else {
-                sessionStorage.setItem('token', response.access_token);
+                localStorage.setItem('token', access_token);
               }
-
-              this.goToHomePage();
-
-              return AuthActions.setAllLogin.success({
-                id: response.user_id,
-              });
+              sessionStorage.setItem('token', access_token);
+              this.router.navigateByUrl('/');
+              return AuthActions.setAllLogin.success({ id: objectId });
             }),
-            catchError(() => {
-              // this.toaster.error('Error :(', error.message, this.toasterOptions);
-              return of(
-                AuthActions.setAllLogin.failure()
-                // {error: { code: error.statusCode, message: error.message}
-              );
-            })
+            catchError(() => of(AuthActions.setAllLogin.failure()))
           );
         }
       )
@@ -72,18 +55,6 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private toaster: NotificationsService,
     private router: Router
   ) {}
-
-  private goToHomePage(): void {
-    this.router.navigateByUrl('/');
-    // setTimeout(() => this.router.navigateByUrl('/'), 3000);
-  }
-
-  private toasterOptions = {
-    animate: 'fade',
-    timeOut: 3000,
-    showProgressBar: true,
-  };
 }
