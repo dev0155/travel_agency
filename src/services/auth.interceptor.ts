@@ -13,7 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private toaster: NotificationsService,
+    private toaster: NotificationsService
   ) {}
 
   private toasterOptions = {
@@ -26,11 +26,12 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token: string = localStorage.getItem('token');
-    if (token) {
+    const localToken: string = localStorage.getItem('token');
+    const sessionToken: string = sessionStorage.getItem('token');
+    if (localToken || sessionToken) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${sessionToken || localToken}`,
         },
       });
     }

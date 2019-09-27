@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { HOTEL_URL, IMAGES_URL } from 'src/endpoints';
+import { HOTEL_URL, IMAGE_URL } from 'src/endpoints';
 import IHotelForm from 'src/store/models/hotel/IHotelForm.model';
 import IUploadedImg from 'src/store/models/hotel/IUploadedImg.model';
 import IResponse from 'src/store/models/IResponse.model';
@@ -16,6 +16,6 @@ export class HotelService {
   }
 
   public uploadImg(hotelId: number, img: FormData): Observable<IUploadedImg> {
-    return this.http.post<IUploadedImg>(`${IMAGES_URL}/upload/${hotelId}`, img);
+    return this.http.post<IUploadedImg>(`${IMAGE_URL}/upload/${hotelId}`, img);
   }
 }

@@ -37,7 +37,7 @@ export function getReducers() {
       useClass: AuthInterceptor,
       multi: true,
     },
-    { provide: REDUCER_TOKEN, useFactory: getReducers }
+    { provide: REDUCER_TOKEN, useFactory: getReducers },
   ],
   bootstrap: [AppComponent],
 })

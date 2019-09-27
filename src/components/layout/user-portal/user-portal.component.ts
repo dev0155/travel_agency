@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  Input,
-  ContentChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
 
@@ -18,7 +10,10 @@ import { AuthService } from 'src/services/auth.service';
 export class UserPortalComponent implements OnInit {
   @Output() hideComponent = new EventEmitter();
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router // private store: Store<AppState>
+  ) {}
 
   ngOnInit() {}
 

@@ -19,6 +19,7 @@ export class HotelEffects {
             map(({ objectId }) => {
               const transformedPics = this.transformImgData(action.images);
 
+              console.log(transformedPics);
               return HotelActions.createHotel.success({
                 id: objectId,
                 images: transformedPics,
@@ -38,6 +39,7 @@ export class HotelEffects {
         if (!action.id) {
           return EMPTY;
         }
+        console.log(action.id);
         return action.images.map((img) => {
           return HotelActions.uploadImages.request({
             image: img,
@@ -52,8 +54,11 @@ export class HotelEffects {
     this.actions$.pipe(
       ofType(HotelActions.uploadImages.request.type),
       mergeMap((action: { image: FormData; hotelId: number; type: string }) => {
+        console.log(action.image);
         return this.hotelService.uploadImg(action.hotelId, action.image).pipe(
           map(() => {
+            console.log('NICE');
+            console.log(action.image);
             return HotelActions.uploadImages.success();
           }),
           catchError(() => {
@@ -86,6 +91,7 @@ export class HotelEffects {
     images.map((item) => {
       const fd = new FormData();
       fd.append('file', item);
+      fd.forEach((data) => console.log(data));
       result.push(fd);
     });
     return result;

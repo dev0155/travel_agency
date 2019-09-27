@@ -6,7 +6,7 @@ import IRegisterUser from 'src/store/models/auth/IRegisterUser';
 import ILoginUser from 'src/store/models/auth/ILoginUser';
 
 export interface IAuthResponse {
-  id: number;
+  objectId: number;
   access_token: string;
 }
 @Injectable()

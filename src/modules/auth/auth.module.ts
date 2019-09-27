@@ -9,6 +9,7 @@ import { RegisterComponent } from 'src/pages/auth/register/register.component';
 import { LoginComponent } from 'src/pages/auth/login/login.component';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from 'src/store/effects/auth.effects';
+import { UsersService } from 'src/services/users.service';
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
@@ -19,7 +20,7 @@ import { AuthEffects } from 'src/store/effects/auth.effects';
     FormsModule,
     ReactiveFormsModule,
     SimpleNotificationsModule.forRoot(),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, UsersService]),
   ],
   providers: [AuthService],
 })

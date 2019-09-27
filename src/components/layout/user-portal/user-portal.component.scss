@@ -1,4 +1,31 @@
-@import '../../../variables';
+@import 'src/variables';
+
+.link {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+
+    .link__text {
+      color: $title-color;
+      transition: color 0.4s;
+    }
+  }
+
+  .link__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .link__text {
+    margin-left: 15%;
+    font-size: 14px;
+    color: $text-color;
+  }
+}
 
 .container {
   position: absolute;
@@ -19,14 +46,5 @@
 
   hr {
     margin: 0;
-  }
-
-  .link__icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .link {
-    cursor: pointer;
   }
 }

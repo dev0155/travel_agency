@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SidebarService } from 'src/services/sidebar.service';
+import { AppState } from 'src/store';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +12,21 @@ export class HeaderComponent implements OnInit {
   isUserPortalDisplayed = false;
   @ViewChild('user') private userBlock: ElementRef;
 
-  constructor(private sidebarService: SidebarService) {}
+  public userName: string;
 
-  ngOnInit() {}
+  constructor(
+    private sidebarService: SidebarService,
+    private store: Store<AppState>
+  ) {}
+
+  ngOnInit() {
+    this.store
+      .pipe(select('users'))
+      .subscribe(
+        ({ firstName, lastName }) =>
+          (this.userName = `${firstName} ${lastName}`)
+      );
+  }
 
   toggle() {
     this.sidebarService.isClosed = !this.sidebarService.isClosed;

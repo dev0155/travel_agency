@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ITour } from 'src/interfaces/basics/tour.model';
 
 @Component({
   selector: 'td-header',

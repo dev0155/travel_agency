@@ -15,13 +15,13 @@ export class AuthEffects {
       ofType(AuthActions.setAllRegister.request.type),
       mergeMap((action: { user: IRegisterUser; type: string }) =>
         this.authService.register(action.user).pipe(
-          map(({ access_token, id }) => {
+          map(({ access_token, objectId }) => {
             sessionStorage.setItem('token', access_token);
             localStorage.setItem('token', access_token);
 
             this.router.navigateByUrl('/');
 
-            return AuthActions.setAllRegister.success({ id });
+            return AuthActions.setAllRegister.success({ id: objectId });
           }),
           catchError(() => {
             return of(AuthActions.setAllRegister.failure());
@@ -37,13 +37,13 @@ export class AuthEffects {
       mergeMap(
         (action: { user: ILoginUser; rememberMe: boolean; type: string }) => {
           return this.authService.login(action.user).pipe(
-            map(({ access_token, id }) => {
+            map(({ access_token, objectId }) => {
               if (action.rememberMe) {
                 localStorage.setItem('token', access_token);
               }
               sessionStorage.setItem('token', access_token);
               this.router.navigateByUrl('/');
-              return AuthActions.setAllLogin.success({ id });
+              return AuthActions.setAllLogin.success({ id: objectId });
             }),
             catchError(() => of(AuthActions.setAllLogin.failure()))
           );
