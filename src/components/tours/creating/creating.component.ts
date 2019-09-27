@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
+
 import { ValidDateRange } from 'src/components/common/valid-date-range/valid-date-range';
 import { ITourService } from 'src/store/models/tours/ITourService.model';
 import { AppState } from 'src/store';
-import { Store, select } from '@ngrx/store';
+import IAddress from 'src/store/models/IAddress.model';
+import { ToursActions } from 'src/store/actions/tours.actions';
+import { IHttpTour } from 'src/store/models/tours/ITour.model';
 
 @Component({
   selector: 'tour-creating',
@@ -12,16 +16,26 @@ import { Store, select } from '@ngrx/store';
 })
 export class CreatingTourComponent implements OnInit {
   public tourForm: FormGroup;
-  public roomType: string[] = ['Economy', 'Lux', 'Standard'];
+  public roomTypes: string[] = ['Economy', 'Lux', 'Standard'];
   public services: ITourService[];
+  public hotels: IHotel[];
 
   constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.createForm();
-    this.store
-      .pipe(select('tours'))
-      .subscribe(({ services }) => (this.services = services));
+    this.getStoreData();
+    this.onChanges();
+    this.tourForm.valueChanges.subscribe((data) => {
+      console.log(data);
+      console.log(this.tourForm.invalid);
+    });
+  }
+
+  public createTour(): void {
+    this.store.dispatch(
+      ToursActions.create.request({ tour: this.restructedInfo })
+    );
   }
 
   public isValid(name: string): boolean {
@@ -32,15 +46,12 @@ export class CreatingTourComponent implements OnInit {
     this.tourForm = this.fb.group(
       {
         hotel: ['', Validators.required],
-        roomType: ['', Validators.required],
+        roomTypes: ['', Validators.required],
         address: ['Address'],
         services: ['', Validators.required],
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
-        price: [
-          '',
-          Validators.compose([Validators.min(1), Validators.required]),
-        ],
+        prices: this.fb.group(this.initPricesControl()),
         description: [
           '',
           Validators.compose([Validators.minLength(140), Validators.required]),
@@ -50,5 +61,106 @@ export class CreatingTourComponent implements OnInit {
         validator: ValidDateRange('startDate', 'endDate'),
       }
     );
+  }
+
+  private initPricesControl() {
+    const obj = {};
+    this.roomTypes.map((item) => {
+      obj[item] = this.fb.control('');
+    });
+    return obj;
+  }
+
+  private getStoreData() {
+    this.store
+      .pipe(select('tours'))
+      .subscribe(({ services }) => (this.services = services));
+    this.store.pipe(select('hotel')).subscribe(({ hotels }) => {
+      this.hotels = hotels;
+    });
+  }
+
+  private onHotelChanges(): void {
+    this.tourForm.get('hotel').valueChanges.subscribe(({ address }) => {
+      if (address) {
+        this.tourForm.get('address').setValue(this.addressToString(address));
+        console.log(this.tourForm.get('prices').invalid);
+      }
+    });
+  }
+
+  private addressToString(address: IAddress): string {
+    return `${address.street}, ${address.state}, ${address.city}, ${address.country} `;
+  }
+
+  private get restructedInfo(): IHttpTour {
+    const {
+      services,
+      startDate,
+      endDate,
+      hotel,
+      description,
+    } = this.tourForm.value;
+
+    const rooms = [];
+
+    for (const item of Object.keys(this.prices)) {
+      if (this.prices[item] !== '') {
+        rooms.push({ price: this.prices[item], roomType: item });
+      }
+    }
+
+    return {
+      hotelId: hotel.id,
+      description,
+      endDate,
+      startDate,
+      services,
+      rooms,
+    };
+  }
+
+  private onChanges(): void {
+    this.onHotelChanges();
+    this.onRoomsChanges();
+  }
+
+  private updatedPrices(selected: string[]): void {
+    const control = this.tourForm.get('prices');
+    const updated = {};
+    Object.keys(this.prices).map((item) => {
+      if (selected.includes(item)) {
+        const value = control.value[item];
+        updated[item] = value !== '' ? value : null;
+      } else {
+        updated[item] = '';
+      }
+    });
+    control.patchValue(updated);
+  }
+
+  public isPricesValid(): boolean {
+    for (const item of Object.keys(this.prices)) {
+      if (this.prices[item] === '') {
+        continue;
+      } else if (this.prices[item] <= 0 || !this.prices[item]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public get rooms(): string[] {
+    return this.tourForm.get('roomTypes').value;
+  }
+
+  private get prices(): string[] {
+    return this.tourForm.get('prices').value;
+  }
+
+  private onRoomsChanges(): void {
+    this.tourForm.get('roomTypes').valueChanges.subscribe((data) => {
+      this.updatedPrices(data);
+    });
   }
 }

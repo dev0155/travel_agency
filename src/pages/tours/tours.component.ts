@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from 'src/store';
 import { ToursActions } from 'src/store/actions/tours.actions';
+import { HotelActions } from 'src/store/actions/hotel.actions';
 
 @Component({
   selector: 'app-tours',
@@ -12,7 +13,11 @@ export class ToursComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
+    this.setDataToStore();
+  }
+
+  private setDataToStore(): void {
     this.store.dispatch(ToursActions.getServices.request());
-    // this.store.pipe(select('tours')).subscribe((data) => console.log(data));
+    this.store.dispatch(HotelActions.getAll.request());
   }
 }

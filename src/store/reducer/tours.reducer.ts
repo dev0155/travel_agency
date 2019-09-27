@@ -23,7 +23,13 @@ const toursReducer = createReducer(
   on(ToursActions.getServices.failure, (state) => ({
     ...state,
     services: null,
-  }))
+  })),
+
+  on(ToursActions.create.request, (state) => ({
+    ...state,
+  })),
+  on(ToursActions.create.request, (state) => ({ ...state })),
+  on(ToursActions.create.failure, (state) => ({ ...state }))
 );
 
 export function reducer(state: IToursState | undefined, action: Action) {

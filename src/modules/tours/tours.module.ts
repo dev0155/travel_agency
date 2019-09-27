@@ -9,6 +9,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { EffectsModule } from '@ngrx/effects';
 import { ToursEffects } from 'src/store/effects/tours.effects';
 import { ToursService } from 'src/services/tours.service';
+import { HotelService } from 'src/services/hotel.service';
+import { HotelEffects } from 'src/store/effects/hotel.effects';
 
 const routes: Route[] = [
   {
@@ -34,8 +36,8 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     NgSelectModule,
-    EffectsModule.forFeature([ToursEffects]),
+    EffectsModule.forFeature([ToursEffects, HotelEffects]),
   ],
-  providers: [ToursService],
+  providers: [ToursService, HotelService],
 })
 export class ToursModule {}

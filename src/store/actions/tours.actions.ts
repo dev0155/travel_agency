@@ -1,17 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import { createActionType } from '../helpers/effects';
 import { ITourService } from '../models/tours/ITourService.model';
+import { IHttpTour } from '../models/tours/ITour.model';
+import IResponse from '../models/IResponse.model';
 
 const CREATE_TOUR = createActionType('[TOUR CREATE] setAll');
 const GET_ALL_TOURS = createActionType('[TOUR GET ALL] setAll');
 const GET_SERVICES = createActionType('[TOUR GET SERVICES] setAll');
 
 export const create = {
-  request: createAction(CREATE_TOUR.REQUEST, props<{ tour; images: File[] }>()),
-  success: createAction(
-    CREATE_TOUR.SUCCESS,
-    props<{ id: number; images: FormData[] }>()
-  ),
+  request: createAction(CREATE_TOUR.REQUEST, props<{ tour: IHttpTour }>()),
+  success: createAction(CREATE_TOUR.SUCCESS),
   failure: createAction(CREATE_TOUR.FAILURE),
 };
 

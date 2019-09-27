@@ -46,26 +46,25 @@
     resize: none;
   }
 
-  .invalid-input {
-    border: $danger-border;
-    margin-bottom: 0.5em;
+  .alert-danger {
+    margin-top: 0.5em;
   }
 
-  .btn {
-    float: right;
-    font-size: 10px;
-    text-transform: uppercase;
+  // .btn {
+  //   float: right;
+  //   font-size: 10px;
+  //   text-transform: uppercase;
 
-    color: $btn-color;
-    border-color: $btn-color;
-    border-radius: 10px;
+  //   color: $btn-color;
+  //   border-color: $btn-color;
+  //   border-radius: 10px;
 
-    &:hover {
-      background-color: $bg-color;
-    }
+  //   &:hover {
+  //     background-color: $bg-color;
+  //   }
 
-    &:focus {
-      box-shadow: none;
-    }
-  }
+  //   &:focus {
+  //     box-shadow: none;
+  //   }
+  // }
 }

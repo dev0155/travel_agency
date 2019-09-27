@@ -5,3 +5,4 @@ export const HOTEL_URL = API_URL + '/hotel';
 export const IMAGES_URL = API_URL + '/image';
 export const TOURS_URL = API_URL + '/tours';
 export const SERVICES_URL = API_URL + '/services';
+export const ADDRESS_URL = API_URL + '/address';

@@ -7,6 +7,8 @@ import { NotificationsService } from 'angular2-notifications';
 import { HotelService } from 'src/services/hotel.service';
 import { HotelActions } from '../actions/hotel.actions';
 import IHotelForm from '../models/hotel/IHotelForm.model';
+import { IHotelResponse } from '../models/hotel/IHotelResponse.model';
+import IAddress from '../models/IAddress.model';
 
 @Injectable()
 export class HotelEffects {
@@ -70,6 +72,27 @@ export class HotelEffects {
     )
   );
 
+  getAll$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(HotelActions.getAll.request.type),
+      mergeMap(() =>
+        this.hotelService.getAll().pipe(
+          mergeMap((hotels) => {
+            return this.hotelService.getAddresses().pipe(
+              map((response) => {
+                const result = this.getHotelsWithAddresses(hotels, response);
+                return HotelActions.getAll.success({
+                  hotels: result,
+                });
+              }),
+              catchError(() => of(HotelActions.getAll.failure()))
+            );
+          })
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private hotelService: HotelService,
@@ -90,5 +113,37 @@ export class HotelEffects {
       result.push(fd);
     });
     return result;
+  }
+
+  private getAddressesIds(hotels: IHotelResponse[]) {
+    const ids: number[] = [];
+    hotels.map((item) => ids.push(item.addressId));
+    return ids;
+  }
+
+  private getHotelsAddresses(
+    allAddresses: IAddress[],
+    hotels: IHotelResponse[]
+  ) {
+    const addresses = [] as IAddress[];
+    const hotelAddressesIds = this.getAddressesIds(hotels);
+    allAddresses.map((item) => {
+      if (hotelAddressesIds.includes(item.id)) {
+        addresses.push(item);
+      }
+    });
+    return addresses;
+  }
+
+  private getHotelsWithAddresses(hotels, allAddresses): IHotel[] {
+    const hotelsWithAddresses = [];
+    const addresses = this.getHotelsAddresses(allAddresses, hotels);
+    const zip = (arr1, arr2) => arr1.map((item, index) => [item, arr2[index]]);
+
+    zip(hotels, addresses).map((item) =>
+      hotelsWithAddresses.push({ ...item[0], address: item[1] })
+    );
+
+    return hotelsWithAddresses;
   }
 }

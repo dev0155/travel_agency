@@ -4,6 +4,7 @@ import IHotelForm from '../models/hotel/IHotelForm.model';
 
 const CREATE_HOTEL = createActionType('[HOTEL CREATE] setAll');
 const UPLOAD_IMAGES = createActionType('[HOTEL UPLOAD IMAGES] setAll');
+const GET_ALL = createActionType('[HOTEL GET ALL] setAll');
 
 export const createHotel = {
   request: createAction(
@@ -26,7 +27,14 @@ export const uploadImages = {
   failure: createAction(UPLOAD_IMAGES.FAILURE),
 };
 
+export const getAll = {
+  request: createAction(GET_ALL.REQUEST),
+  success: createAction(GET_ALL.SUCCESS, props<{ hotels: IHotel[] }>()),
+  failure: createAction(GET_ALL.FAILURE),
+};
+
 export const HotelActions = {
   createHotel,
   uploadImages,
+  getAll,
 };
