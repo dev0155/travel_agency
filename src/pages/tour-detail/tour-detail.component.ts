@@ -16,9 +16,9 @@ export class TourDetailComponent implements OnInit {
 
   ngOnInit() {
     this.tabs = tabs;
-    this.toursService.getTours().subscribe((response: ITour[]) => {
-      this.tour = response[0];
-    });
+    // this.toursService.getTours().subscribe((response: ITour[]) => {
+    //   this.tour = response[0];
+    // });
   }
 
   public onChangeTab = (tabName: string) => {
