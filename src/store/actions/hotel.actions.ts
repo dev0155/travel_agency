@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { createActionType } from '../helpers/effects';
 import IHotelForm from '../models/hotel/IHotelForm.model';
+import { IHotel } from 'src/interfaces/basics/hotel.model';
 
 const CREATE_HOTEL = createActionType('[HOTEL CREATE] setAll');
 const UPLOAD_IMAGES = createActionType('[HOTEL UPLOAD IMAGES] setAll');

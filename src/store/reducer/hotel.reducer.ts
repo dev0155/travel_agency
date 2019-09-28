@@ -1,7 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { HotelActions } from '../actions/hotel.actions';
-import { IHotelResponse } from '../models/hotel/IHotelResponse.model';
-import IAddress from '../models/IAddress.model';
+import { IHotel } from 'src/interfaces/basics/hotel.model';
 
 export interface IHotelState {
   loadedImgCounter: number;
