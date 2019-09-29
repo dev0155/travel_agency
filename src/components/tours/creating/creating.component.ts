@@ -8,6 +8,7 @@ import { AppState } from 'src/store';
 import IAddress from 'src/store/models/IAddress.model';
 import { ToursActions } from 'src/store/actions/tours.actions';
 import { IHttpTour } from 'src/store/models/tours/ITour.model';
+import { IHotel } from 'src/interfaces/basics/hotel.model';
 
 @Component({
   selector: 'tour-creating',

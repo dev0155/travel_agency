@@ -9,6 +9,7 @@ import { HotelActions } from '../actions/hotel.actions';
 import IHotelForm from '../models/hotel/IHotelForm.model';
 import { IHotelResponse } from '../models/hotel/IHotelResponse.model';
 import IAddress from '../models/IAddress.model';
+import { IHotel } from 'src/interfaces/basics/hotel.model';
 
 @Injectable()
 export class HotelEffects {
