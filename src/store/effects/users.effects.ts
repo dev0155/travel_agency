@@ -1,14 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { of, concat, EMPTY } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
 import { UsersService } from 'src/services/users.service';
 import { UsersActions } from '../actions/users.actions';
 import IUser from '../models/IUser.model';
+import { CompanyActions } from '../actions/company.actions';
 
 @Injectable()
 export class UsersEffects {
+  getCurrentId$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UsersActions.getCurrentId.request.type),
+      mergeMap(() =>
+        this.usersService.getCurrentId().pipe(
+          mergeMap(({ objectId }) =>
+            concat(
+              of(UsersActions.getById.request({ id: objectId })),
+              of(CompanyActions.getByUserId.request({ id: objectId }))
+            )
+          ),
+          catchError(() => EMPTY)
+        )
+      )
+    )
+  );
+
   get$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UsersActions.getById.request.type),
