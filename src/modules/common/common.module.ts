@@ -4,6 +4,7 @@ import { ClickOutsideDirective } from 'src/components/common/click_outside/click
 import { TabsComponent } from 'src/components/common/tabs/tabs.component';
 import { RatingComponent } from 'src/components/common/rating/rating.component';
 import { SpinnerComponent } from 'src/components/common/spinner/spinner.component';
+import { PaginationComponent } from 'src/components/common/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { SpinnerComponent } from 'src/components/common/spinner/spinner.componen
     TabsComponent,
     RatingComponent,
     SpinnerComponent,
+    PaginationComponent
   ],
   imports: [Common],
   exports: [
@@ -18,6 +20,7 @@ import { SpinnerComponent } from 'src/components/common/spinner/spinner.componen
     TabsComponent,
     RatingComponent,
     SpinnerComponent,
+    PaginationComponent
   ],
 })
 export class CommonModule {}

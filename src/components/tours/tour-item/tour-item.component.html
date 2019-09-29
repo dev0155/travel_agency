@@ -1,28 +1,19 @@
-<div class="hotel_item">
-  <div class="hotel_item__block">
-    <div class="hotel_item__image">
-      <img src="\assets\hotel.JPG" alt="hotel image" />
+<div class="container-fluid">
+  <div class="row" *ngFor="let tour of tours">
+    <div class="col-md-3">
+      <img width="100%" height="100%" src="{{tour.image}}" alt="tour - img">
     </div>
-    <div class="hotel_item__info">
-      <div class="hotel_item__title">
-        <h2>{{ hotelName }}</h2>
-      </div>
-      <div class="hotel_item__subtitle">
-        <p>{{ hotelLocation }}</p>
-        <p>
-          Duration: <strong>{{ duration }} days</strong>
-        </p>
-        <p>
-          Room type: <strong>{{ roomType }} room</strong>
-        </p>
-      </div>
+    <div class="col-md-5">
+      <h2>{{tour.name}}</h2>
+      <p>{{tour.location}}</p>
+      <p>Duration: {{tour.duration}} days</p>
+      <p>Room Type: {{tour.roomType}}</p>
     </div>
-    <div class="hotel_item_price">
-      <div class="hotel_item_price__value">
-        <h2>{{ price }} ‎€</h2>
-        <p><strong>per person</strong></p>
-      </div>
-      <button>DETAILS</button>
-    </div>
+    <div class="col-md-3">
+      <p>{{tour.price}}</p>
+      <button type="button" class="btn btn-warning" routerLink="/tours/ + tour.id">Details</button>
+    </div>  
   </div>
 </div>
+
+<app-pagination></app-pagination>

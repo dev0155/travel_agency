@@ -1,17 +1,30 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { ToursService } from 'src/services/tours.service';
 
 @Component({
-  selector: "app-tour-item",
-  templateUrl: "./tour-item.component.html",
-  styleUrls: ["./tour-item.component.scss"]
+  selector: 'app-tour-item',
+  templateUrl: './tour-item.component.html',
+  styleUrls: ['./tour-item.component.scss']
 })
 export class TourItemComponent implements OnInit {
-  constructor() {}
 
-  hotelName: string = "Alara Star Hotel 5*";
-  hotelLocation: string = "Alania, Turkey";
-  duration: number = 7;
-  roomType: string = "Standart";
-  price: number = 842;
-  ngOnInit() {}
+  constructor(
+    private tourService: ToursService
+  ) {}
+
+  tours: Array<{}> = [];
+  query: object = {
+    limit: 5,
+    skip: 0
+  };
+
+  ngOnInit() {
+    this.getTours(this.query);
+  }
+
+  getTours(query) {
+    this.tourService.getTours().subscribe(res => {
+      this.tours.push(res);
+    });
+  }
 }

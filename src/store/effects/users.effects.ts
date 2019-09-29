@@ -19,8 +19,8 @@ export class UsersEffects {
               user,
             })
           ),
-          catchError(({ error }) => {
-            this.toaster.error('Error :(', error.message, this.toasterOptions);
+          catchError((e) => {
+            this.toaster.success('Error :(', e.message, this.toasterOptions);
             return of(UsersActions.getById.failure());
           })
         );
