@@ -6,6 +6,7 @@ export interface IUserState {
   firstName: string;
   lastName: string;
 }
+
 const initState = (): IUserState => ({
   email: null,
   firstName: null,

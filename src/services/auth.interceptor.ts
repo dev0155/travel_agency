@@ -42,8 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
         },
         ({ error }) => {
           if (error.statusCode === 401) {
-            localStorage.clear();
-            sessionStorage.clear();
+            this.authService.removeTokens();
 
             this.toaster.error(
               'Error :(',

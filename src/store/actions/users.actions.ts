@@ -5,6 +5,13 @@ import IUser from '../models/IUser.model';
 const GET_BY_ID = createActionType('[USER GET BY ID] setAll');
 const UPDATE_INFO = createActionType('[USER UPDATE INFO] setAll');
 const UPDATE_PASSWORD = createActionType('[USER UPDATE PASSWORD] setAll');
+const GET_CURRENT_ID = createActionType('[USER GET CURRENT ID] setAll');
+
+const getCurrentId = {
+  request: createAction(GET_CURRENT_ID.REQUEST),
+  // success: createAction(GET_CURRENT_ID.SUCCESS, props<{ id: number }>()),
+  // failure: createAction(GET_CURRENT_ID.FAILURE),
+};
 
 const getById = {
   request: createAction(GET_BY_ID.REQUEST, props<{ id: number }>()),
@@ -28,4 +35,5 @@ export const UsersActions = {
   getById,
   updateInfo,
   updatePassword,
+  getCurrentId,
 };
