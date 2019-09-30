@@ -1,25 +1,27 @@
 <ng-container *ngIf="tour.hotel !== undefined; else spinner">
-  <td-header [tour]="tour"></td-header>
+  <div class="container">
+    <td-header [tour]="tour"></td-header>
 
-  <td-tab-panel
-    [tabs]="tabs"
-    [currentTab]="currentTab"
-    (changeTab)="onChangeTab($event)"
-  >
-    <ng-container [ngSwitch]="currentTab">
-      <ng-container>
-        <td-general-tab
-          *ngSwitchCase="'General'"
-          [hotel]="tour.hotel"
-        ></td-general-tab>
+    <td-tab-panel
+      [tabs]="tabs"
+      [currentTab]="currentTab"
+      (changeTab)="onChangeTab($event)"
+    >
+      <ng-container [ngSwitch]="currentTab">
+        <ng-container>
+          <td-general-tab
+            *ngSwitchCase="'General'"
+            [hotel]="tour.hotel"
+          ></td-general-tab>
+        </ng-container>
+
+        <td-service-tab *ngSwitchCase="'Service'"></td-service-tab>
+        <td-photos-tab *ngSwitchCase="'Photos'"></td-photos-tab>
+        <td-map-tab *ngSwitchCase="'Map'"></td-map-tab>
+        <td-comments-tab *ngSwitchCase="'Comments'"></td-comments-tab>
       </ng-container>
-
-      <td-service-tab *ngSwitchCase="'Service'"></td-service-tab>
-      <td-photos-tab *ngSwitchCase="'Photos'"></td-photos-tab>
-      <td-map-tab *ngSwitchCase="'Map'"></td-map-tab>
-      <td-comments-tab *ngSwitchCase="'Comments'"></td-comments-tab>
-    </ng-container>
-  </td-tab-panel>
+    </td-tab-panel>
+  </div>
 </ng-container>
 
 <ng-template #spinner>

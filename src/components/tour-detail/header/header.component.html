@@ -2,24 +2,20 @@
   <div
     class="view"
     [ngStyle]="{
-      'background-image': 'url(' + tour.hotel.images[0] + ')',
+      'background-image': 'url(' + imgPath + ')',
       'background-color': 'rgba(248, 247, 216, 0.7)'
     }"
   >
-    <h2>{{ tour.hotel.name }}</h2>
-    <p>{{ tour.hotel.address.city }}, {{ tour.hotel.address.country }}</p>
+    <h2>{{ hotel.name }}</h2>
+    <p>{{ hotel.address.city }}, {{ hotel.address.country }}</p>
   </div>
-
-  <div
-    class="info"
-    [ngStyle]="{ 'background-image': 'url(' + tour.hotel.images[0] + ')' }"
-  >
+  <div class="info" [ngStyle]="{ 'background-image': 'url(' + imgPath + ')' }">
     <div class="shadow">
       <div class="wrapper">
         <div class="d-flex flex-column">
           <p class="info__text">Tour ID: {{ tour.id }}</p>
           <p class="info__text" [ngStyle]="{ color: 'green' }">
-            Tour relevant ???
+            Tour relevant
           </p>
         </div>
         <div class="currency">
@@ -36,8 +32,9 @@
 
       <div class="price">
         <p>
+          from
           <span>{{
-            tour.price | currency: currentCurrency:'symbol-narrow':'5.0'
+            minPrice | currency: currentCurrency:'symbol-narrow':'2.0'
           }}</span>
           for person
         </p>
@@ -45,11 +42,18 @@
 
       <div class="wrapper flex-column">
         <p class="info__text">
-          Duration: <span>{{ getDuration() }} days</span>
+          Duration: <span>{{ duration }} days</span>
         </p>
-        <p class="info__text">
-          Room Type: <span>{{ tour.roomType }}</span>
-        </p>
+        <div class="rooms-box">
+          <p class="info__text">Room types:</p>
+          <div class="rooms__info">
+            <span *ngFor="let item of tour.rooms">{{
+              item.roomType +
+                '    ' +
+                (item.price | currency: currentCurrency:'symbol-narrow':'2.0')
+            }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

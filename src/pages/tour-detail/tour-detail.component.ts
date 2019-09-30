@@ -32,18 +32,18 @@ export class TourDetailComponent implements OnInit, OnDestroy {
     this.storeSubscription.unsubscribe();
   }
 
-  private getTourFromStore() {
+  private getTourFromStore(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.storeSubscription = this.store
       .pipe(select('tours'))
       .subscribe(({ items }) => {
         if (this.id) {
-          this.tour = items[this.id];
+          this.tour = items.filter((tour) => tour.id === this.id)[0];
         }
       });
   }
 
-  public onChangeTab(tabName: string) {
+  public onChangeTab(tabName: string): void {
     this.currentTab = tabName;
   }
 }

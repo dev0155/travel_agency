@@ -36,6 +36,23 @@ export class ToursEffects {
     )
   );
 
+  search$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ToursActions.search.request.type),
+      mergeMap((action: { target: string; type: string }) => {
+        return this.toursService.search(action.target).pipe(
+          map((response) => {
+            console.log(response);
+            return ToursActions.search.success({ items: response });
+          }),
+          catchError(() => {
+            return of(ToursActions.search.failure());
+          })
+        );
+      })
+    )
+  );
+
   getTourServices$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ToursActions.getServices.request.type),

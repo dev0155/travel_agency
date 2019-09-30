@@ -55,7 +55,25 @@ const toursReducer = createReducer(
     ...state,
   })),
   on(ToursActions.create.request, (state) => ({ ...state })),
-  on(ToursActions.create.failure, (state) => ({ ...state }))
+  on(ToursActions.create.failure, (state) => ({ ...state })),
+  on(ToursActions.search.request, (state) => ({
+    ...state,
+    items: null,
+    paginator: null,
+    loading: false,
+  })),
+  on(ToursActions.search.success, (state, action) => ({
+    ...state,
+    items: action.items,
+    paginator: null,
+    loading: false,
+  })),
+  on(ToursActions.search.failure, (state) => ({
+    ...state,
+    paginator: null,
+    items: null,
+    loading: false,
+  }))
 );
 
 export function reducer(state: IToursState | undefined, action: Action) {

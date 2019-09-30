@@ -8,6 +8,7 @@ import {
   IHttpAllTours,
 } from 'src/store/models/tours/ITour.model';
 import IResponse from 'src/store/models/IResponse.model';
+import { ITour } from 'src/interfaces/basics/tour.model';
 
 @Injectable()
 export class ToursService {
@@ -23,5 +24,9 @@ export class ToursService {
 
   public create(tour: IHttpTour): Observable<IResponse> {
     return this.http.post<IResponse>(TOURS_URL, tour);
+  }
+
+  public search(target: string): Observable<ITour[]> {
+    return this.http.get<ITour[]>(`${TOURS_URL}/find/search=${target}`);
   }
 }

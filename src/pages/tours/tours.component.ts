@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { AppState } from 'src/store';
@@ -18,6 +18,7 @@ export class ToursComponent implements OnInit {
   public page = 1;
   public length = 1;
   public itemsPerPage = 5;
+  public search: string;
 
   constructor(private store: Store<AppState>, private router: Router) {}
 
@@ -28,8 +29,7 @@ export class ToursComponent implements OnInit {
       if (items && paginator) {
         this.collection = items;
         this.length = paginator.total;
-        this.itemsPerPage =
-          paginator.total < 25 ? 5 : paginator.total < 50 ? 10 : 20;
+        this.itemsPerPage = this.length < 25 ? 5 : this.length < 50 ? 10 : 20;
       }
     });
   }
@@ -42,11 +42,15 @@ export class ToursComponent implements OnInit {
   public changePage(e) {
     this.page = e.page ? e.page - 1 : e - 1;
     this.store.dispatch(
-      ToursActions.getAll.request({ params: this.searchParams })
+      ToursActions.getAll.request({ params: this.pageParams })
     );
   }
 
-  private get searchParams() {
+  public searchClick() {
+    this.store.dispatch(ToursActions.search.request({ target: this.search }));
+  }
+
+  private get pageParams() {
     return {
       page: this.page,
       limit: this.itemsPerPage,

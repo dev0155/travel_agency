@@ -8,8 +8,15 @@ import { IHotel } from 'src/interfaces/basics/hotel.model';
 })
 export class GeneralComponent implements OnInit {
   @Input() hotel = {} as IHotel;
+  public rating: number;
 
-  constructor() {}
+  constructor() {
+    this.randomRating();
+  }
 
   ngOnInit() {}
+
+  public randomRating(): void {
+    this.rating = Math.floor(Math.random() * 10);
+  }
 }

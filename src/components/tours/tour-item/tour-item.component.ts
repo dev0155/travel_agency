@@ -36,6 +36,14 @@ export class TourItemComponent implements OnInit, OnChanges {
   }
 
   public viewDetails(): void {
+    console.log('id ', this.tour.id);
     this.router.navigateByUrl(`tours/${this.tour.id}`);
+  }
+
+  public get minPrice(): number {
+    return this.tour.rooms.reduce(
+      (min, next) => (next.price < min ? next.price : min),
+      this.tour.rooms[0].price
+    );
   }
 }
