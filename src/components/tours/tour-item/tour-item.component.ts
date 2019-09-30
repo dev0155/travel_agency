@@ -1,17 +1,41 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
+import { ITour } from 'src/interfaces/basics/tour.model';
+import { IHotel } from 'src/interfaces/basics/hotel.model';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: "app-tour-item",
-  templateUrl: "./tour-item.component.html",
-  styleUrls: ["./tour-item.component.scss"]
+  selector: 'tour-item',
+  templateUrl: './tour-item.component.html',
+  styleUrls: ['./tour-item.component.scss'],
 })
-export class TourItemComponent implements OnInit {
-  constructor() {}
+export class TourItemComponent implements OnInit, OnChanges {
+  @Input() tour = {} as ITour;
+  public hotel: IHotel;
+  public imgPath: string;
 
-  hotelName: string = "Alara Star Hotel 5*";
-  hotelLocation: string = "Alania, Turkey";
-  duration: number = 7;
-  roomType: string = "Standart";
-  price: number = 842;
+  constructor(private router: Router) {}
+
   ngOnInit() {}
+
+  ngOnChanges(): void {
+    if (this.tour) {
+      this.hotel = this.tour.hotel;
+      this.imgPath = this.hotel.images[0]
+        ? `http://localhost:3000/${this.hotel.images[0].image}`
+        : '../../../assets/img/no-image.png';
+    }
+  }
+
+  public get duration(): number {
+    if (this.tour) {
+      const start = new Date(`${this.tour.startDate}`);
+      const end = new Date(`${this.tour.endDate}`);
+      return Math.abs(end.getDate() - start.getDate());
+    }
+  }
+
+  public viewDetails(): void {
+    this.router.navigateByUrl(`tours/${this.tour.id}`);
+  }
 }

@@ -1,28 +1,28 @@
-<div class="hotel_item">
-  <div class="hotel_item__block">
-    <div class="hotel_item__image">
-      <img src="\assets\hotel.JPG" alt="hotel image" />
-    </div>
-    <div class="hotel_item__info">
-      <div class="hotel_item__title">
-        <h2>{{ hotelName }}</h2>
+<div class="container-fluid">
+  <div class="tour">
+    <img class="tour__img" [src]="imgPath" />
+
+    <div class="holder">
+      <div class="title-box">
+        <h2 class="title">{{ hotel?.name }}</h2>
+        <span>{{ hotel?.address.city + ' ' + hotel?.address.country }}</span>
       </div>
-      <div class="hotel_item__subtitle">
-        <p>{{ hotelLocation }}</p>
-        <p>
-          Duration: <strong>{{ duration }} days</strong>
-        </p>
-        <p>
-          Room type: <strong>{{ roomType }} room</strong>
-        </p>
-      </div>
+      <span class="tour__info"
+        >Duration: <span>{{ duration }} days</span></span
+      >
+      <span class="tour__info"
+        >Room types:
+        <span *ngFor="let item of tour?.rooms">{{ item.roomType + ' ' }}</span>
+      </span>
     </div>
-    <div class="hotel_item_price">
-      <div class="hotel_item_price__value">
-        <h2>{{ price }} ‎€</h2>
-        <p><strong>per person</strong></p>
-      </div>
-      <button>DETAILS</button>
-    </div>
+  </div>
+
+  <div class="detail-box">
+    <span class="price"
+      >from {{ (tour?.rooms)[0].price }}$ <br />per person</span
+    >
+    <button class="btn btn-outline-primary" (click)="viewDetails()">
+      View details
+    </button>
   </div>
 </div>

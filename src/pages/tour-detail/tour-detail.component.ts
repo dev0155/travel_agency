@@ -1,29 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { ToursService } from 'src/services/tours.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ITour } from 'src/interfaces/basics/tour.model';
+import { AppState } from 'src/store';
+import { Store, select } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
+import { Subscriber, Subscription } from 'rxjs';
+
+const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
 
 @Component({
   selector: 'app-tour-detail',
   templateUrl: './tour-detail.component.html',
   styleUrls: ['./tour-detail.component.scss'],
 })
-export class TourDetailComponent implements OnInit {
+export class TourDetailComponent implements OnInit, OnDestroy {
+  private id: number;
+  private storeSubscription: Subscription;
+
+  public tour = {} as ITour;
   public tabs: string[] = [];
   public currentTab: string = 'General';
-  public tour = {} as ITour;
 
-  constructor(private readonly toursService: ToursService) {}
-
-  ngOnInit() {
+  constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     this.tabs = tabs;
-    // this.toursService.getTours().subscribe((response: ITour[]) => {
-    //   this.tour = response[0];
-    // });
   }
 
-  public onChangeTab = (tabName: string) => {
-    this.currentTab = tabName;
-  };
-}
+  ngOnInit() {
+    this.getTourFromStore();
+  }
 
-const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
+  }
+
+  private getTourFromStore() {
+    this.id = +this.route.snapshot.paramMap.get('id');
+    this.storeSubscription = this.store
+      .pipe(select('tours'))
+      .subscribe(({ items }) => {
+        if (this.id) {
+          this.tour = items[this.id];
+        }
+      });
+  }
+
+  public onChangeTab(tabName: string) {
+    this.currentTab = tabName;
+  }
+}

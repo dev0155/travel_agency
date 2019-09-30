@@ -20,7 +20,7 @@ const routes: Route[] = [
     component: ToursComponent,
   },
   {
-    path: 'tour-detail',
+    path: ':id',
     loadChildren: () =>
       import('src/modules/tour-detail/tour-detail.module').then(
         (m) => m.TourDetailModule

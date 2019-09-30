@@ -1,6 +1,14 @@
-<a routerLink="creating">Create</a>
-<ul>
-  <li
+<div class="container">
+  <div class="head-box">
+    <a class="btn btn-primary" routerLink="creating">Create</a>
+    <input
+      class="form-control"
+      type="search"
+      placeholder="search by hotel name..."
+    />
+  </div>
+  <div
+    class="wrapper"
     *ngFor="
       let item of collection
         | paginate
@@ -10,7 +18,10 @@
               totalItems: length
             }
     "
-  ></li>
-</ul>
+  >
+    <tour-item [tour]="item"></tour-item>
+  </div>
 
-<pagination-controls (pageChange)="changePage($event)"> </pagination-controls>
+  <pagination-controls class="my-pagination" (pageChange)="changePage($event)">
+  </pagination-controls>
+</div>
