@@ -7,9 +7,35 @@ import { ToursActions } from '../actions/tours.actions';
 import { ToursService } from 'src/services/tours.service';
 import { IHttpTour } from '../models/tours/ITour.model';
 import { Router } from '@angular/router';
+import IPaginator from 'src/interfaces/custom/IPaginator.model';
 
 @Injectable()
 export class ToursEffects {
+  getAll$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ToursActions.getAll.request.type),
+      mergeMap(
+        (action: { params: { limit: number; page: number }; type: string }) => {
+          return this.toursService.getAll(action.params).pipe(
+            map((response) => {
+              const { itemsCount, total, page, maxPage, items } = response;
+              const paginator: IPaginator = {
+                total,
+                pages: maxPage,
+                count: itemsCount,
+                current: page,
+              };
+              return ToursActions.getAll.success({ items, paginator });
+            }),
+            catchError(() => {
+              return of(ToursActions.getAll.failure());
+            })
+          );
+        }
+      )
+    )
+  );
+
   getTourServices$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ToursActions.getServices.request.type),

@@ -1,3 +1,5 @@
+import { ITour } from 'src/interfaces/basics/tour.model';
+
 export interface IHttpTour {
   startDate: Date;
   endDate: Date;
@@ -13,6 +15,16 @@ export interface IService {
 }
 
 export interface IRoom {
+  id?: number;
   price: number;
   roomType: string;
+  tourId?: number;
+}
+
+export interface IHttpAllTours {
+  items: ITour[];
+  itemsCount: number;
+  total: number;
+  page: number;
+  maxPage: number;
 }

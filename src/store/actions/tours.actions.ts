@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { createActionType } from '../helpers/effects';
-import { ITourService } from '../models/tours/ITourService.model';
-import { IHttpTour } from '../models/tours/ITour.model';
-import IResponse from '../models/IResponse.model';
+import { IHttpTour, IService } from '../models/tours/ITour.model';
+import { ITour } from 'src/interfaces/basics/tour.model';
+import IPaginator from 'src/interfaces/custom/IPaginator.model';
 
 const CREATE_TOUR = createActionType('[TOUR CREATE] setAll');
 const GET_ALL_TOURS = createActionType('[TOUR GET ALL] setAll');
@@ -15,8 +15,14 @@ export const create = {
 };
 
 export const getAll = {
-  request: createAction(GET_ALL_TOURS.REQUEST),
-  success: createAction(GET_ALL_TOURS.SUCCESS),
+  request: createAction(
+    GET_ALL_TOURS.REQUEST,
+    props<{ params: { limit: number; page: number } }>()
+  ),
+  success: createAction(
+    GET_ALL_TOURS.SUCCESS,
+    props<{ items: ITour[]; paginator: IPaginator }>()
+  ),
   failure: createAction(GET_ALL_TOURS.FAILURE),
 };
 
@@ -24,7 +30,7 @@ export const getServices = {
   request: createAction(GET_SERVICES.REQUEST),
   success: createAction(
     GET_SERVICES.SUCCESS,
-    props<{ services: ITourService[] }>()
+    props<{ services: IService[] }>()
   ),
   failure: createAction(GET_SERVICES.FAILURE),
 };

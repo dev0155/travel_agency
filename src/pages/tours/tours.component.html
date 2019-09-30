@@ -1,1 +1,16 @@
 <a routerLink="creating">Create</a>
+<ul>
+  <li
+    *ngFor="
+      let item of collection
+        | paginate
+          : {
+              itemsPerPage: itemsPerPage,
+              currentPage: page + 1,
+              totalItems: length
+            }
+    "
+  ></li>
+</ul>
+
+<pagination-controls (pageChange)="changePage($event)"> </pagination-controls>
