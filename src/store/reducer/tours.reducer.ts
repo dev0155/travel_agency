@@ -9,6 +9,7 @@ export interface IToursState {
   items: ITour[];
   paginator: IPaginator;
   loading: boolean;
+  item: ITour;
 }
 
 const initState = (): IToursState => ({
@@ -16,6 +17,7 @@ const initState = (): IToursState => ({
   items: null,
   paginator: null,
   loading: false,
+  item: null,
 });
 
 const toursReducer = createReducer(
@@ -32,7 +34,7 @@ const toursReducer = createReducer(
     loading: false,
     paginator: action.paginator,
   })),
-  on(ToursActions.getAll.failure, (state) => ({
+  on(ToursActions.getAll.request, (state) => ({
     ...state,
     items: null,
     loading: false,
@@ -72,6 +74,21 @@ const toursReducer = createReducer(
     ...state,
     paginator: null,
     items: null,
+    loading: false,
+  })),
+  on(ToursActions.getById.request, (state) => ({
+    ...state,
+    item: null,
+    loading: false,
+  })),
+  on(ToursActions.getById.success, (state, action) => ({
+    ...state,
+    item: action.item,
+    loading: false,
+  })),
+  on(ToursActions.getById.failure, (state) => ({
+    ...state,
+    item: null,
     loading: false,
   }))
 );

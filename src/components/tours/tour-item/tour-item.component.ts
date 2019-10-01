@@ -1,8 +1,11 @@
 import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { ITour } from 'src/interfaces/basics/tour.model';
 import { IHotel } from 'src/interfaces/basics/hotel.model';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+// import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/store';
+import { ToursActions } from 'src/store/actions/tours.actions';
 
 @Component({
   selector: 'tour-item',
@@ -14,17 +17,19 @@ export class TourItemComponent implements OnInit, OnChanges {
   public hotel: IHotel;
   public imgPath: string;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private store: Store<AppState>,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {}
 
   ngOnChanges(): void {
-    if (this.tour) {
-      this.hotel = this.tour.hotel;
-      this.imgPath = this.hotel.images[0]
-        ? `http://localhost:3000/${this.hotel.images[0].image}`
-        : '../../../assets/img/no-image.png';
-    }
+    this.hotel = this.tour.hotel;
+    this.imgPath = this.hotel.images[0]
+      ? `http://localhost:3000/${this.hotel.images[0].image}`
+      : '../../../assets/img/no-image.png';
   }
 
   public get duration(): number {
@@ -36,7 +41,6 @@ export class TourItemComponent implements OnInit, OnChanges {
   }
 
   public viewDetails(): void {
-    console.log('id ', this.tour.id);
     this.router.navigateByUrl(`tours/${this.tour.id}`);
   }
 

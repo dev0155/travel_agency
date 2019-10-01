@@ -4,6 +4,7 @@ import { AppState } from 'src/store';
 import { Store, select } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { Subscriber, Subscription } from 'rxjs';
+import { ToursActions } from 'src/store/actions/tours.actions';
 
 const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
 
@@ -12,7 +13,7 @@ const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
   templateUrl: './tour-detail.component.html',
   styleUrls: ['./tour-detail.component.scss'],
 })
-export class TourDetailComponent implements OnInit, OnDestroy {
+export class TourDetailComponent implements OnInit {
   private id: number;
   private storeSubscription: Subscription;
 
@@ -25,22 +26,8 @@ export class TourDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getTourFromStore();
-  }
-
-  ngOnDestroy() {
-    this.storeSubscription.unsubscribe();
-  }
-
-  private getTourFromStore(): void {
-    this.id = +this.route.snapshot.paramMap.get('id');
-    this.storeSubscription = this.store
-      .pipe(select('tours'))
-      .subscribe(({ items }) => {
-        if (this.id) {
-          this.tour = items.filter((tour) => tour.id === this.id)[0];
-        }
-      });
+    const id = this.route.snapshot.params.id;
+    this.store.dispatch(ToursActions.getById.request({ id }));
   }
 
   public onChangeTab(tabName: string): void {

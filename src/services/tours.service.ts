@@ -18,6 +18,10 @@ export class ToursService {
     return this.http.get<IHttpAllTours>(TOURS_URL, { params });
   }
 
+  public getById(id: number): Observable<ITour> {
+    return this.http.get<ITour>(`${TOURS_URL}/${id}`);
+  }
+
   public getServices(): Observable<IService[]> {
     return this.http.get<IService[]>(SERVICES_URL);
   }

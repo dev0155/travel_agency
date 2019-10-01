@@ -6,6 +6,7 @@ import IPaginator from 'src/interfaces/custom/IPaginator.model';
 
 const CREATE_TOUR = createActionType('[TOUR CREATE] setAll');
 const GET_ALL_TOURS = createActionType('[TOUR GET ALL] setAll');
+const GET_BY_ID = createActionType('[TOUR GET BY ID] setAll');
 const GET_SERVICES = createActionType('[TOUR GET SERVICES] setAll');
 const SEARCH = createActionType('[TOUR SEARCH] setAll');
 
@@ -13,6 +14,12 @@ export const create = {
   request: createAction(CREATE_TOUR.REQUEST, props<{ tour: IHttpTour }>()),
   success: createAction(CREATE_TOUR.SUCCESS),
   failure: createAction(CREATE_TOUR.FAILURE),
+};
+
+export const getById = {
+  request: createAction(GET_BY_ID.REQUEST, props<{ id: number }>()),
+  success: createAction(GET_BY_ID.SUCCESS, props<{ item: ITour }>()),
+  failure: createAction(GET_BY_ID.FAILURE),
 };
 
 export const getAll = {
@@ -47,4 +54,5 @@ export const ToursActions = {
   getAll,
   getServices,
   search,
+  getById,
 };

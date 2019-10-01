@@ -12,7 +12,6 @@ import { MapComponent } from 'src/components/tour-detail/tab-panel/content/map/m
 import { CommentsComponent } from 'src/components/tour-detail/tab-panel/content/comments/comments.component';
 import { HeaderComponent } from 'src/components/tour-detail/header/header.component';
 import { ToursService } from 'src/services/tours.service';
-import { SpinnerComponent } from 'src/components/common/spinner/spinner.component';
 
 const routes: Routes = [
   {
