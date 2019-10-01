@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ITour } from 'src/interfaces/basics/tour.model';
 import { IHotel } from 'src/interfaces/basics/hotel.model';
+import { API_URL } from 'src/endpoints';
 
 @Component({
   selector: 'td-header',
@@ -20,7 +21,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.hotel = this.tour.hotel;
     this.imgPath = this.hotel.images[0]
-      ? `http://localhost:3000/${this.hotel.images[0].image}`
+      ? `${API_URL}/${this.hotel.images[0].image}`
       : '../../../assets/img/no-image.png';
   }
 
@@ -29,9 +30,10 @@ export class HeaderComponent implements OnInit {
   }
 
   public get duration(): number {
-    return Math.abs(
-      new Date(this.tour.endDate).getDate() -
-        new Date(this.tour.startDate).getDate()
+    const start = new Date(`${this.tour.startDate}`);
+    const end = new Date(`${this.tour.endDate}`);
+    return Math.ceil(
+      Math.abs(end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
     );
   }
 

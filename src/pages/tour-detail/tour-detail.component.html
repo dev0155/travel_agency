@@ -1,4 +1,4 @@
-<ng-container *ngIf="tour.hotel !== undefined; else spinner">
+<ng-container *ngIf="tour?.hotel !== undefined; else spinner">
   <div class="container">
     <td-header [tour]="tour"></td-header>
 
@@ -11,7 +11,7 @@
         <ng-container>
           <td-general-tab
             *ngSwitchCase="'General'"
-            [hotel]="tour.hotel"
+            [hotel]="tour?.hotel"
           ></td-general-tab>
         </ng-container>
 

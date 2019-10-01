@@ -8,6 +8,7 @@ import IAddress from 'src/store/models/IAddress.model';
 import { ToursActions } from 'src/store/actions/tours.actions';
 import { IHttpTour, IService } from 'src/store/models/tours/ITour.model';
 import { IHotel } from 'src/interfaces/basics/hotel.model';
+import { HotelActions } from 'src/store/actions/hotel.actions';
 
 @Component({
   selector: 'tour-creating',
@@ -23,6 +24,8 @@ export class CreatingTourComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
+    this.store.dispatch(ToursActions.getServices.request());
+    this.store.dispatch(HotelActions.getAll.request());
     this.createForm();
     this.getStoreData();
     this.onChanges();
@@ -77,9 +80,11 @@ export class CreatingTourComponent implements OnInit {
   }
 
   private onHotelChanges(): void {
-    this.tourForm.get('hotel').valueChanges.subscribe(({ address }) => {
-      if (address) {
-        this.tourForm.get('address').setValue(this.addressToString(address));
+    this.tourForm.get('hotel').valueChanges.subscribe((data) => {
+      if (data) {
+        this.tourForm
+          .get('address')
+          .setValue(this.addressToString(data.address));
       }
     });
   }

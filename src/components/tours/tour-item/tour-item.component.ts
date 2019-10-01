@@ -1,11 +1,8 @@
 import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { ITour } from 'src/interfaces/basics/tour.model';
 import { IHotel } from 'src/interfaces/basics/hotel.model';
-import { Router, ActivatedRoute } from '@angular/router';
-// import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/store';
-import { ToursActions } from 'src/store/actions/tours.actions';
+import { Router } from '@angular/router';
+import { API_URL } from 'src/endpoints';
 
 @Component({
   selector: 'tour-item',
@@ -17,18 +14,14 @@ export class TourItemComponent implements OnInit, OnChanges {
   public hotel: IHotel;
   public imgPath: string;
 
-  constructor(
-    private router: Router,
-    private store: Store<AppState>,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
   ngOnChanges(): void {
     this.hotel = this.tour.hotel;
     this.imgPath = this.hotel.images[0]
-      ? `http://localhost:3000/${this.hotel.images[0].image}`
+      ? `${API_URL}/${this.hotel.images[0].image}`
       : '../../../assets/img/no-image.png';
   }
 
@@ -36,12 +29,14 @@ export class TourItemComponent implements OnInit, OnChanges {
     if (this.tour) {
       const start = new Date(`${this.tour.startDate}`);
       const end = new Date(`${this.tour.endDate}`);
-      return Math.abs(end.getDate() - start.getDate());
+      return Math.ceil(
+        Math.abs(end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+      );
     }
   }
 
   public viewDetails(): void {
-    this.router.navigateByUrl(`tours/${this.tour.id}`);
+    this.router.navigate(['tours', this.tour.id, 'detail']);
   }
 
   public get minPrice(): number {

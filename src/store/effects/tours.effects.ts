@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { of, EMPTY } from 'rxjs';
+import { of } from 'rxjs';
 import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
 import { ToursActions } from '../actions/tours.actions';
@@ -8,9 +8,6 @@ import { ToursService } from 'src/services/tours.service';
 import { IHttpTour } from '../models/tours/ITour.model';
 import { Router } from '@angular/router';
 import IPaginator from 'src/interfaces/custom/IPaginator.model';
-import { AppState } from '..';
-import { Store, select } from '@ngrx/store';
-import { ITour } from 'src/interfaces/basics/tour.model';
 
 @Injectable()
 export class ToursEffects {
@@ -108,7 +105,6 @@ export class ToursEffects {
 
   constructor(
     private actions$: Actions,
-    private store$: Store<AppState>,
     private toursService: ToursService,
     private toaster: NotificationsService,
     private router: Router

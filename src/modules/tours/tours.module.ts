@@ -9,6 +9,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EffectsModule } from '@ngrx/effects';
 
+import { CommonModule as Common } from 'src/modules/common/common.module';
 import { ToursEffects } from 'src/store/effects/tours.effects';
 import { ToursService } from 'src/services/tours.service';
 import { HotelService } from 'src/services/hotel.service';
@@ -20,7 +21,7 @@ const routes: Route[] = [
     component: ToursComponent,
   },
   {
-    path: ':id',
+    path: ':id/detail',
     loadChildren: () =>
       import('src/modules/tour-detail/tour-detail.module').then(
         (m) => m.TourDetailModule
@@ -38,9 +39,10 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule,
     EffectsModule.forFeature([ToursEffects, HotelEffects]),
+    NgSelectModule,
     NgxPaginationModule,
+    Common,
   ],
   providers: [ToursService, HotelService],
 })

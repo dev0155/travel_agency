@@ -62,12 +62,12 @@ const toursReducer = createReducer(
     ...state,
     items: null,
     paginator: null,
-    loading: false,
+    loading: true,
   })),
-  on(ToursActions.search.success, (state, action) => ({
+  on(ToursActions.search.success, (state, { items }) => ({
     ...state,
-    items: action.items,
-    paginator: null,
+    items: items,
+    paginator: { total: items.length },
     loading: false,
   })),
   on(ToursActions.search.failure, (state) => ({
@@ -79,7 +79,7 @@ const toursReducer = createReducer(
   on(ToursActions.getById.request, (state) => ({
     ...state,
     item: null,
-    loading: false,
+    loading: true,
   })),
   on(ToursActions.getById.success, (state, action) => ({
     ...state,
