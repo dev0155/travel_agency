@@ -8,6 +8,7 @@
           class="form-control"
           type="search"
           placeholder="search by hotel name..."
+          (click)="inputClick()"
         />
         <button class="btn btn-primary" (click)="searchClick()">Go!</button>
       </div>
@@ -38,3 +39,5 @@
 <ng-template #spinner>
   <app-spinner></app-spinner>
 </ng-template>
+
+<simple-notifications></simple-notifications>

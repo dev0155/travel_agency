@@ -14,6 +14,7 @@ import { ToursEffects } from 'src/store/effects/tours.effects';
 import { ToursService } from 'src/services/tours.service';
 import { HotelService } from 'src/services/hotel.service';
 import { HotelEffects } from 'src/store/effects/hotel.effects';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 const routes: Route[] = [
   {
@@ -43,6 +44,7 @@ const routes: Route[] = [
     NgSelectModule,
     NgxPaginationModule,
     Common,
+    SimpleNotificationsModule.forRoot(),
   ],
   providers: [ToursService, HotelService],
 })

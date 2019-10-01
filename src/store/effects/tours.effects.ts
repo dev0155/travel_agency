@@ -54,12 +54,18 @@ export class ToursEffects {
       mergeMap((action: { target: string; type: string }) => {
         return this.toursService.search(action.target).pipe(
           map((response) => {
-            console.log(response);
+            if (response.length === 0) {
+              this.toaster.warn(
+                'Not found',
+                'We do not have any items for you.',
+                this.toasterOptions
+              );
+              console.log('here');
+              return ToursActions.search.failure();
+            }
             return ToursActions.search.success({ items: response });
           }),
-          catchError(() => {
-            return of(ToursActions.search.failure());
-          })
+          catchError(() => of(ToursActions.search.failure()))
         );
       })
     )
@@ -70,12 +76,8 @@ export class ToursEffects {
       ofType(ToursActions.getServices.request.type),
       mergeMap(() =>
         this.toursService.getServices().pipe(
-          map((services) => {
-            return ToursActions.getServices.success({ services });
-          }),
-          catchError(() => {
-            return of(ToursActions.getServices.failure());
-          })
+          map((services) => ToursActions.getServices.success({ services })),
+          catchError(() => of(ToursActions.getServices.failure()))
         )
       )
     )

@@ -53,7 +53,11 @@ export class ToursComponent implements OnInit {
     );
   }
 
-  public searchClick() {
+  public inputClick(): void {
+    this.search = '';
+  }
+
+  public searchClick(): void {
     this.store.dispatch(ToursActions.search.request({ target: this.search }));
   }
 
