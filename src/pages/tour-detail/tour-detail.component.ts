@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ToursService } from 'src/services/tours.service';
 import { ITour } from 'src/interfaces/basics/tour.model';
+import { AppState } from 'src/store';
+import { Store, select } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
+import { ToursActions } from 'src/store/actions/tours.actions';
+
+const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
 
 @Component({
   selector: 'app-tour-detail',
@@ -8,22 +13,29 @@ import { ITour } from 'src/interfaces/basics/tour.model';
   styleUrls: ['./tour-detail.component.scss'],
 })
 export class TourDetailComponent implements OnInit {
-  public tabs: string[] = [];
-  public currentTab: string = 'General';
   public tour = {} as ITour;
+  public tabs: string[] = [];
+  public currentTab = 'General';
 
-  constructor(private readonly toursService: ToursService) {}
-
-  ngOnInit() {
+  constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     this.tabs = tabs;
-    // this.toursService.getTours().subscribe((response: ITour[]) => {
-    //   this.tour = response[0];
-    // });
   }
 
-  public onChangeTab = (tabName: string) => {
-    this.currentTab = tabName;
-  };
-}
+  ngOnInit() {
+    this.initData();
+  }
 
-const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
+  private initData(): void {
+    const id = this.route.snapshot.params.id;
+    this.store.dispatch(ToursActions.getById.request({ id }));
+    this.store.pipe(select('tours')).subscribe(({ item }) => {
+      if (item) {
+        this.tour = item;
+      }
+    });
+  }
+
+  public onChangeTab(tabName: string): void {
+    this.currentTab = tabName;
+  }
+}

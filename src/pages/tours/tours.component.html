@@ -1,1 +1,43 @@
-<a routerLink="creating">Create</a>
+<ng-container *ngIf="!loading; else spinner">
+  <div class="container">
+    <div class="head-box">
+      <a class="btn btn-primary" routerLink="creating">Create</a>
+      <div class="search">
+        <input
+          [(ngModel)]="search"
+          class="form-control"
+          type="search"
+          placeholder="search by hotel name..."
+          (click)="inputClick()"
+        />
+        <button class="btn btn-primary" (click)="searchClick()">Go!</button>
+      </div>
+    </div>
+    <div
+      class="wrapper"
+      *ngFor="
+        let item of collection
+          | paginate
+            : {
+                itemsPerPage: itemsPerPage,
+                currentPage: page,
+                totalItems: length
+              }
+      "
+    >
+      <tour-item [tour]="item"></tour-item>
+    </div>
+
+    <pagination-controls
+      class="my-pagination"
+      (pageChange)="changePage($event)"
+    >
+    </pagination-controls>
+  </div>
+</ng-container>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>
+
+<simple-notifications></simple-notifications>

@@ -1,6 +1,5 @@
 @import 'src/variables';
 @import 'src/mixins';
-// GENERAL STYLES
 
 .container-fluid {
   margin: 10px 0;
@@ -37,8 +36,9 @@ p {
 
   h2 {
     color: $item-color;
+    margin-bottom: 0.5em;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.5em;
   }
 
   p {
@@ -64,7 +64,7 @@ p {
     }
 
     .btn-sm {
-      @include button($font-color: #ddddddc5);
+      @include button($font-color: lighten($color: $text-color, $amount: 30));
     }
 
     .active {
@@ -86,6 +86,17 @@ p {
 
       span {
         font-size: 24px;
+      }
+    }
+  }
+
+  .rooms-box {
+    display: flex;
+    .rooms__info {
+      margin-left: 1em;
+      @include flexColumn();
+      span {
+        margin-bottom: 0.3em;
       }
     }
   }

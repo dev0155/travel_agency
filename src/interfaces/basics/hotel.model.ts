@@ -1,4 +1,5 @@
 import ICompany from 'src/store/models/ICompany.model';
+import IUploadedImg from 'src/store/models/hotel/IUploadedImg.model';
 
 export interface IHotel {
   name: string;
@@ -7,14 +8,14 @@ export interface IHotel {
     city: string;
     state: string;
     street: string;
-    location: {
+    location?: {
       lat: number;
       lng: number;
     };
   };
   description: string;
   phone: string;
-  rating: number;
-  images: string[];
-  company: ICompany; // admin company that create new hotel;
+  averageRating: number;
+  images: IUploadedImg[];
+  company?: ICompany;
 }

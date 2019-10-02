@@ -1,26 +1,83 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
 import { ToursActions } from '../actions/tours.actions';
 import { ToursService } from 'src/services/tours.service';
 import { IHttpTour } from '../models/tours/ITour.model';
 import { Router } from '@angular/router';
+import IPaginator from 'src/interfaces/custom/IPaginator.model';
 
 @Injectable()
 export class ToursEffects {
+  getAll$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ToursActions.getAll.request.type),
+      mergeMap(
+        (action: { params: { limit: number; page: number }; type: string }) => {
+          return this.toursService.getAll(action.params).pipe(
+            map((response) => {
+              const { itemsCount, total, page, maxPage, items } = response;
+              const paginator: IPaginator = {
+                total,
+                pages: maxPage,
+                count: itemsCount,
+                current: page,
+              };
+              return ToursActions.getAll.success({ items, paginator });
+            }),
+            catchError(() => {
+              return of(ToursActions.getAll.failure());
+            })
+          );
+        }
+      )
+    )
+  );
+
+  getItemById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ToursActions.getById.request.type),
+      mergeMap((action: { id: number; type: string }) =>
+        this.toursService.getById(action.id).pipe(
+          map((response) => ToursActions.getById.success({ item: response })),
+          catchError(() => of(ToursActions.getById.failure()))
+        )
+      )
+    )
+  );
+
+  search$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ToursActions.search.request.type),
+      mergeMap((action: { target: string; type: string }) => {
+        return this.toursService.search(action.target).pipe(
+          map((response) => {
+            if (response.length === 0) {
+              this.toaster.warn(
+                'Not found',
+                'We do not have any items for you.',
+                this.toasterOptions
+              );
+              console.log('here');
+              return ToursActions.search.failure();
+            }
+            return ToursActions.search.success({ items: response });
+          }),
+          catchError(() => of(ToursActions.search.failure()))
+        );
+      })
+    )
+  );
+
   getTourServices$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ToursActions.getServices.request.type),
       mergeMap(() =>
         this.toursService.getServices().pipe(
-          map((services) => {
-            return ToursActions.getServices.success({ services });
-          }),
-          catchError(() => {
-            return of(ToursActions.getServices.failure());
-          })
+          map((services) => ToursActions.getServices.success({ services })),
+          catchError(() => of(ToursActions.getServices.failure()))
         )
       )
     )

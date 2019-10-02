@@ -3,12 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 
 import { ValidDateRange } from 'src/components/common/valid-date-range/valid-date-range';
-import { ITourService } from 'src/store/models/tours/ITourService.model';
 import { AppState } from 'src/store';
 import IAddress from 'src/store/models/IAddress.model';
 import { ToursActions } from 'src/store/actions/tours.actions';
-import { IHttpTour } from 'src/store/models/tours/ITour.model';
+import { IHttpTour, IService } from 'src/store/models/tours/ITour.model';
 import { IHotel } from 'src/interfaces/basics/hotel.model';
+import { HotelActions } from 'src/store/actions/hotel.actions';
 
 @Component({
   selector: 'tour-creating',
@@ -18,19 +18,17 @@ import { IHotel } from 'src/interfaces/basics/hotel.model';
 export class CreatingTourComponent implements OnInit {
   public tourForm: FormGroup;
   public roomTypes: string[] = ['Economy', 'Lux', 'Standard'];
-  public services: ITourService[];
+  public services: IService[];
   public hotels: IHotel[];
 
   constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
+    this.store.dispatch(ToursActions.getServices.request());
+    this.store.dispatch(HotelActions.getAll.request());
     this.createForm();
     this.getStoreData();
     this.onChanges();
-    this.tourForm.valueChanges.subscribe((data) => {
-      console.log(data);
-      console.log(this.tourForm.invalid);
-    });
   }
 
   public createTour(): void {
@@ -82,10 +80,11 @@ export class CreatingTourComponent implements OnInit {
   }
 
   private onHotelChanges(): void {
-    this.tourForm.get('hotel').valueChanges.subscribe(({ address }) => {
-      if (address) {
-        this.tourForm.get('address').setValue(this.addressToString(address));
-        console.log(this.tourForm.get('prices').invalid);
+    this.tourForm.get('hotel').valueChanges.subscribe((data) => {
+      if (data) {
+        this.tourForm
+          .get('address')
+          .setValue(this.addressToString(data.address));
       }
     });
   }

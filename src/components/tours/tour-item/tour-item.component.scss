@@ -1,73 +1,67 @@
-* {
-  font-family: 'Lato', sans-serif;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+@import 'src/variables';
+@import 'src/mixins';
+
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+
+  background-color: $item-color;
+  border: $border;
 }
 
-.hotel_item {
-  background: #ececfa;
-  padding: 3px;
+.tour {
+  display: flex;
+  justify-content: space-around;
 
-  &__block {
-    display: flex;
-    flex-direction: row;
-    background: white;
-  }
+  color: $text-color;
 
-  &__title h2 {
-    margin: 10px 0;
+  .holder {
+    margin-left: 1em;
+    @include flexColumn(space-between);
+
+    .title-box {
+      @include flexColumn(space-evenly);
+
+      .title {
+        margin-bottom: 0.1em;
+        font-size: 1.5em;
+        color: $active-color;
+        font-weight: bold;
+      }
+    }
   }
 
   &__info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin: 0 20px;
-    background: white;
-  }
-
-  &__title {
-    color: #78ccec;
-  }
-
-  &__subtitle {
-    color: #9a9a9a;
-
-    strong {
-      color: black;
-    }
-
-    p {
-      margin-bottom: 20px;
+    span {
+      color: $title-color;
+      font-weight: bold;
     }
   }
 
-  &__price {
-    background: #ececfa;
-    display: flex;
-    flex-direction: column;
-    flex-basis: 160px;
-    justify-content: space-between;
-    padding-right: 10px;
-    padding-bottom: 5px;
+  &__img {
+    object-fit: cover;
+    height: 150px;
+    width: 250px;
+  }
+}
 
-    &__value {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 35%;
-    }
+.detail-box {
+  @include flexColumn(space-around);
+  .price {
+    text-align: center;
+    font-weight: bold;
+    color: $title-color;
+  }
 
-    button {
-      background: #fcad21;
-      color: white;
-      height: 44px;
-      outline: 0;
-      outline-offset: 0;
-      font-weight: 500;
-      border: 0;
+  .btn-outline-primary {
+    border-color: $active-color;
+    color: $active-color;
+
+    &:hover {
+      background-color: $active-color;
+      color: $item-color;
     }
   }
 }
