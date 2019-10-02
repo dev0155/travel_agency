@@ -10,6 +10,7 @@ import IHotelForm from '../models/hotel/IHotelForm.model';
 import { IHotelResponse } from '../models/hotel/IHotelResponse.model';
 import IAddress from '../models/IAddress.model';
 import { IHotel } from 'src/interfaces/basics/hotel.model';
+import IPaginator from 'src/interfaces/custom/IPaginator.model';
 
 @Injectable()
 export class HotelEffects {
@@ -75,20 +76,22 @@ export class HotelEffects {
   getAll$ = createEffect(() =>
     this.actions$.pipe(
       ofType(HotelActions.getAll.request.type),
-      mergeMap(() =>
-        this.hotelService.getAll().pipe(
-          mergeMap((hotels) => {
-            return this.hotelService.getAddresses().pipe(
-              map((response) => {
-                const result = this.getHotelsWithAddresses(hotels, response);
-                return HotelActions.getAll.success({
-                  hotels: result,
-                });
-              }),
-              catchError(() => of(HotelActions.getAll.failure()))
-            );
-          })
-        )
+      mergeMap(
+        (action: { params: { limit: number; page: number }; type: string }) => {
+          return this.hotelService.getAll(action.params).pipe(
+            map((response) => {
+              const { itemsCount, total, page, maxPage, items } = response;
+              const paginator: IPaginator = {
+                total,
+                pages: maxPage,
+                count: itemsCount,
+                current: page,
+              };
+              return HotelActions.getAll.success({ items, paginator });
+            }),
+            catchError(() => of(HotelActions.getAll.failure()))
+          );
+        }
       )
     )
   );

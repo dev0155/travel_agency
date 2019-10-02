@@ -44,8 +44,14 @@ export const getServices = {
 };
 
 export const search = {
-  request: createAction(SEARCH.REQUEST, props<{ target: string }>()),
-  success: createAction(SEARCH.SUCCESS, props<{ items: ITour[] }>()),
+  request: createAction(
+    SEARCH.REQUEST,
+    props<{ params: { limit: number; page: number; target: string } }>()
+  ),
+  success: createAction(
+    SEARCH.SUCCESS,
+    props<{ items: ITour[]; paginator: IPaginator }>()
+  ),
   failure: createAction(SEARCH.FAILURE),
 };
 

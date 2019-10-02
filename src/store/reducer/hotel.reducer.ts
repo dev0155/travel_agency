@@ -1,15 +1,22 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { HotelActions } from '../actions/hotel.actions';
 import { IHotel } from 'src/interfaces/basics/hotel.model';
+import IPaginator from 'src/interfaces/custom/IPaginator.model';
 
 export interface IHotelState {
   loadedImgCounter: number;
-  hotels: IHotel[];
+  items: IHotel[];
+  item: IHotel[];
+  loading: boolean;
+  paginator: IPaginator;
 }
 
 const initState = (): IHotelState => ({
   loadedImgCounter: null,
-  hotels: null,
+  items: null,
+  item: null,
+  paginator: null,
+  loading: false,
 });
 
 const hotelReducer = createReducer(
@@ -44,12 +51,19 @@ const hotelReducer = createReducer(
   })),
 
   // get all
-  on(HotelActions.getAll.request, (state) => ({ ...state, hotels: null })),
-  on(HotelActions.getAll.success, (state, { hotels }) => ({
+  on(HotelActions.getAll.request, (state) => ({ ...state, loading: true })),
+  on(HotelActions.getAll.success, (state, action) => ({
     ...state,
-    hotels,
+    items: action.items,
+    loading: false,
+    paginator: action.paginator,
   })),
-  on(HotelActions.getAll.failure, (state) => ({ ...state, hotels: null }))
+  on(HotelActions.getAll.failure, (state) => ({
+    ...state,
+    items: null,
+    paginator: null,
+    loading: false,
+  }))
 );
 
 export function reducer(state: IHotelState | undefined, action: Action) {

@@ -25,7 +25,9 @@ export class CreatingTourComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(ToursActions.getServices.request());
-    this.store.dispatch(HotelActions.getAll.request());
+    this.store.dispatch(
+      HotelActions.getAll.request({ params: { page: 0, limit: 0 } })
+    );
     this.createForm();
     this.getStoreData();
     this.onChanges();
@@ -74,8 +76,8 @@ export class CreatingTourComponent implements OnInit {
     this.store
       .pipe(select('tours'))
       .subscribe(({ services }) => (this.services = services));
-    this.store.pipe(select('hotel')).subscribe(({ hotels }) => {
-      this.hotels = hotels;
+    this.store.pipe(select('hotel')).subscribe(({ items }) => {
+      this.hotels = items;
     });
   }
 

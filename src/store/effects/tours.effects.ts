@@ -51,23 +51,31 @@ export class ToursEffects {
   search$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ToursActions.search.request.type),
-      mergeMap((action: { target: string; type: string }) => {
-        return this.toursService.search(action.target).pipe(
-          map((response) => {
-            if (response.length === 0) {
-              this.toaster.warn(
-                'Not found',
-                'We do not have any items for you.',
-                this.toasterOptions
-              );
-              console.log('here');
-              return ToursActions.search.failure();
-            }
-            return ToursActions.search.success({ items: response });
-          }),
-          catchError(() => of(ToursActions.search.failure()))
-        );
-      })
+      mergeMap(
+        (action: { params: { limit: number; page: number }; type: string }) => {
+          return this.toursService.search(action.params).pipe(
+            map((response) => {
+              const { itemsCount, total, page, maxPage, items } = response;
+              const paginator: IPaginator = {
+                total,
+                pages: maxPage,
+                count: itemsCount,
+                current: page,
+              };
+              if (items.length === 0) {
+                this.toaster.warn(
+                  'Not found',
+                  'We do not have any items for you. Give you all of items.',
+                  this.toasterOptions
+                );
+                return ToursActions.getAll.request({ params: action.params });
+              }
+              return ToursActions.search.success({ items, paginator });
+            }),
+            catchError(() => of(ToursActions.search.failure()))
+          );
+        }
+      )
     )
   );
 

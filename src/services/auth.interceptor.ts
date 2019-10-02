@@ -52,7 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else {
             this.toaster.error(
               'Error :(',
-              error.message || error.error,
+              'Something went wrong',
               this.toasterOptions
             );
           }

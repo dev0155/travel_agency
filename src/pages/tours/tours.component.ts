@@ -15,7 +15,7 @@ export class ToursComponent implements OnInit {
   public tours$ = this.store.pipe(select('tours'));
   public loading = false;
   public collection = [] as ITour[];
-  public page = +this.route.snapshot.queryParams.page;
+  public page = +this.route.snapshot.queryParams.page || 1;
   public length = 1;
   public itemsPerPage = 5;
   public search: string;
@@ -58,7 +58,11 @@ export class ToursComponent implements OnInit {
   }
 
   public searchClick(): void {
-    this.store.dispatch(ToursActions.search.request({ target: this.search }));
+    this.store.dispatch(
+      ToursActions.search.request({
+        params: { ...this.pageParams, target: this.search },
+      })
+    );
   }
 
   private get pageParams() {
