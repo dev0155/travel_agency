@@ -34,7 +34,7 @@
         <p>
           from
           <span>{{
-            minPrice | currency: currentCurrency:'symbol-narrow':'2.0'
+            convert(minPrice) | currency: currentCurrency:'symbol-narrow':'2.0'
           }}</span>
           for person
         </p>
@@ -50,7 +50,8 @@
             <span *ngFor="let item of tour.rooms">{{
               item.roomType +
                 '    ' +
-                (item.price | currency: currentCurrency:'symbol-narrow':'2.0')
+                (convert(item.price)
+                  | currency: currentCurrency:'symbol-narrow':'2.0')
             }}</span>
           </div>
         </div>

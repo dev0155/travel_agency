@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   public imgPath: string;
 
   currency = ['EUR', 'UAH', 'USD'];
-  currentCurrency = 'UAH';
+  currentCurrency = 'USD';
 
   constructor() {}
 
@@ -42,5 +42,23 @@ export class HeaderComponent implements OnInit {
       (min, next) => (next.price < min ? next.price : min),
       this.tour.rooms[0].price
     );
+  }
+
+  public convert(price: number) {
+    let convertedPrice = 0;
+    switch (this.currentCurrency) {
+      case 'EUR': {
+        convertedPrice = price / 1.096;
+        break;
+      }
+      case 'UAH': {
+        convertedPrice = price * 25.3;
+        break;
+      }
+      default: {
+        convertedPrice = price;
+      }
+    }
+    return convertedPrice;
   }
 }
