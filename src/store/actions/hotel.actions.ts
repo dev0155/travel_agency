@@ -1,13 +1,13 @@
 import { createAction, props } from '@ngrx/store';
 import { createActionType } from '../helpers/effects';
-import IHotelForm from '../models/hotel/IHotelForm.model';
-import { IHotel } from 'src/interfaces/basics/hotel.model';
 import IPaginator from 'src/interfaces/custom/IPaginator.model';
+import { IHotelForm, IHotelResponse } from '../models/hotel/IHttpHotels.model';
 
 const CREATE_HOTEL = createActionType('[HOTEL CREATE] setAll');
 const UPLOAD_IMAGES = createActionType('[HOTEL UPLOAD IMAGES] setAll');
 const GET_ALL = createActionType('[HOTEL GET ALL] setAll');
 const SEARCH = createActionType('[HOTEL SEARCH] setAll');
+const GET_BY_ID = createActionType('[HOTEL GET BY ID] setAll');
 
 export const createHotel = {
   request: createAction(
@@ -37,7 +37,7 @@ export const getAll = {
   ),
   success: createAction(
     GET_ALL.SUCCESS,
-    props<{ items: IHotel[]; paginator: IPaginator }>()
+    props<{ items: IHotelResponse[]; paginator: IPaginator }>()
   ),
   failure: createAction(GET_ALL.FAILURE),
 };
@@ -49,13 +49,21 @@ export const search = {
   ),
   success: createAction(
     SEARCH.SUCCESS,
-    props<{ items: IHotel[]; paginator: IPaginator }>()
+    props<{ items: IHotelResponse[]; paginator: IPaginator }>()
   ),
   failure: createAction(SEARCH.FAILURE),
+};
+
+export const getById = {
+  request: createAction(GET_BY_ID.REQUEST, props<{ id: number }>()),
+  success: createAction(GET_BY_ID.SUCCESS, props<{ item: IHotelResponse }>()),
+  failure: createAction(GET_BY_ID.FAILURE),
 };
 
 export const HotelActions = {
   createHotel,
   uploadImages,
   getAll,
+  search,
+  getById,
 };

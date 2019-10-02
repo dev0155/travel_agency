@@ -1,14 +1,14 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { HotelActions } from '../actions/hotel.actions';
-import { IHotel } from 'src/interfaces/basics/hotel.model';
 import IPaginator from 'src/interfaces/custom/IPaginator.model';
+import { IHotelResponse } from '../models/hotel/IHttpHotels.model';
 
 export interface IHotelState {
   loadedImgCounter: number;
-  items: IHotel[];
-  item: IHotel[];
-  loading: boolean;
+  items: IHotelResponse[];
   paginator: IPaginator;
+  loading: boolean;
+  item: IHotelResponse;
 }
 
 const initState = (): IHotelState => ({
@@ -62,6 +62,40 @@ const hotelReducer = createReducer(
     ...state,
     items: null,
     paginator: null,
+    loading: false,
+  })),
+
+  // search
+  on(HotelActions.search.request, (state) => ({
+    ...state,
+    loading: true,
+    items: null,
+  })),
+  on(HotelActions.search.success, (state, action) => ({
+    ...state,
+    items: action.items,
+    paginator: action.paginator,
+    loading: false,
+  })),
+  on(HotelActions.search.failure, (state) => ({
+    ...state,
+    loading: false,
+  })),
+
+  // get by id
+  on(HotelActions.getById.request, (state) => ({
+    ...state,
+    item: null,
+    loading: true,
+  })),
+  on(HotelActions.getById.success, (state, action) => ({
+    ...state,
+    item: action.item,
+    loading: false,
+  })),
+  on(HotelActions.getById.failure, (state) => ({
+    ...state,
+    item: null,
     loading: false,
   }))
 );

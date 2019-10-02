@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { HOTEL_URL, IMAGES_URL, ADDRESS_URL } from 'src/endpoints';
-import IHotelForm from 'src/store/models/hotel/IHotelForm.model';
 import IUploadedImg from 'src/store/models/hotel/IUploadedImg.model';
 import IResponse from 'src/store/models/IResponse.model';
 import IAddress from 'src/store/models/IAddress.model';
-import { IHttpAllHotels } from 'src/store/models/hotel/IHttpAllHotels.model';
-import { IHotelResponse } from 'src/store/models/hotel/IHotelResponse.model';
+import {
+  IHttpAllHotels,
+  IHotelForm,
+} from 'src/store/models/hotel/IHttpHotels.model';
 
 @Injectable()
 export class HotelService {
@@ -26,8 +27,8 @@ export class HotelService {
     return this.http.get<IHttpAllHotels>(HOTEL_URL, { params });
   }
 
-  public search(params?: any): Observable<IHotelResponse[]> {
-    return this.http.get<IHotelResponse[]>(
+  public search(params?: any): Observable<IHttpAllHotels> {
+    return this.http.get<IHttpAllHotels>(
       `${HOTEL_URL}/find/search=${params.target}`,
       { params }
     );
