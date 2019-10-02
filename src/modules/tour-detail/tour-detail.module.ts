@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+// import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SliderModule } from 'angular-image-slider';
 
 import { CommonModule as Common } from 'src/modules/common/common.module';
 import { TourDetailComponent } from 'src/pages/tour-detail/tour-detail.component';
@@ -31,7 +34,14 @@ const routes: Routes = [
     MapComponent,
     CommentsComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), Common],
+  imports: [
+    CommonModule,
+    // BrowserModule,
+    // BrowserAnimationsModule,
+    SliderModule,
+    RouterModule.forChild(routes),
+    Common,
+  ],
   providers: [ToursService],
 })
 export class TourDetailModule {}

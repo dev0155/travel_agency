@@ -4,6 +4,7 @@ import { AppState } from 'src/store';
 import { Store, select } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { ToursActions } from 'src/store/actions/tours.actions';
+import { API_URL } from 'src/endpoints';
 
 const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
 
@@ -35,6 +36,12 @@ export class TourDetailComponent implements OnInit {
         this.tour = item;
       }
     });
+  }
+
+  public get imagesPath(): string[] {
+    const path = [];
+    this.tour.hotel.images.map((item) => path.push(`${API_URL}/${item.image}`));
+    return path;
   }
 
   public onChangeTab(tabName: string): void {
