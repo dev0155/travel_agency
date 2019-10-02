@@ -27,8 +27,8 @@ export class HotelService {
     return this.http.get<IHttpAllHotels>(HOTEL_URL, { params });
   }
 
-  public search(params?: any): Observable<IHttpAllHotels[]> {
-    return this.http.get<IHttpAllHotels[]>(
+  public search(params?: any): Observable<IHttpAllHotels> {
+    return this.http.get<IHttpAllHotels>(
       `${HOTEL_URL}/find/search=${params.target}`,
       { params }
     );

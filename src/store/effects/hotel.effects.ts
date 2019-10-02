@@ -93,39 +93,36 @@ export class HotelEffects {
     )
   );
 
-  // search$ = createEffect(() => {
-  //   console.log('get all pagination');
-  //   return this.actions$.pipe(
-  //     ofType(HotelActions.search.request.type),
-  //     mergeMap(
-  //       (action: {
-  //         params: { limit: number; page: number; target: string };
-  //         type: string;
-  //       }) => {
-  //         console.log('effect', action);
-  //         return this.hotelService.search(action.params).pipe(
-  //           map((response) => {
-  //             console.log(response);
-  //             const { itemsCount, total, page, maxPage, items } = response;
-  //             const paginator: IPaginator = {
-  //               total,
-  //               pages: maxPage,
-  //               count: itemsCount,
-  //               current: page,
-  //             };
-  //             return HotelActions.search.success({
-  //               items,
-  //               paginator,
-  //             });
-  //           }),
-  //           catchError(() => {
-  //             return of(HotelActions.search.failure());
-  //           })
-  //         );
-  //       }
-  //     )
-  //   );
-  // });
+  search$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(HotelActions.search.request.type),
+      mergeMap(
+        (action: { params: { limit: number; page: number }; type: string }) => {
+          return this.hotelService.search(action.params).pipe(
+            map((response) => {
+              const { itemsCount, total, page, maxPage, items } = response;
+              const paginator: IPaginator = {
+                total,
+                pages: maxPage,
+                count: itemsCount,
+                current: page,
+              };
+              if (items.length === 0) {
+                this.toaster.warn(
+                  'Not found',
+                  'We do not have any items for you. Give you all of items.',
+                  this.toasterOptions
+                );
+                return HotelActions.getAll.request({ params: action.params });
+              }
+              return HotelActions.search.success({ items, paginator });
+            }),
+            catchError(() => of(HotelActions.search.failure()))
+          );
+        }
+      )
+    )
+  );
 
   constructor(
     private actions$: Actions,

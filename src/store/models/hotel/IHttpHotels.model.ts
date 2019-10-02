@@ -1,4 +1,3 @@
-import { IHotel } from 'src/interfaces/basics/hotel.model';
 import IAddress from '../IAddress.model';
 import IUploadedImg from './IUploadedImg.model';
 import ICompany from '../ICompany.model';

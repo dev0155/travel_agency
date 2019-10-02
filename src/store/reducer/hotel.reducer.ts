@@ -50,6 +50,7 @@ const hotelReducer = createReducer(
     loadedImgCounter: null,
   })),
 
+  // get all
   on(HotelActions.getAll.request, (state) => ({ ...state, loading: true })),
   on(HotelActions.getAll.success, (state, action) => ({
     ...state,
@@ -68,6 +69,7 @@ const hotelReducer = createReducer(
   on(HotelActions.search.request, (state) => ({
     ...state,
     loading: true,
+    items: null,
   })),
   on(HotelActions.search.success, (state, action) => ({
     ...state,

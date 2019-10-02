@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -46,11 +46,24 @@ export class HotelsComponent implements OnInit {
   public changePage(e): void {
     this.page = e;
     this.router.navigate(['hotels'], { queryParams: { page: this.page } });
-    this.store.dispatch(
-      HotelActions.getAll.request({
-        params: this.pageParams,
-      })
-    );
+    if (this.search) {
+      this.store.dispatch(
+        HotelActions.search.request({
+          params: { ...this.pageParams, target: this.search },
+        })
+      );
+    } else {
+      this.collection = null;
+      setTimeout(
+        () =>
+          this.store.dispatch(
+            HotelActions.getAll.request({
+              params: this.pageParams,
+            })
+          ),
+        2000
+      );
+    }
   }
 
   public inputClick(): void {
@@ -58,13 +71,12 @@ export class HotelsComponent implements OnInit {
   }
 
   public searchClick(): void {
-    console.log({ ...this.pageParams, target: this.search });
-    console.log(this.search);
-    // this.store.dispatch(
-    //   HotelActions.search.request({
-    //     params: { ...this.pageParams, target: this.search },
-    //   })
-    // );
+    this.page = 1;
+    this.store.dispatch(
+      HotelActions.search.request({
+        params: { ...this.pageParams, target: this.search },
+      })
+    );
   }
 
   private get pageParams() {

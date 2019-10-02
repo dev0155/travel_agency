@@ -8,7 +8,7 @@
     .ngx-pagination {
       text-align: center;
       .current {
-        background-color: $active-color;
+        background-color: $btn-color;
       }
     }
   }
@@ -33,11 +33,11 @@
   }
 
   .btn-primary {
-    background-color: $active-color;
+    background-color: $btn-color;
     border: none;
 
     &:hover {
-      background-color: darken($color: $active-color, $amount: 10);
+      background-color: darken($color: $btn-color, $amount: 10);
     }
   }
 }
