@@ -16,6 +16,7 @@ export class TourDetailComponent implements OnInit {
   public tour = {} as ITour;
   public tabs: string[] = [];
   public currentTab = 'General';
+  public loading = false;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     this.tabs = tabs;
@@ -28,7 +29,8 @@ export class TourDetailComponent implements OnInit {
   private initData(): void {
     const id = this.route.snapshot.params.id;
     this.store.dispatch(ToursActions.getById.request({ id }));
-    this.store.pipe(select('tours')).subscribe(({ item }) => {
+    this.store.pipe(select('tours')).subscribe(({ item, loading }) => {
+      this.loading = loading;
       if (item) {
         this.tour = item;
       }

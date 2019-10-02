@@ -1,4 +1,4 @@
-<ng-container *ngIf="tour?.hotel !== undefined; else spinner">
+<ng-container *ngIf="!loading; else spinner">
   <div class="container">
     <td-header [tour]="tour"></td-header>
 
@@ -15,8 +15,14 @@
           ></td-general-tab>
         </ng-container>
 
-        <td-service-tab *ngSwitchCase="'Service'"></td-service-tab>
-        <td-photos-tab *ngSwitchCase="'Photos'"></td-photos-tab>
+        <td-service-tab
+          *ngSwitchCase="'Service'"
+          [services]="tour?.services"
+        ></td-service-tab>
+        <td-photos-tab
+          *ngSwitchCase="'Photos'"
+          [images]="tour?.hotel.images"
+        ></td-photos-tab>
         <td-map-tab *ngSwitchCase="'Map'"></td-map-tab>
         <td-comments-tab *ngSwitchCase="'Comments'"></td-comments-tab>
       </ng-container>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'td-service-tab',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./service.component.scss'],
 })
 export class ServiceComponent implements OnInit {
+  @Input() services;
   constructor() {}
 
   ngOnInit() {}
