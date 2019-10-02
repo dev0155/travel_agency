@@ -6,10 +6,8 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { HotelService } from 'src/services/hotel.service';
 import { HotelActions } from '../actions/hotel.actions';
-import IHotelForm from '../models/hotel/IHotelForm.model';
-import { IHotelResponse } from '../models/hotel/IHotelResponse.model';
-import IAddress from '../models/IAddress.model';
-import { IHotel } from 'src/interfaces/basics/hotel.model';
+import IPaginator from 'src/interfaces/custom/IPaginator.model';
+import { IHotelForm } from '../models/hotel/IHttpHotels.model';
 
 @Injectable()
 export class HotelEffects {
@@ -75,23 +73,59 @@ export class HotelEffects {
   getAll$ = createEffect(() =>
     this.actions$.pipe(
       ofType(HotelActions.getAll.request.type),
-      mergeMap(() =>
-        this.hotelService.getAll().pipe(
-          mergeMap((hotels) => {
-            return this.hotelService.getAddresses().pipe(
-              map((response) => {
-                const result = this.getHotelsWithAddresses(hotels, response);
-                return HotelActions.getAll.success({
-                  hotels: result,
-                });
-              }),
-              catchError(() => of(HotelActions.getAll.failure()))
-            );
-          })
-        )
+      mergeMap(
+        (action: { params: { limit: number; page: number }; type: string }) => {
+          return this.hotelService.getAll(action.params).pipe(
+            map((response) => {
+              const { itemsCount, total, page, maxPage, items } = response;
+              const paginator: IPaginator = {
+                total,
+                pages: maxPage,
+                count: itemsCount,
+                current: page,
+              };
+              return HotelActions.getAll.success({ items, paginator });
+            }),
+            catchError(() => of(HotelActions.getAll.failure()))
+          );
+        }
       )
     )
   );
+
+  // search$ = createEffect(() => {
+  //   console.log('get all pagination');
+  //   return this.actions$.pipe(
+  //     ofType(HotelActions.search.request.type),
+  //     mergeMap(
+  //       (action: {
+  //         params: { limit: number; page: number; target: string };
+  //         type: string;
+  //       }) => {
+  //         console.log('effect', action);
+  //         return this.hotelService.search(action.params).pipe(
+  //           map((response) => {
+  //             console.log(response);
+  //             const { itemsCount, total, page, maxPage, items } = response;
+  //             const paginator: IPaginator = {
+  //               total,
+  //               pages: maxPage,
+  //               count: itemsCount,
+  //               current: page,
+  //             };
+  //             return HotelActions.search.success({
+  //               items,
+  //               paginator,
+  //             });
+  //           }),
+  //           catchError(() => {
+  //             return of(HotelActions.search.failure());
+  //           })
+  //         );
+  //       }
+  //     )
+  //   );
+  // });
 
   constructor(
     private actions$: Actions,
@@ -115,35 +149,35 @@ export class HotelEffects {
     return result;
   }
 
-  private getAddressesIds(hotels: IHotelResponse[]) {
-    const ids: number[] = [];
-    hotels.map((item) => ids.push(item.addressId));
-    return ids;
-  }
+  // private getAddressesIds(hotels: IHotelResponse[]) {
+  //   const ids: number[] = [];
+  //   hotels.map((item) => ids.push(item.addressId));
+  //   return ids;
+  // }
 
-  private getHotelsAddresses(
-    allAddresses: IAddress[],
-    hotels: IHotelResponse[]
-  ) {
-    const addresses = [] as IAddress[];
-    const hotelAddressesIds = this.getAddressesIds(hotels);
-    allAddresses.map((item) => {
-      if (hotelAddressesIds.includes(item.id)) {
-        addresses.push(item);
-      }
-    });
-    return addresses;
-  }
+  // private getHotelsAddresses(
+  //   allAddresses: IAddress[],
+  //   hotels: IHotelResponse[]
+  // ) {
+  //   const addresses = [] as IAddress[];
+  //   const hotelAddressesIds = this.getAddressesIds(hotels);
+  //   allAddresses.map((item) => {
+  //     if (hotelAddressesIds.includes(item.id)) {
+  //       addresses.push(item);
+  //     }
+  //   });
+  //   return addresses;
+  // }
 
-  private getHotelsWithAddresses(hotels, allAddresses): IHotel[] {
-    const hotelsWithAddresses = [];
-    const addresses = this.getHotelsAddresses(allAddresses, hotels);
-    const zip = (arr1, arr2) => arr1.map((item, index) => [item, arr2[index]]);
+  // private getHotelsWithAddresses(hotels, allAddresses): IHotel[] {
+  //   const hotelsWithAddresses = [];
+  //   const addresses = this.getHotelsAddresses(allAddresses, hotels);
+  //   const zip = (arr1, arr2) => arr1.map((item, index) => [item, arr2[index]]);
 
-    zip(hotels, addresses).map((item) =>
-      hotelsWithAddresses.push({ ...item[0], address: item[1] })
-    );
+  //   zip(hotels, addresses).map((item) =>
+  //     hotelsWithAddresses.push({ ...item[0], address: item[1] })
+  //   );
 
-    return hotelsWithAddresses;
-  }
+  //   return hotelsWithAddresses;
+  // }
 }

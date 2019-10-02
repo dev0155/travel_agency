@@ -18,6 +18,6 @@ export class ToursComponent implements OnInit {
 
   private setDataToStore(): void {
     this.store.dispatch(ToursActions.getServices.request());
-    this.store.dispatch(HotelActions.getAll.request());
+    // this.store.dispatch(HotelActions.getAll.request());
   }
 }

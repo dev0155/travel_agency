@@ -1,15 +1,22 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { HotelActions } from '../actions/hotel.actions';
-import { IHotel } from 'src/interfaces/basics/hotel.model';
+import IPaginator from 'src/interfaces/custom/IPaginator.model';
+import { IHotelResponse } from '../models/hotel/IHttpHotels.model';
 
 export interface IHotelState {
   loadedImgCounter: number;
-  hotels: IHotel[];
+  items: IHotelResponse[];
+  paginator: IPaginator;
+  loading: boolean;
+  item: IHotelResponse;
 }
 
 const initState = (): IHotelState => ({
   loadedImgCounter: null,
-  hotels: null,
+  items: null,
+  paginator: null,
+  loading: false,
+  item: null,
 });
 
 const hotelReducer = createReducer(
@@ -43,13 +50,52 @@ const hotelReducer = createReducer(
     loadedImgCounter: null,
   })),
 
-  // get all
-  on(HotelActions.getAll.request, (state) => ({ ...state, hotels: null })),
-  on(HotelActions.getAll.success, (state, { hotels }) => ({
+  on(HotelActions.getAll.request, (state) => ({ ...state, loading: true })),
+  on(HotelActions.getAll.success, (state, action) => ({
     ...state,
-    hotels,
+    items: action.items,
+    loading: false,
+    paginator: action.paginator,
   })),
-  on(HotelActions.getAll.failure, (state) => ({ ...state, hotels: null }))
+  on(HotelActions.getAll.failure, (state) => ({
+    ...state,
+    items: null,
+    paginator: null,
+    loading: false,
+  })),
+
+  // search
+  on(HotelActions.search.request, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(HotelActions.search.success, (state, action) => ({
+    ...state,
+    items: action.items,
+    paginator: action.paginator,
+    loading: false,
+  })),
+  on(HotelActions.search.failure, (state) => ({
+    ...state,
+    loading: false,
+  })),
+
+  // get by id
+  on(HotelActions.getById.request, (state) => ({
+    ...state,
+    item: null,
+    loading: true,
+  })),
+  on(HotelActions.getById.success, (state, action) => ({
+    ...state,
+    item: action.item,
+    loading: false,
+  })),
+  on(HotelActions.getById.failure, (state) => ({
+    ...state,
+    item: null,
+    loading: false,
+  }))
 );
 
 export function reducer(state: IHotelState | undefined, action: Action) {

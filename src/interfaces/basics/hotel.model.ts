@@ -1,6 +1,7 @@
 import ICompany from 'src/store/models/ICompany.model';
 
 export interface IHotel {
+  id: number;
   name: string;
   address: {
     country: string;
@@ -14,7 +15,7 @@ export interface IHotel {
   };
   description: string;
   phone: string;
-  rating: number;
+  averageRating: string;
   images: string[];
   company: ICompany; // admin company that create new hotel;
 }
