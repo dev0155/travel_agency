@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
+import { mergeMap, map, catchError} from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
 import { ToursActions } from '../actions/tours.actions';
 import { ToursService } from 'src/services/tours.service';
@@ -18,7 +18,6 @@ export class ToursEffects {
         (action: { params: { limit: number; page: number }; type: string }) => {
           return this.toursService.getAll(action.params).pipe(
             map((response) => {
-              console.log(response);
               const { itemsCount, total, page, maxPage, items } = response;
               const paginator: IPaginator = {
                 total,
@@ -56,8 +55,6 @@ export class ToursEffects {
         (action: { params: { limit: number; page: number }; type: string }) => {
           return this.toursService.search(action.params).pipe(
             map((response) => {
-              console.log('limit:', action.params.limit);
-              console.log('search ', response);
               const { itemsCount, total, page, maxPage, items } = response;
               const paginator: IPaginator = {
                 total,

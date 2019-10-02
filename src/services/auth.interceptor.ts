@@ -26,12 +26,11 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const localToken: string = localStorage.getItem('token');
-    const sessionToken: string = sessionStorage.getItem('token');
-    if (localToken || sessionToken) {
+    const token = this.authService.getToken('access_token');
+    if (token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${sessionToken || localToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
     }

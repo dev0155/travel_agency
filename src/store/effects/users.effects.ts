@@ -7,6 +7,7 @@ import { UsersService } from 'src/services/users.service';
 import { UsersActions } from '../actions/users.actions';
 import IUser from '../models/IUser.model';
 import { CompanyActions } from '../actions/company.actions';
+import { AuthService } from 'src/services/auth.service';
 
 @Injectable()
 export class UsersEffects {
@@ -51,9 +52,10 @@ export class UsersEffects {
       ofType(UsersActions.updateInfo.request.type),
       mergeMap((action: { info: IUser; type: string }) => {
         return this.usersService.update(action.info).pipe(
-          map(() => UsersActions.updateInfo.success({ info: action.info })),
+          map(() => {
+            return UsersActions.updateInfo.success({ info: action.info });
+          }),
           catchError(({ error }) => {
-            console.log('error in users effect');
             this.toaster.error('Error :(', error.message, this.toasterOptions);
             return of(UsersActions.updateInfo.failure());
           })

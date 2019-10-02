@@ -15,9 +15,8 @@ export class AuthEffects {
       ofType(AuthActions.setAllRegister.request.type),
       mergeMap((action: { user: IRegisterUser; type: string }) =>
         this.authService.register(action.user).pipe(
-          map(({ access_token, objectId }) => {
-            sessionStorage.setItem('token', access_token);
-            localStorage.setItem('token', access_token);
+          map(({ access_token, refresh_token, objectId }) => {
+            this.authService.setTokens(true, access_token, refresh_token);
 
             this.router.navigateByUrl('/');
 
@@ -37,11 +36,13 @@ export class AuthEffects {
       mergeMap(
         (action: { user: ILoginUser; rememberMe: boolean; type: string }) => {
           return this.authService.login(action.user).pipe(
-            map(({ access_token, objectId }) => {
-              if (action.rememberMe) {
-                localStorage.setItem('token', access_token);
-              }
-              sessionStorage.setItem('token', access_token);
+            map(({ access_token, refresh_token, objectId }) => {
+              this.authService.setTokens(
+                action.rememberMe,
+                access_token,
+                refresh_token
+              );
+              this.authService.refresh();
               this.router.navigateByUrl('/');
               return AuthActions.setAllLogin.success({ id: objectId });
             }),
