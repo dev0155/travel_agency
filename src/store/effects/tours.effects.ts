@@ -18,6 +18,7 @@ export class ToursEffects {
         (action: { params: { limit: number; page: number }; type: string }) => {
           return this.toursService.getAll(action.params).pipe(
             map((response) => {
+              console.log(response);
               const { itemsCount, total, page, maxPage, items } = response;
               const paginator: IPaginator = {
                 total,
@@ -55,6 +56,8 @@ export class ToursEffects {
         (action: { params: { limit: number; page: number }; type: string }) => {
           return this.toursService.search(action.params).pipe(
             map((response) => {
+              console.log('limit:', action.params.limit);
+              console.log('search ', response);
               const { itemsCount, total, page, maxPage, items } = response;
               const paginator: IPaginator = {
                 total,

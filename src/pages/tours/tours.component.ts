@@ -46,11 +46,24 @@ export class ToursComponent implements OnInit {
   public changePage(e): void {
     this.page = e;
     this.router.navigate(['tours'], { queryParams: { page: this.page } });
-    this.store.dispatch(
-      ToursActions.getAll.request({
-        params: this.pageParams,
-      })
-    );
+    if (this.search) {
+      this.store.dispatch(
+        ToursActions.search.request({
+          params: { ...this.pageParams, target: this.search },
+        })
+      );
+    } else {
+      this.collection = null;
+      setTimeout(
+        () =>
+          this.store.dispatch(
+            ToursActions.getAll.request({
+              params: this.pageParams,
+            })
+          ),
+        1000
+      );
+    }
   }
 
   public inputClick(): void {
@@ -58,6 +71,7 @@ export class ToursComponent implements OnInit {
   }
 
   public searchClick(): void {
+    this.page = 1;
     this.store.dispatch(
       ToursActions.search.request({
         params: { ...this.pageParams, target: this.search },

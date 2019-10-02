@@ -53,6 +53,7 @@ export class UsersEffects {
         return this.usersService.update(action.info).pipe(
           map(() => UsersActions.updateInfo.success({ info: action.info })),
           catchError(({ error }) => {
+            console.log('error in users effect');
             this.toaster.error('Error :(', error.message, this.toasterOptions);
             return of(UsersActions.updateInfo.failure());
           })

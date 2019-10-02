@@ -1,4 +1,4 @@
-<ng-container *ngIf="!loading; else spinner">
+<ng-container *ngIf="!loading && collection; else spinner">
   <div class="container">
     <div class="head-box">
       <a class="btn btn-primary" routerLink="creating">Create</a>
