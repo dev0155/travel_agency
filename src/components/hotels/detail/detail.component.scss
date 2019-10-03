@@ -1,0 +1,26 @@
+@import 'src/variables';
+
+.container {
+  padding: 1em 0;
+}
+.wrapper {
+  padding: 0.5em 2em;
+  border: $border;
+  background-color: $item-color;
+  display: flex;
+
+  .img {
+    width: 40%;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .display-4 {
+      font-size: 3em;
+      margin-bottom: 1em;
+    }
+  }
+}
