@@ -35,7 +35,7 @@ export class AuthService {
       .post<IAuthResponse>(`${API_URL}/refresh/${refreshToken}`, null)
       .pipe(
         map((result) => {
-          if (result.status === 200) {
+          if (result.status === 200 || result.status === 201) {
             this.setTokens(true, result.access_token, result.refresh_token);
             return result;
           }

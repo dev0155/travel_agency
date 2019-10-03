@@ -24,9 +24,3 @@ export const setAllLogin = {
   success: createAction(SET_ALL_LOGIN.SUCCESS, props<{ id: number }>()),
   failure: createAction(SET_ALL_LOGIN.FAILURE),
 };
-
-export const refresh = {
-  request: createAction(REFRESH.REQUEST),
-  success: createAction(REFRESH.SUCCESS, props<{ id: number }>()),
-  failure: createAction(REFRESH.FAILURE),
-};
