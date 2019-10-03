@@ -53,6 +53,7 @@ export class UsersEffects {
       mergeMap((action: { info: IUser; type: string }) => {
         return this.usersService.update(action.info).pipe(
           map(() => {
+            this.authService.refresh().subscribe();
             return UsersActions.updateInfo.success({ info: action.info });
           }),
           catchError(({ error }) => {
@@ -82,7 +83,8 @@ export class UsersEffects {
   constructor(
     private actions$: Actions,
     private usersService: UsersService,
-    private toaster: NotificationsService
+    private toaster: NotificationsService,
+    private authService: AuthService
   ) {}
 
   private toasterOptions = {

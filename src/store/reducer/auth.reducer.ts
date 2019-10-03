@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { setAllRegister, setAllLogin } from '../actions/auth.actions';
+import { setAllRegister, setAllLogin, refresh } from '../actions/auth.actions';
 
 export interface IAuthState {
   id: number;
@@ -32,7 +32,24 @@ const authReducer = createReducer(
     id: action.id,
     loading: false,
   })),
-  on(setAllLogin.failure, (state) => ({ ...state, id: null, loading: false }))
+  on(setAllLogin.failure, (state) => ({ ...state, id: null, loading: false })),
+
+  // refresh
+  on(refresh.request, (state) => ({
+    ...state,
+    id: null,
+    loading: true,
+  })),
+  on(refresh.success, (state, action) => ({
+    ...state,
+    id: action.id,
+    loading: false,
+  })),
+  on(refresh.failure, (state) => ({
+    ...state,
+    id: null,
+    loading: false,
+  }))
 );
 
 export function reducer(state: IAuthState | undefined, action: Action) {

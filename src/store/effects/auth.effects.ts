@@ -53,6 +53,23 @@ export class AuthEffects {
     )
   );
 
+  refresh$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.refresh.request.type),
+      mergeMap((action: { type: string }) => {
+        return this.authService.refresh().pipe(
+          map(({ access_token, refresh_token, objectId }) => {
+            this.authService.setTokens(true, access_token, refresh_token);
+            // this.authService.refresh();
+            // this.router.navigateByUrl('/');
+            return AuthActions.refresh.success({ id: objectId });
+          }),
+          catchError(() => of(AuthActions.refresh.failure()))
+        );
+      })
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private authService: AuthService,

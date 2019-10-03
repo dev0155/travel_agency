@@ -5,11 +5,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { API_URL } from 'src/endpoints';
 import IRegisterUser from 'src/store/models/auth/IRegisterUser';
 import ILoginUser from 'src/store/models/auth/ILoginUser';
+import { map } from 'rxjs/operators';
 
 export interface IAuthResponse {
   objectId: number;
   access_token: string;
   refresh_token: string;
+  status?: number;
 }
 @Injectable()
 export class AuthService {
@@ -27,9 +29,18 @@ export class AuthService {
     return this.http.post<IAuthResponse>(`${API_URL}/login`, user);
   }
 
-  public refresh() {
-    const token = this.getToken('refresh_token');
-    return this.http.post(`${API_URL}/refresh`, token);
+  public refresh(): Observable<IAuthResponse> {
+    const refreshToken = this.getToken('refresh_token');
+    return this.http
+      .post<IAuthResponse>(`${API_URL}/refresh/${refreshToken}`, null)
+      .pipe(
+        map((result) => {
+          if (result.status === 200) {
+            this.setTokens(true, result.access_token, result.refresh_token);
+            return result;
+          }
+        })
+      );
   }
 
   public logout() {
