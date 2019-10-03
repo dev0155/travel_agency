@@ -1,66 +1,71 @@
-<h2 class="caption">Basic info</h2>
-<form [formGroup]="userForm">
-  <div class="form-group">
-    <label for="userEmail">Email address</label>
-    <input
-      formControlName="email"
-      type="email"
-      class="form-control"
-      id="userEmail"
-      aria-describedby="emailHelp"
-      placeholder="user@email.com"
-    />
-    <!-- (click)="defaultClear('email')" -->
+<div>
+  <h2 class="caption">Basic info</h2>
+  <form [formGroup]="userForm">
+    <div class="form-group">
+      <label for="userEmail">Email address</label>
+      <input
+        formControlName="email"
+        type="email"
+        class="form-control"
+        id="userEmail"
+        aria-describedby="emailHelp"
+        placeholder="user@email.com"
+      />
+      <!-- (click)="defaultClear('email')" -->
 
-    <p class="alert alert-danger" *ngIf="isValid('email')">
-      Email is invalid!
-    </p>
-  </div>
-  <div class="form-group">
-    <label for="userPassword">Password</label>
-    <input
-      formControlName="password"
-      type="password"
-      class="form-control"
-      id="userPassword"
-      placeholder="******"
-      (click)="defaultClear('password')"
-    />
-    <p class="alert alert-danger" *ngIf="isValid('password')">
-      Password's length must be greater than 6 symbols!
-    </p>
-  </div>
-  <div class="form-group">
-    <label for="firstName">First name</label>
-    <input
-      formControlName="firstName"
-      type="text"
-      class="form-control"
-      id="firstName"
-      (click)="defaultClear('firstName')"
-    />
-    <p class="alert alert-danger" *ngIf="isValid('firstName')">
-      You can use only letters!
-    </p>
-  </div>
-  <div class="form-group">
-    <label for="lastName">Last name</label>
-    <input
-      formControlName="lastName"
-      type="text"
-      id="lastName"
-      class="form-control"
-      (click)="defaultClear('lastName')"
-    />
-    <p class="alert alert-danger" *ngIf="isValid('lastName')">
-      You can use only letters!
-    </p>
-  </div>
-  <button
-    (click)="saveUser()"
-    class="btn btn-primary"
-    [disabled]="userForm.invalid"
-  >
-    Save
-  </button>
-</form>
+      <p class="alert alert-danger" *ngIf="isValid('email')">
+        Email is invalid!
+      </p>
+    </div>
+    <div class="form-group">
+      <label for="userPassword">Password</label>
+      <input
+        formControlName="password"
+        type="password"
+        class="form-control"
+        id="userPassword"
+        placeholder="******"
+      />
+      <!-- (click)="defaultClear('password')" -->
+      <p class="alert alert-danger" *ngIf="isValid('password')">
+        Password's length must be greater than 6 symbols!
+      </p>
+    </div>
+    <div class="form-group">
+      <label for="firstName">First name</label>
+      <input
+        formControlName="firstName"
+        type="text"
+        class="form-control"
+        id="firstName"
+      />
+      <!-- (click)="defaultClear('firstName')" -->
+      <p class="alert alert-danger" *ngIf="isValid('firstName')">
+        You can use only letters!
+      </p>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last name</label>
+      <input
+        formControlName="lastName"
+        type="text"
+        id="lastName"
+        class="form-control"
+      />
+      <!-- (click)="defaultClear('lastName')" -->
+      <p class="alert alert-danger" *ngIf="isValid('lastName')">
+        You can use only letters!
+      </p>
+    </div>
+    <button
+      (click)="saveUser()"
+      class="btn btn-primary"
+      [disabled]="userForm.invalid"
+    >
+      Save
+    </button>
+  </form>
+</div>
+<simple-notifications
+  [options]="{ position: ['bottom', 'left'] }"
+></simple-notifications>

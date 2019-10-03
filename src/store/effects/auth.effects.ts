@@ -7,6 +7,7 @@ import * as AuthActions from 'src/store/actions/auth.actions';
 import IRegisterUser from '../models/auth/IRegisterUser';
 import { Router } from '@angular/router';
 import ILoginUser from '../models/auth/ILoginUser';
+import { NotificationsService } from 'angular2-notifications';
 
 @Injectable()
 export class AuthEffects {
@@ -22,7 +23,12 @@ export class AuthEffects {
 
             return AuthActions.setAllRegister.success({ id: objectId });
           }),
-          catchError(() => {
+          catchError(({ error }) => {
+            this.toaster.error(
+              error.message,
+              'Enter another email.',
+              this.toasterOptions
+            );
             return of(AuthActions.setAllRegister.failure());
           })
         )
@@ -45,7 +51,14 @@ export class AuthEffects {
               this.router.navigateByUrl('/');
               return AuthActions.setAllLogin.success({ id: objectId });
             }),
-            catchError(() => of(AuthActions.setAllLogin.failure()))
+            catchError(({ error }) => {
+              this.toaster.error(
+                error.error,
+                'Check your info and try again.',
+                this.toasterOptions
+              );
+              return of(AuthActions.setAllLogin.failure());
+            })
           );
         }
       )
@@ -55,6 +68,13 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toaster: NotificationsService
   ) {}
+
+  private toasterOptions = {
+    animate: 'fade',
+    timeOut: 3000,
+    showProgressBar: true,
+  };
 }

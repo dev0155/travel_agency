@@ -34,6 +34,7 @@ const companyReducer = createReducer(
   })),
   on(CompanyActions.getByUserId.failure, (state) => ({
     ...state,
+    id: null,
     contactEmail: null,
     name: null,
     address: {} as IAddress,

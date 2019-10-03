@@ -52,7 +52,13 @@ export class UsersEffects {
       ofType(UsersActions.updateInfo.request.type),
       mergeMap((action: { info: IUser; type: string }) => {
         return this.usersService.update(action.info).pipe(
-          map(() => {
+          map((response) => {
+            console.log(response);
+            this.toaster.success(
+              'Yeah dude!',
+              response.message,
+              this.toasterOptions
+            );
             this.authService.refresh().subscribe();
             return UsersActions.updateInfo.success({ info: action.info });
           }),

@@ -14,18 +14,19 @@ export class CompanyEffects {
       ofType(CompanyActions.create.request.type),
       mergeMap((action: { company: ICompany; type: string }) =>
         this.companyService.create(action.company).pipe(
-          map(({ companyId }) =>
-            CompanyActions.create.success({
-              id: companyId,
-              company: action.company,
-            })
-          ),
-          catchError(() => {
-            this.toaster.error(
-              'Error :(',
-              'Something went wrong with creating company.',
+          map((response) => {
+            this.toaster.success(
+              'Hurrah :(',
+              response.message,
               this.toasterOptions
             );
+            return CompanyActions.create.success({
+              id: response.objectId,
+              company: action.company,
+            });
+          }),
+          catchError(({ error }) => {
+            this.toaster.error('Error :(', error.message, this.toasterOptions);
             return of(CompanyActions.create.failure());
           })
         )
@@ -38,13 +39,12 @@ export class CompanyEffects {
       ofType(CompanyActions.update.request.type),
       mergeMap((action: { id: number; company: ICompany; type: string }) =>
         this.companyService.update(action.id, action.company).pipe(
-          map(() => CompanyActions.update.success({ company: action.company })),
-          catchError(() => {
-            this.toaster.error(
-              'Error :(',
-              'Something went wrong with updating company.',
-              this.toasterOptions
-            );
+          map(({ message }) => {
+            this.toaster.success('Hurrah!', message, this.toasterOptions);
+            return CompanyActions.update.success({ company: action.company });
+          }),
+          catchError(({ error }) => {
+            this.toaster.error('Error :(', error.message, this.toasterOptions);
             return of(CompanyActions.update.failure());
           })
         )

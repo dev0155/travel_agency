@@ -9,13 +9,8 @@ import ICompany from 'src/store/models/ICompany.model';
 export class CompanyService {
   constructor(private http: HttpClient) {}
 
-  public create(
-    company: ICompany
-  ): Observable<{ response: IResponse; companyId: number }> {
-    return this.http.post<{ response: IResponse; companyId: number }>(
-      `${COMPANIES_URL}`,
-      company
-    );
+  public create(company: ICompany): Observable<IResponse> {
+    return this.http.post<IResponse>(`${COMPANIES_URL}`, company);
   }
 
   public getByOwnId(id: number): Observable<ICompany> {
