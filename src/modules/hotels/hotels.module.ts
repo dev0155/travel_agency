@@ -27,7 +27,7 @@ const routes: Routes = [
     component: HotelDetailComponent,
   },
   {
-    path: 'creating',
+    path: 'create-hotel',
     component: CreatingHotelComponent,
   },
 ];

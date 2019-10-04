@@ -5,6 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { ToursActions } from 'src/store/actions/tours.actions';
 import { API_URL } from 'src/endpoints';
+import ILocation from 'src/store/models/ILocation.model';
 
 const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
 
@@ -46,5 +47,9 @@ export class TourDetailComponent implements OnInit {
 
   public onChangeTab(tabName: string): void {
     this.currentTab = tabName;
+  }
+
+  public get location(): ILocation {
+    return this.tour.hotel.address.location;
   }
 }

@@ -23,7 +23,7 @@
           *ngSwitchCase="'Photos'"
           [images]="imagesPath"
         ></td-photos-tab>
-        <td-map-tab *ngSwitchCase="'Map'"></td-map-tab>
+        <td-map-tab *ngSwitchCase="'Map'" [location]="location"></td-map-tab>
         <td-comments-tab *ngSwitchCase="'Comments'"></td-comments-tab>
       </ng-container>
     </td-tab-panel>

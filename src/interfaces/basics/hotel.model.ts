@@ -10,8 +10,8 @@ export interface IHotel {
     state: string;
     street: string;
     location?: {
-      lat: number;
-      lng: number;
+      latitude: string;
+      longtitude: string;
     };
   };
   description: string;

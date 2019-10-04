@@ -18,7 +18,6 @@ export class AuthEffects {
         this.authService.register(action.user).pipe(
           map(({ access_token, refresh_token, objectId }) => {
             this.authService.setTokens(true, access_token, refresh_token);
-
             this.router.navigateByUrl('/');
 
             return AuthActions.setAllRegister.success({ id: objectId });
@@ -48,6 +47,7 @@ export class AuthEffects {
                 access_token,
                 refresh_token
               );
+
               this.router.navigateByUrl('/');
               return AuthActions.setAllLogin.success({ id: objectId });
             }),

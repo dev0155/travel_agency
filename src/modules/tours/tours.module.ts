@@ -29,7 +29,7 @@ const routes: Route[] = [
       ),
   },
   {
-    path: 'creating',
+    path: 'create-tour',
     component: CreatingTourComponent,
   },
 ];

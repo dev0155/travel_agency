@@ -85,4 +85,8 @@ export class ToursComponent implements OnInit {
       limit: this.itemsPerPage,
     };
   }
+
+  public goTo() {
+    this.router.navigateByUrl('/tours/create-tour');
+  }
 }
