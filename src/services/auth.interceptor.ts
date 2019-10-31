@@ -1,66 +1,68 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
   HttpRequest,
+  HttpHandler,
+  HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError, empty } from 'rxjs';
+import { catchError, mergeMap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { NotificationsService } from 'angular2-notifications';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(
-    private authService: AuthService,
-    private toaster: NotificationsService
-  ) {}
+  private isTokenRefreshed: boolean;
 
-  private toasterOptions = {
-    animate: 'fade',
-    timeOut: 3000,
-    showProgressBar: true,
-  };
+  constructor(private authService: AuthService) {}
 
-  intercept(
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    const accessToken = this.authService.getToken('access_token');
+    if (accessToken) {
+      request = this.addTokenToRequest(request, accessToken);
+      return next.handle(request).pipe(
+        catchError((error) => {
+          if (
+            error instanceof HttpErrorResponse &&
+            error.status === 401 &&
+            !this.isTokenRefreshed
+          ) {
+            return this.handleUnauthorizedError(request, next);
+          } else {
+            this.isTokenRefreshed = false;
+            return throwError(error);
+          }
+        })
+      );
+    }
+    return next.handle(request);
+  }
+
+  private addTokenToRequest(request: HttpRequest<any>, token: string) {
+    return request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  private handleUnauthorizedError(
     request: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const localToken: string = localStorage.getItem('token');
-    const sessionToken: string = sessionStorage.getItem('token');
-    if (localToken || sessionToken) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${sessionToken || localToken}`,
-        },
-      });
+  ): Observable<any> {
+    if (this.authService.isAuthenticated()) {
+      this.authService.logout();
+      return empty();
     }
-    return new Observable<HttpEvent<any>>((subscriber) => {
-      const originalRequestSubscription = next.handle(request).subscribe(
-        (response: any) => {
-          subscriber.next(response);
-        },
-        ({ error }) => {
-          if (error.statusCode === 401) {
-            this.authService.removeTokens();
 
-            this.toaster.error(
-              'Error :(',
-              'You are unauthorized',
-              this.toasterOptions
-            );
-          } else {
-            this.toaster.error(
-              'Error :(',
-              error.message || error.error,
-              this.toasterOptions
-            );
-          }
-          subscriber.error(error);
-        },
-        () => subscriber.complete()
-      );
-      return () => originalRequestSubscription.unsubscribe();
-    });
+    this.isTokenRefreshed = true;
+
+    return this.authService.refresh().pipe(
+      mergeMap((result) => {
+        this.isTokenRefreshed = false;
+        request = this.addTokenToRequest(request, result.access_token);
+
+        return next.handle(request);
+      })
+    );
   }
 }

@@ -17,11 +17,11 @@ const routes: Route[] = [
 @NgModule({
   declarations: [AccountComponent, UserFormComponent, CompanyFormComponent],
   imports: [
+    SimpleNotificationsModule.forRoot(),
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    SimpleNotificationsModule.forRoot(),
   ],
 })
 export class AccountModule {}

@@ -15,7 +15,7 @@ export class ToursComponent implements OnInit {
   public tours$ = this.store.pipe(select('tours'));
   public loading = false;
   public collection = [] as ITour[];
-  public page = +this.route.snapshot.queryParams.page;
+  public page = +this.route.snapshot.queryParams.page || 1;
   public length = 1;
   public itemsPerPage = 5;
   public search: string;
@@ -46,11 +46,24 @@ export class ToursComponent implements OnInit {
   public changePage(e): void {
     this.page = e;
     this.router.navigate(['tours'], { queryParams: { page: this.page } });
-    this.store.dispatch(
-      ToursActions.getAll.request({
-        params: this.pageParams,
-      })
-    );
+    if (this.search) {
+      this.store.dispatch(
+        ToursActions.search.request({
+          params: { ...this.pageParams, target: this.search },
+        })
+      );
+    } else {
+      this.collection = null;
+      setTimeout(
+        () =>
+          this.store.dispatch(
+            ToursActions.getAll.request({
+              params: this.pageParams,
+            })
+          ),
+        1000
+      );
+    }
   }
 
   public inputClick(): void {
@@ -58,7 +71,12 @@ export class ToursComponent implements OnInit {
   }
 
   public searchClick(): void {
-    this.store.dispatch(ToursActions.search.request({ target: this.search }));
+    this.page = 1;
+    this.store.dispatch(
+      ToursActions.search.request({
+        params: { ...this.pageParams, target: this.search },
+      })
+    );
   }
 
   private get pageParams() {
@@ -66,5 +84,9 @@ export class ToursComponent implements OnInit {
       page: this.page,
       limit: this.itemsPerPage,
     };
+  }
+
+  public goTo() {
+    this.router.navigateByUrl('/tours/create-tour');
   }
 }

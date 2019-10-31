@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'td-photos-tab',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./photos.component.scss'],
 })
 export class PhotosComponent implements OnInit {
+  @Input() images;
+
   constructor() {}
 
   ngOnInit() {}

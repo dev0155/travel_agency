@@ -1,72 +1,65 @@
 @import 'src/variables';
-
-$btn-color: #fda41e;
+@import 'src/mixins';
 
 .container-fluid {
-  border: $border;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+
   background-color: $item-color;
-  padding: 10px;
+  border: $border;
 }
 
 .hotel {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 
-  font-size: 10px;
-  font-weight: bold;
+  color: $text-color;
+
+  .holder {
+    margin-left: 1em;
+    @include flexColumn(space-between);
+
+    .title-box {
+      @include flexColumn(space-evenly);
+
+      .title {
+        margin-bottom: 0.1em;
+        font-size: 1.5em;
+        color: $btn-color;
+        font-weight: bold;
+      }
+    }
+
+    .hotel__rating {
+      min-width: 12em;
+      height: 30%;
+      @include flexColumn(space-between);
+    }
+  }
 
   &__img {
-    width: 200px;
-    max-height: 150px;
-    margin-right: 10px;
+    object-fit: cover;
+    height: 150px;
+    width: 250px;
+  }
+}
+
+.btn {
+  align-self: flex-end;
+  font-size: 10px;
+  text-transform: uppercase;
+
+  color: $btn-color;
+  border-color: $btn-color;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: $bg-color;
   }
 
-  &__name {
-    font-size: 12px;
-    text-transform: uppercase;
-    color: $title-color;
-  }
-
-  &__location {
-    font-weight: normal;
-  }
-
-  &__rating {
-    display: flex;
-    // flex-direction: column;
-
-    span {
-      margin-right: 5px;
-    }
-
-    app-rating {
-      width: 50%;
-    }
-  }
-
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    > * {
-      margin-bottom: 10px;
-    }
-  }
-
-  .btn {
-    align-self: flex-end;
-    font-size: 10px;
-    text-transform: uppercase;
-
-    color: $btn-color;
-    border-color: $btn-color;
-    border-radius: 10px;
-
-    &:hover {
-      background-color: $bg-color;
-    }
-
-    &:focus {
-      box-shadow: none;
-    }
+  &:focus {
+    box-shadow: none;
   }
 }

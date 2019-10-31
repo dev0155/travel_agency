@@ -14,8 +14,8 @@ export class TabPanelComponent implements OnInit {
 
   ngOnInit() {}
 
-  public onChangeTab = (tabName: string) => {
+  public onChangeTab(tabName: string): void {
     this.currentTab = tabName;
     this.changeTab.emit(tabName);
-  };
+  }
 }

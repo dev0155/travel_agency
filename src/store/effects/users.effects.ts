@@ -7,6 +7,7 @@ import { UsersService } from 'src/services/users.service';
 import { UsersActions } from '../actions/users.actions';
 import IUser from '../models/IUser.model';
 import { CompanyActions } from '../actions/company.actions';
+import { AuthService } from 'src/services/auth.service';
 
 @Injectable()
 export class UsersEffects {
@@ -51,7 +52,16 @@ export class UsersEffects {
       ofType(UsersActions.updateInfo.request.type),
       mergeMap((action: { info: IUser; type: string }) => {
         return this.usersService.update(action.info).pipe(
-          map(() => UsersActions.updateInfo.success({ info: action.info })),
+          map((response) => {
+            console.log(response);
+            this.toaster.success(
+              'Yeah dude!',
+              response.message,
+              this.toasterOptions
+            );
+            this.authService.refresh().subscribe();
+            return UsersActions.updateInfo.success({ info: action.info });
+          }),
           catchError(({ error }) => {
             this.toaster.error('Error :(', error.message, this.toasterOptions);
             return of(UsersActions.updateInfo.failure());
@@ -79,7 +89,8 @@ export class UsersEffects {
   constructor(
     private actions$: Actions,
     private usersService: UsersService,
-    private toaster: NotificationsService
+    private toaster: NotificationsService,
+    private authService: AuthService
   ) {}
 
   private toasterOptions = {

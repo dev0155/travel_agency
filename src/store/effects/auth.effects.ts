@@ -7,6 +7,7 @@ import * as AuthActions from 'src/store/actions/auth.actions';
 import IRegisterUser from '../models/auth/IRegisterUser';
 import { Router } from '@angular/router';
 import ILoginUser from '../models/auth/ILoginUser';
+import { NotificationsService } from 'angular2-notifications';
 
 @Injectable()
 export class AuthEffects {
@@ -15,15 +16,18 @@ export class AuthEffects {
       ofType(AuthActions.setAllRegister.request.type),
       mergeMap((action: { user: IRegisterUser; type: string }) =>
         this.authService.register(action.user).pipe(
-          map(({ access_token, objectId }) => {
-            sessionStorage.setItem('token', access_token);
-            localStorage.setItem('token', access_token);
-
+          map(({ access_token, refresh_token, objectId }) => {
+            this.authService.setTokens(true, access_token, refresh_token);
             this.router.navigateByUrl('/');
 
             return AuthActions.setAllRegister.success({ id: objectId });
           }),
-          catchError(() => {
+          catchError(({ error }) => {
+            this.toaster.error(
+              error.message,
+              'Enter another email.',
+              this.toasterOptions
+            );
             return of(AuthActions.setAllRegister.failure());
           })
         )
@@ -37,15 +41,24 @@ export class AuthEffects {
       mergeMap(
         (action: { user: ILoginUser; rememberMe: boolean; type: string }) => {
           return this.authService.login(action.user).pipe(
-            map(({ access_token, objectId }) => {
-              if (action.rememberMe) {
-                localStorage.setItem('token', access_token);
-              }
-              sessionStorage.setItem('token', access_token);
+            map(({ access_token, refresh_token, objectId }) => {
+              this.authService.setTokens(
+                action.rememberMe,
+                access_token,
+                refresh_token
+              );
+
               this.router.navigateByUrl('/');
               return AuthActions.setAllLogin.success({ id: objectId });
             }),
-            catchError(() => of(AuthActions.setAllLogin.failure()))
+            catchError(({ error }) => {
+              this.toaster.error(
+                error.error,
+                'Check your info and try again.',
+                this.toasterOptions
+              );
+              return of(AuthActions.setAllLogin.failure());
+            })
           );
         }
       )
@@ -55,6 +68,13 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toaster: NotificationsService
   ) {}
+
+  private toasterOptions = {
+    animate: 'fade',
+    timeOut: 3000,
+    showProgressBar: true,
+  };
 }

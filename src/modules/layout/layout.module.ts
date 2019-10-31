@@ -12,6 +12,7 @@ import { AuthService } from 'src/services/auth.service';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from 'src/store/effects/users.effects';
 import { CompanyEffects } from 'src/store/effects/company.effects';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CompanyEffects } from 'src/store/effects/company.effects';
     CommonModule,
     RouterModule,
     Common,
+    SimpleNotificationsModule.forRoot(),
     EffectsModule.forFeature([UsersEffects, CompanyEffects]),
   ],
   exports: [LayoutComponent],

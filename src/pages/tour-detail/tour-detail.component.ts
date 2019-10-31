@@ -4,6 +4,8 @@ import { AppState } from 'src/store';
 import { Store, select } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { ToursActions } from 'src/store/actions/tours.actions';
+import { API_URL } from 'src/endpoints';
+import ILocation from 'src/store/models/ILocation.model';
 
 const tabs: string[] = ['General', 'Service', 'Photos', 'Map', 'Comments'];
 
@@ -16,6 +18,7 @@ export class TourDetailComponent implements OnInit {
   public tour = {} as ITour;
   public tabs: string[] = [];
   public currentTab = 'General';
+  public loading = false;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     this.tabs = tabs;
@@ -28,14 +31,25 @@ export class TourDetailComponent implements OnInit {
   private initData(): void {
     const id = this.route.snapshot.params.id;
     this.store.dispatch(ToursActions.getById.request({ id }));
-    this.store.pipe(select('tours')).subscribe(({ item }) => {
+    this.store.pipe(select('tours')).subscribe(({ item, loading }) => {
+      this.loading = loading;
       if (item) {
         this.tour = item;
       }
     });
   }
 
+  public get imagesPath(): string[] {
+    const path = [];
+    this.tour.hotel.images.map((item) => path.push(`${API_URL}/${item.image}`));
+    return path;
+  }
+
   public onChangeTab(tabName: string): void {
     this.currentTab = tabName;
+  }
+
+  public get location(): ILocation {
+    return this.tour.hotel.address.location;
   }
 }

@@ -30,7 +30,12 @@ export class ToursService {
     return this.http.post<IResponse>(TOURS_URL, tour);
   }
 
-  public search(target: string): Observable<ITour[]> {
-    return this.http.get<ITour[]>(`${TOURS_URL}/find/search=${target}`);
+  public search(params?: any): Observable<IHttpAllTours> {
+    return this.http.get<IHttpAllTours>(`${TOURS_URL}/find/${params.target}`, {
+      params: {
+        limit: params.limit,
+        page: params.page,
+      },
+    });
   }
 }

@@ -1,0 +1,43 @@
+@import 'src/variables';
+
+.container {
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+  .my-pagination /deep/ {
+    .ngx-pagination {
+      text-align: center;
+      .current {
+        background-color: $btn-color;
+      }
+    }
+  }
+
+  .wrapper {
+    margin-bottom: 0.5em;
+  }
+}
+
+.head-box {
+  width: 100%;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-between;
+
+  .search {
+    display: flex;
+
+    .form-control {
+      margin-right: 1em;
+    }
+  }
+
+  .btn-primary {
+    background-color: $btn-color;
+    border: none;
+
+    &:hover {
+      background-color: darken($color: $btn-color, $amount: 10);
+    }
+  }
+}

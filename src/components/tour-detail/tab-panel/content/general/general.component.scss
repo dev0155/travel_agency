@@ -19,9 +19,12 @@
       justify-content: space-between;
       width: 100%;
 
-      app-rating {
-        width: 80%;
+      .rating {
+        width: 50%;
       }
+      // app-rating {
+      //   width: 80%;
+      // }
     }
 
     &:first-of-type {

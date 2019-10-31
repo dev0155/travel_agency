@@ -5,6 +5,7 @@ import ILoginUser from '../models/auth/ILoginUser';
 
 const SET_ALL_REGISTER = createActionType('[AUTH REGISTER] setAll');
 const SET_ALL_LOGIN = createActionType('[AUTH LOGIN] setAll');
+const REFRESH = createActionType('[AUTH REFRESH] setAll');
 
 export const setAllRegister = {
   request: createAction(

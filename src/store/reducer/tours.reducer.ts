@@ -22,6 +22,8 @@ const initState = (): IToursState => ({
 
 const toursReducer = createReducer(
   initState(),
+
+  // get all
   on(ToursActions.getAll.request, (state) => ({
     ...state,
     items: null,
@@ -34,12 +36,14 @@ const toursReducer = createReducer(
     loading: false,
     paginator: action.paginator,
   })),
-  on(ToursActions.getAll.request, (state) => ({
+  on(ToursActions.getAll.failure, (state) => ({
     ...state,
     items: null,
     loading: false,
     paginator: null,
   })),
+
+  // get services
   on(ToursActions.getServices.request, (state) => ({
     ...state,
     services: null,
@@ -53,25 +57,30 @@ const toursReducer = createReducer(
     services: null,
   })),
 
+  // create
   on(ToursActions.create.request, (state) => ({
     ...state,
   })),
   on(ToursActions.create.request, (state) => ({ ...state })),
   on(ToursActions.create.failure, (state) => ({ ...state })),
+
+  // search
   on(ToursActions.search.request, (state) => ({
     ...state,
     loading: true,
   })),
-  on(ToursActions.search.success, (state, { items }) => ({
+  on(ToursActions.search.success, (state, action) => ({
     ...state,
-    items: items,
-    paginator: { total: items.length },
+    items: action.items,
+    paginator: action.paginator,
     loading: false,
   })),
   on(ToursActions.search.failure, (state) => ({
     ...state,
     loading: false,
   })),
+
+  // get by id
   on(ToursActions.getById.request, (state) => ({
     ...state,
     item: null,

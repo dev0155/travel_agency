@@ -2,6 +2,7 @@ import ICompany from 'src/store/models/ICompany.model';
 import IUploadedImg from 'src/store/models/hotel/IUploadedImg.model';
 
 export interface IHotel {
+  id: number;
   name: string;
   address: {
     country: string;
@@ -9,8 +10,8 @@ export interface IHotel {
     state: string;
     street: string;
     location?: {
-      lat: number;
-      lng: number;
+      latitude: string;
+      longtitude: string;
     };
   };
   description: string;

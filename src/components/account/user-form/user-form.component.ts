@@ -41,13 +41,14 @@ export class UserFormComponent implements OnInit {
   saveUser(): void {
     this.updateInfo();
     this.updatePassword();
+    this.userForm.get('password').setValue('');
   }
 
-  defaultClear(controlName: string): void {
-    if (!this.userForm.get(controlName).dirty) {
-      this.userForm.get(controlName).setValue('');
-    }
-  }
+  // defaultClear(controlName: string): void {
+  //   if (!this.userForm.get(controlName).dirty) {
+  //     this.userForm.get(controlName).setValue('');
+  //   }
+  // }
 
   private updateInfo(): void {
     const { password, ...info } = this.userForm.value;
